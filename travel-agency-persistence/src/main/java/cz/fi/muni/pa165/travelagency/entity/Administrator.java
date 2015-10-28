@@ -9,6 +9,6 @@ import javax.persistence.Entity;
  * @author 
  */
 @Entity
-public class Customer extends User implements Serializable {
+public class Administrator extends User implements Serializable {
     
 }

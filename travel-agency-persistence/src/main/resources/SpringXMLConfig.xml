@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+    <bean name="AdministratorDao" class="cz.fi.muni.pa165.travelagency.dao.AdministratorDaoImpl" />
+    <bean name="CustomerDao" class="cz.fi.muni.pa165.travelagency.dao.CustomerDaoImpl" />
+    <bean name="ExcursionDao" class="cz.fi.muni.pa165.travelagency.dao.ExcursionDaoImpl" />
+    <bean name="ReservationDao" class="cz.fi.muni.pa165.travelagency.dao.ReservationDaoImpl" />
+    <bean name="TripDao" class="cz.fi.muni.pa165.travelagency.dao.TripDaoImpl" />
+    <bean name="UserDao" class="cz.fi.muni.pa165.travelagency.dao.UserDaoImpl" />
+
+</beans>

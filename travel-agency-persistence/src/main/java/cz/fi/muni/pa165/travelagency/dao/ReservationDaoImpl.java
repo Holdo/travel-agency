@@ -1,9 +1,13 @@
 package cz.fi.muni.pa165.travelagency.dao;
 
+import org.springframework.stereotype.Repository;
+
 /**
  *
+ * 
  * @author 
  */
-public interface ReservationDaoImpl {
+@Repository //Not required for XML configuration, but tests use Annotations
+public class ReservationDaoImpl implements ReservationDao {
     
 }

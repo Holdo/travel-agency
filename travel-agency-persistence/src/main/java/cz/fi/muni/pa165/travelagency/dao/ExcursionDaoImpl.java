@@ -1,10 +1,13 @@
 package cz.fi.muni.pa165.travelagency.dao;
 
+import org.springframework.stereotype.Repository;
+
 /**
  *
  * 
  * @author 
  */
-public class ExcursionDaoImpl {
+@Repository //Not required for XML configuration, but tests use Annotations
+public class ExcursionDaoImpl implements ExcursionDao {
     
 }
