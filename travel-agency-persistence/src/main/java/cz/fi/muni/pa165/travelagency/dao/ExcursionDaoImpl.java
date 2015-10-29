@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import cz.fi.muni.pa165.travelagency.entity.Excursion;
 
 /**
- *
+ * dao implementation for Excursion entity
  * 
  * @author Julius Stassik
  */

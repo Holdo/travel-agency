@@ -10,9 +10,9 @@ import org.springframework.stereotype.Repository;
 import cz.fi.muni.pa165.travelagency.entity.Reservation;
 
 /**
- *
+ * Dao implementation for reservation entity
  * 
- * @author 
+ * @author Julius Stassik
  */
 @Repository
 public class ReservationDaoImpl implements ReservationDao {
