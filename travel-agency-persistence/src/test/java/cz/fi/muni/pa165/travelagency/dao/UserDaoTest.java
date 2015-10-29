@@ -23,7 +23,7 @@ import org.testng.annotations.Test;
  * 
  * @author Michal Holic
  */
-@ContextConfiguration(classes = EmbeddedDatabaseSpringConfig.class)
+@ContextConfiguration(locations = "/SpringXMLConfig.xml")
 @TestExecutionListeners(inheritListeners = false, listeners = { DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class, TransactionalTestExecutionListener.class })
 @Transactional
 public class UserDaoTest extends AbstractTestNGSpringContextTests {

@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- @author Michal Holic -->
 <beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
-
-    <bean name="AdministratorDao" class="cz.fi.muni.pa165.travelagency.dao.AdministratorDaoImpl" />
-    <bean name="CustomerDao" class="cz.fi.muni.pa165.travelagency.dao.CustomerDaoImpl" />
-    <bean name="ExcursionDao" class="cz.fi.muni.pa165.travelagency.dao.ExcursionDaoImpl" />
-    <bean name="ReservationDao" class="cz.fi.muni.pa165.travelagency.dao.ReservationDaoImpl" />
-    <bean name="TripDao" class="cz.fi.muni.pa165.travelagency.dao.TripDaoImpl" />
-    <bean name="UserDao" class="cz.fi.muni.pa165.travelagency.dao.UserDaoImpl" />
+       xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+                           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+                           http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.2.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+    
+    <context:component-scan base-package="cz.fi.muni.pa165.travelagency.dao" />
+    
+    <jdbc:embedded-database id="dataSource" type="DERBY" />
+    
+    <bean id="EntityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="persistenceProviderClass" value="org.hibernate.jpa.HibernatePersistenceProvider" />
+    </bean>
+    
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="EntityManagerFactory" />
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager" />
 
 </beans>

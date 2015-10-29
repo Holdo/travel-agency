@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * 
  * @author Michal Holic
  */
-@Repository //Not required for XML configuration, but tests use Annotations
+@Repository
 public class UserDaoImpl implements UserDao{
     
     @PersistenceContext

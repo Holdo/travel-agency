@@ -17,10 +17,8 @@ public class Main {
     private EntityManager em;
     
     public static void main(String ... args) {
-        //Context used in tests
-        ApplicationContext derbySpringAnnotationContext = new AnnotationConfigApplicationContext(EmbeddedDatabaseSpringConfig.class);
-        //Context used in production
+        //This context is not used anymore
+        //ApplicationContext derbySpringAnnotationContext = new AnnotationConfigApplicationContext(EmbeddedDatabaseSpringConfig.class);
         ApplicationContext springXMLContext = new ClassPathXmlApplicationContext("/SpringXMLConfig.xml");
-        //TODO Put tests in XML Spring configuration
     }
 }

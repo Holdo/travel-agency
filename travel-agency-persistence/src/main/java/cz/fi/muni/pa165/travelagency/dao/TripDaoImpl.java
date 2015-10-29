@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
  * 
  * @author 
  */
-@Repository //Not required for XML configuration, but tests use Annotations
+@Repository
 public class TripDaoImpl implements TripDao {
     
 }
