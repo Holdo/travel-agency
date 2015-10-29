@@ -139,8 +139,12 @@ public class Trip implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 59 * hash + Objects.hashCode(this.destination);
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.dateFrom);
+        hash = 37 * hash + Objects.hashCode(this.dateTo);
+        hash = 37 * hash + Objects.hashCode(this.destination);
+        hash = 37 * hash + Objects.hashCode(this.numberOfAvailable);
+        hash = 37 * hash + Objects.hashCode(this.price);
         return hash;
     }
 
@@ -153,6 +157,7 @@ public class Trip implements Serializable {
         if (!Objects.equals(this.dateFrom, other.getDateFrom())) return false;
         if (!Objects.equals(this.dateTo, other.getDateTo())) return false;
         if (!Objects.equals(this.destination, other.getDestination())) return false;
+        if (!Objects.equals(this.numberOfAvailable, other.getNumberOfAvailable())) return false;
         if (!Objects.equals(this.price, other.getPrice())) return false;
         return true;
     }
