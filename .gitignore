@@ -1,1 +1,9 @@
 /travel-agency-persistence/target/
+/travel-agency-persistence/.settings/
+/travel-agency-persistence/.project
+/travel-agency-persistence/.classpath
+.project
+/.settings
+/travel-agency-peristence/bin/
+
+

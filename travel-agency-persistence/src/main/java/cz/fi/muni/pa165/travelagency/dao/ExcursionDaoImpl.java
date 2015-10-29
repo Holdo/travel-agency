@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import cz.fi.muni.pa165.travelagency.entity.Excursion;
 
 /**
- *
+ * dao implementation for Excursion entity
  * 
  * @author Julius Stassik
  */
@@ -18,7 +18,7 @@ import cz.fi.muni.pa165.travelagency.entity.Excursion;
 public class ExcursionDaoImpl implements ExcursionDao {
 
 	@PersistenceContext
-	EntityManager em;
+	private EntityManager em;
 	
 	
 	@Override
@@ -29,7 +29,7 @@ public class ExcursionDaoImpl implements ExcursionDao {
 
 	@Override
 	public void delete(Excursion excursion) {
-		em.remove(excursion);
+		em.remove(findById(excursion.getId()));
 		
 	}
 
@@ -46,7 +46,10 @@ public class ExcursionDaoImpl implements ExcursionDao {
 
 	@Override
 	public List<Excursion> findAll() {
-		return em.createQuery("SELECT e FROM Excursion e", Excursion.class).getResultList();
+		return em.createQuery("SELECT e FROM Excursion e", 
+				Excursion.class).getResultList();
 	}
+
+	
     
 }

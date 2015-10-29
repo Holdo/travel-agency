@@ -10,15 +10,15 @@ import org.springframework.stereotype.Repository;
 import cz.fi.muni.pa165.travelagency.entity.Reservation;
 
 /**
- *
+ * Dao implementation for reservation entity
  * 
- * @author 
+ * @author Julius Stassik
  */
 @Repository
 public class ReservationDaoImpl implements ReservationDao {
 
 	@PersistenceContext
-	EntityManager em;
+	private EntityManager em;
 	
 	@Override
 	public void create(Reservation reservation) {
@@ -28,7 +28,7 @@ public class ReservationDaoImpl implements ReservationDao {
 
 	@Override
 	public void delete(Reservation reservation) {
-		em.remove(reservation);
+		em.remove(findById(reservation.getId()));
 		
 	}
 
@@ -45,8 +45,11 @@ public class ReservationDaoImpl implements ReservationDao {
 
 	@Override
 	public List<Reservation> findAll() {
-		return em.createQuery("Select r FROM Reservation r", Reservation.class).getResultList();
+		return em.createQuery("Select r FROM Reservation r", 
+				Reservation.class).getResultList();
 	}
+
+	
     
 }
 
