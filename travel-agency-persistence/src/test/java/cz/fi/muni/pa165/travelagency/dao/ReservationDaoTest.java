@@ -38,6 +38,9 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
     
     @Autowired
     private ReservationDao reservationDao;
+    
+    @Autowired
+    private TripDao tripDao;
 
     private Reservation reservation;
     private Customer customer;
@@ -70,6 +73,9 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
         trip2.setDestination("Bratislava");
         trip2.setNumberOfAvailable(7);
         trip2.setPrice(BigDecimal.valueOf(3000));
+        
+        tripDao.create(trip1);
+        tripDao.create(trip2);
 
         customer.setEmail("diana@email.com");
         customer.setFirstName("Diana");
@@ -131,17 +137,17 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
     
     @Test
     public void findAllNotNull() {
-        reservationDao.create(reservation);
         List<Reservation> foundReservations = reservationDao.findAll();
         Assert.assertNotNull(foundReservations);
     }
-    
+
     @Test
     public void findAllTest() {
         List<Reservation> foundReservations = reservationDao.findAll();
+        Assert.assertEquals(foundReservations.size(), 1, "There's an incorrect amount of reservations in the database!");
         Assert.assertTrue(foundReservations.contains(reservation), "Can't find list of reservations in the DB.");
     }
-
+    
     @Test
     public void create() {
         reservationDao.create(reservation);
