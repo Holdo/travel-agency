@@ -16,7 +16,7 @@ import javax.persistence.TypedQuery;
  * 
  * @author Branislav Bohumel
  */
-public class AdministratorDaoImpl extends UserDaoImpl implements AdministratorDao {
+public class AdministratorDaoImpl implements AdministratorDao {
     
     @PersistenceContext
     private EntityManager em;

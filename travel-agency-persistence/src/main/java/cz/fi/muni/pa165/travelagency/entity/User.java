@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.travelagency.entity;
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -97,5 +98,24 @@ public abstract class User {
     @Override
     public String toString() {
         return "User{" + "id=" + id + ", username=" + username + ", email=" + email + ", lastName=" + lastName + ", firstName=" + firstName + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 67 * hash + Objects.hashCode(this.username);
+        hash = 67 * hash + Objects.hashCode(this.email);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (!(obj instanceof User)) return false;
+        final User other = (User) obj;
+        if (!Objects.equals(this.username, other.getUsername())) return false;
+        if (!Objects.equals(this.email, other.getEmail())) return false;
+        return true;
     }
 }
