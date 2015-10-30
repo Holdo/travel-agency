@@ -29,7 +29,7 @@ public class ExcursionDaoImpl implements ExcursionDao {
 
 	@Override
 	public void delete(Excursion excursion) {
-		em.remove(excursion);
+		em.remove(findById(excursion.getId()));
 		
 	}
 

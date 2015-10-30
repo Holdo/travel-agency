@@ -171,13 +171,3 @@ public class Excursion implements Serializable {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
