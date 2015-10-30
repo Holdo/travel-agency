@@ -1,7 +1,9 @@
 package cz.fi.muni.pa165.travelagency.dao;
 
 import cz.fi.muni.pa165.travelagency.entity.Customer;
+import cz.fi.muni.pa165.travelagency.entity.Reservation;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +30,20 @@ public class CustomerDaoTest extends AbstractTestNGSpringContextTests{
     @Autowired
     private CustomerDao customerDao;
     
-    private Customer customer;
+    @Autowired
+    private ReservationDao reservationDao;
+    
+    private Customer customer;    
+    private Reservation reservation;
     
     @PersistenceContext
     private EntityManager em;
     
     @BeforeMethod
     public void createCustomer() {
+        
+        customer = new Customer();
+        
         customer.setPassword("0000");
         customer.setUsername("HappyCustomer");
         customer.setEmail("happycustomer@gmail.com");
@@ -42,6 +51,10 @@ public class CustomerDaoTest extends AbstractTestNGSpringContextTests{
         customer.setLastName("Customer");
         
         customerDao.create(customer);
+        
+        reservation = new Reservation();        
+        customer.addReservation(reservation);
+        
     }
     
     
@@ -71,11 +84,17 @@ public class CustomerDaoTest extends AbstractTestNGSpringContextTests{
     }
     
     @Test
-    public void findAll() {                
+    public void findAllTest() {                
         List<Customer> customers = customerDao.findAll();
 	Assert.assertEquals(customers.size(), 1, "There's an incorrect amount of customers in the database!");
         Assert.assertTrue(customers.contains(customerDao.findById(customer.getId())), "Customer isn't present in the database!");
         
+    }
+    
+    @Test
+    public void reservationsTest() {                
+        Set<Reservation> reservations = customer.getReservations();
+	Assert.assertEquals(reservations.size(), 1, "There's an incorrect amount of reservations in the customer data!");      
     }
     
 }
