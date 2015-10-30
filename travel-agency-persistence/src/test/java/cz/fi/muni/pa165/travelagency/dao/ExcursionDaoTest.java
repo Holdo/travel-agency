@@ -92,6 +92,7 @@ public class ExcursionDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void findAllTest() {
         List<Excursion> listOfExcursionsFromDB = excursionDao.findAll();
+        Assert.assertEquals(listOfExcursionsFromDB.size(), 1, "There's an incorrect amount of excursions in the database!");
         Assert.assertTrue(listOfExcursionsFromDB.contains(excursion), "Can't find list of excursions in the DB.");
     }
     
