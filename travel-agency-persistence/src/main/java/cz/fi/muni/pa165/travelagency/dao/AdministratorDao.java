@@ -13,6 +13,6 @@ public interface AdministratorDao {
     public Administrator findById(Long id);
     public void update(Administrator administrator);
     public void delete(Administrator administrator);
-    public List<Administrator> listAll();
+    public List<Administrator> findAll();
     
 }

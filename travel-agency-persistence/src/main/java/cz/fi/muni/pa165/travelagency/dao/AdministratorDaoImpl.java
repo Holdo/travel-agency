@@ -40,7 +40,7 @@ public class AdministratorDaoImpl  implements AdministratorDao {
     }
     
     @Override
-    public List<Administrator> listAll(){
+    public List<Administrator> findAll(){
 	return em.createQuery("SELECT a FROM Administrator a", Administrator.class).getResultList();
     }
     
