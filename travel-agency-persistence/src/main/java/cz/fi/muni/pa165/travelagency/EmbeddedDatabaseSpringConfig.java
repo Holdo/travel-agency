@@ -1,6 +1,6 @@
 package cz.fi.muni.pa165.travelagency;
 
-import cz.fi.muni.pa165.travelagency.dao.UserDao;
+import cz.fi.muni.pa165.travelagency.dao.ReservationDao;
 import javax.sql.DataSource;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackageClasses = {UserDao.class})
+@ComponentScan(basePackageClasses = {ReservationDao.class})
 public class EmbeddedDatabaseSpringConfig {
 
     @Bean

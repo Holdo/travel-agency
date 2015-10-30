@@ -4,12 +4,14 @@ import cz.fi.muni.pa165.travelagency.entity.Customer;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  *
  * @author Michal Holic
  */
+@Repository
 public class CustomerDaoImpl implements CustomerDao {
 
     @PersistenceContext
