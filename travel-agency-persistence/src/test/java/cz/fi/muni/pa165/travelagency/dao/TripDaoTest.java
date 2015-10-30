@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -103,6 +104,28 @@ public class TripDaoTest {
 	public void remove(){
 		tripDao.delete(trip1);
 		Assert.assertNull(tripDao.findById(trip1.getId()));
+		
+	}
+	
+	@Test(expectedExceptions = PersistenceException.class)	
+	public void createTripWithNullField(){
+		Trip trip3 = new Trip();
+		trip3.setDateFrom(null);		
+		tripDao.create(trip3);
+				
+	}
+	
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void removeNonExistEntity(){
+		Trip trip4 = new Trip();
+		
+		trip4.setDateFrom(new Date(2015, 7, 8));
+		trip4.setDateTo(new Date(2015, 9, 10));		
+		trip4.setDestination("Krivan");		
+		trip4.setNumberOfAvailable(5);
+		trip4.setPrice(new BigDecimal("500"));
+		
+		tripDao.delete(trip4);
 		
 	}
 	

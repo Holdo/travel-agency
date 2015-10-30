@@ -114,12 +114,12 @@ public class Excursion implements Serializable {
     public int hashCode() {
             final int prime = 31;
             int result = 1;
-            result = prime * result + ((date == null) ? 0 : date.hashCode());
-            result = prime * result + ((description == null) ? 0 : description.hashCode());
-            result = prime * result + ((destination == null) ? 0 : destination.hashCode());
-            result = prime * result + ((duration == null) ? 0 : duration.hashCode());
-            result = prime * result + ((price == null) ? 0 : price.hashCode());
-            result = prime * result + ((trip == null) ? 0 : trip.hashCode());
+            result = prime * result + ((this.getDate() == null) ? 0 : this.getDate().hashCode());
+            result = prime * result + ((this.getDescription() == null) ? 0 : this.getDescription().hashCode());
+            result = prime * result + ((this.getDestination() == null) ? 0 : this.getDestination().hashCode());
+            result = prime * result + ((this.getDuration() == null) ? 0 : this.getDuration().hashCode());
+            result = prime * result + ((this.getPrice() == null) ? 0 : this.getPrice().hashCode());
+            result = prime * result + ((this.getTrip() == null) ? 0 : this.getTrip().hashCode());
             return result;
     }
 
@@ -132,35 +132,35 @@ public class Excursion implements Serializable {
             if (!(obj instanceof Excursion))
                     return false;
             final Excursion other = (Excursion) obj;
-            if (date == null) {
+            if (this.getDate() == null) {
                     if (other.getDate() != null)
                             return false;
-            } else if (!date.equals(other.getDate()))
+            } else if (!this.getDate().equals(other.getDate()))
                     return false;
-            if (description == null) {
+            if (this.getDescription() == null) {
                     if (other.getDescription() != null)
                             return false;
-            } else if (!description.equals(other.getDescription()))
+            } else if (!this.getDescription().equals(other.getDescription()))
                     return false;
-            if (destination == null) {
+            if (this.getDestination() == null) {
                 if (other.getDestination() != null)
                         return false;
-            } else if (!destination.equals(other.getDestination()))
+            } else if (!this.getDestination().equals(other.getDestination()))
                 return false;
-            if (duration == null) {
+            if (this.getDuration() == null) {
                 if (other.getDuration() != null)
                         return false;
-            } else if (!duration.equals(other.getDuration()))
+            } else if (!this.getDuration().equals(other.getDuration()))
                 return false;
-            if (price == null) {
+            if (this.getPrice() == null) {
                 if (other.getPrice() != null)
                         return false;
-            } else if (!price.equals(other.getPrice()))
+            } else if (!this.getPrice().equals(other.getPrice()))
                 return false;
-            if (trip == null) {
+            if (this.getTrip() == null) {
                 if (other.getTrip() != null)
                         return false;
-            } else if (!trip.equals(other.getTrip()))
+            } else if (!this.getTrip().equals(other.getTrip()))
                 return false;
             return true;
     }
