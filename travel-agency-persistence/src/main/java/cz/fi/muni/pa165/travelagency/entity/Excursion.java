@@ -133,34 +133,34 @@ public class Excursion implements Serializable {
                     return false;
             final Excursion other = (Excursion) obj;
             if (date == null) {
-                    if (other.date != null)
+                    if (other.getDate() != null)
                             return false;
-            } else if (!date.equals(other.date))
+            } else if (!date.equals(other.getDate()))
                     return false;
             if (description == null) {
-                    if (other.description != null)
+                    if (other.getDescription() != null)
                             return false;
-            } else if (!description.equals(other.description))
+            } else if (!description.equals(other.getDescription()))
                     return false;
             if (destination == null) {
-                if (other.destination != null)
+                if (other.getDestination() != null)
                         return false;
-            } else if (!destination.equals(other.destination))
+            } else if (!destination.equals(other.getDestination()))
                 return false;
             if (duration == null) {
-                if (other.duration != null)
+                if (other.getDuration() != null)
                         return false;
-            } else if (!duration.equals(other.duration))
+            } else if (!duration.equals(other.getDuration()))
                 return false;
             if (price == null) {
-                if (other.price != null)
+                if (other.getPrice() != null)
                         return false;
-            } else if (!price.equals(other.price))
+            } else if (!price.equals(other.getPrice()))
                 return false;
             if (trip == null) {
-                if (other.trip != null)
+                if (other.getTrip() != null)
                         return false;
-            } else if (!trip.equals(other.trip))
+            } else if (!trip.equals(other.getTrip()))
                 return false;
             return true;
     }
