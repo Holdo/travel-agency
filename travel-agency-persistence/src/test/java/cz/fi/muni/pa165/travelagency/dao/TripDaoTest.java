@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +19,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import cz.fi.muni.pa165.travelagency.EmbeddedDatabaseSpringConfig;
 import cz.fi.muni.pa165.travelagency.entity.Trip;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 
 /**
  * Tests for TripDao
@@ -32,7 +31,7 @@ import cz.fi.muni.pa165.travelagency.entity.Trip;
 @ContextConfiguration(locations = "/SpringXMLConfig.xml")
 @TestExecutionListeners(inheritListeners = false, listeners = { DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class, TransactionalTestExecutionListener.class })
 @Transactional
-public class TripDaoTest {
+public class TripDaoTest extends AbstractTestNGSpringContextTests {
 	
 	@PersistenceContext
     private EntityManager em;
