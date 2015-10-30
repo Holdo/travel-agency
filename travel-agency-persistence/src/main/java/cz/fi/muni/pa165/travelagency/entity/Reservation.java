@@ -15,15 +15,17 @@ import javax.persistence.ManyToMany;
 */
 @Entity
 public class Reservation implements Serializable {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long id;
-@ManyToMany(fetch = FetchType.LAZY)
-private Set<Trip> trips = new HashSet<>();
-public Long getId() {
-return id;
-}
-public void setId(Long id) {
-this.id = id;
-}
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	private Set<Trip> trips = new HashSet<>();
+	public Long getId() {
+	return id;
+	}
+	
+	public void setId(Long id) {
+	this.id = id;
+	}
 }

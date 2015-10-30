@@ -27,7 +27,7 @@ import cz.fi.muni.pa165.travelagency.entity.Trip;
  * @author Julius Stassik
  */
 
-@ContextConfiguration(classes = EmbeddedDatabaseSpringConfig.class)
+@ContextConfiguration(locations = "/SpringXMLConfig.xml")
 @TestExecutionListeners(inheritListeners = false, listeners = { DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class, TransactionalTestExecutionListener.class })
 @Transactional
 public class TripDaoTest {
