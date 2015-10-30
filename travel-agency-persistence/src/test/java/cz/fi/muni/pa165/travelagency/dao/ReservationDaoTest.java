@@ -5,6 +5,7 @@ import cz.fi.muni.pa165.travelagency.entity.Reservation;
 import cz.fi.muni.pa165.travelagency.entity.Trip;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolationException;
@@ -37,6 +38,9 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
     
     @Autowired
     private ReservationDao reservationDao;
+    
+    @Autowired
+    private TripDao tripDao;
 
     private Reservation reservation;
     private Customer customer;
@@ -69,6 +73,9 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
         trip2.setDestination("Bratislava");
         trip2.setNumberOfAvailable(7);
         trip2.setPrice(BigDecimal.valueOf(3000));
+        
+        tripDao.create(trip1);
+        tripDao.create(trip2);
 
         customer.setEmail("diana@email.com");
         customer.setFirstName("Diana");
@@ -127,7 +134,20 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
         res.addTrip(trip2);
         reservationDao.create(res);
     }
+    
+    @Test
+    public void findAllNotNull() {
+        List<Reservation> foundReservations = reservationDao.findAll();
+        Assert.assertNotNull(foundReservations);
+    }
 
+    @Test
+    public void findAllTest() {
+        List<Reservation> foundReservations = reservationDao.findAll();
+        Assert.assertEquals(foundReservations.size(), 1, "There's an incorrect amount of reservations in the database!");
+        Assert.assertTrue(foundReservations.contains(reservation), "Can't find list of reservations in the DB.");
+    }
+    
     @Test
     public void create() {
         reservationDao.create(reservation);
