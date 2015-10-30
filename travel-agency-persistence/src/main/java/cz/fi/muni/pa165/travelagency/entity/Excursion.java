@@ -32,6 +32,7 @@ public class Excursion implements Serializable {
     private Date date;
 
     @NotNull
+    @Column(nullable = false)
     private Duration duration;
 
     @NotNull
@@ -128,9 +129,9 @@ public class Excursion implements Serializable {
                     return true;
             if (obj == null)
                     return false;
-            if (getClass() != obj.getClass())
+            if (!(obj instanceof Excursion))
                     return false;
-            Excursion other = (Excursion) obj;
+            final Excursion other = (Excursion) obj;
             if (date == null) {
                     if (other.date != null)
                             return false;
