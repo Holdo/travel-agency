@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -47,10 +48,12 @@ public class TripDaoTest {
 		trip1 = new Trip();
 		trip2 = new Trip();
 		
-		Date dateFrom1 = new Date(2015, 1, 2);
-		Date dateFrom2 = new Date(2015, 3, 4);
-		Date dateTo3 = new Date(2015, 5, 6);
-		Date dateTo4 = new Date(2015, 7, 8);
+		//YYYY-MM-DD
+		String dateFrom1 = "2015-01-02";  
+		String dateFrom2 = "2015-03-04"; 
+		String dateTo3 = "2015-05-06";  
+		String dateTo4 = "2015-07-08"; 
+		
 		
 		String destination1 = "Zemplinska Sirava";
 		String destination2 = "Liptovska Mara";
@@ -61,14 +64,14 @@ public class TripDaoTest {
 		BigDecimal price1 = new BigDecimal("100");
 		BigDecimal price2 = new BigDecimal("1000");
 		
-		trip1.setDateFrom(dateFrom1);
-		trip1.setDateTo(dateTo3);
+		trip1.setDateFrom(Date.valueOf(dateFrom1));
+		trip1.setDateTo(Date.valueOf(dateTo3));
 		trip1.setDestination(destination1);
 		trip1.setNumberOfAvailable(numberOfAvailable1);
 		trip1.setPrice(price1);
 		
-		trip2.setDateFrom(dateFrom2);
-		trip2.setDateTo(dateTo4);
+		trip2.setDateFrom(Date.valueOf(dateFrom2));
+		trip2.setDateTo(Date.valueOf(dateTo4));
 		trip2.setDestination(destination2);
 		trip2.setNumberOfAvailable(numberOfAvailable2);
 		trip2.setPrice(price2);	
@@ -107,7 +110,7 @@ public class TripDaoTest {
 		
 	}
 	
-	@Test(expectedExceptions = PersistenceException.class)	
+	@Test(expectedExceptions = ConstraintViolationException.class)	
 	public void createTripWithNullField(){
 		Trip trip3 = new Trip();
 		trip3.setDateFrom(null);		
@@ -119,8 +122,11 @@ public class TripDaoTest {
 	public void removeNonExistEntity(){
 		Trip trip4 = new Trip();
 		
-		trip4.setDateFrom(new Date(2015, 7, 8));
-		trip4.setDateTo(new Date(2015, 9, 10));		
+		String dateFrom5 = "2015-09-11"; 
+		String dateTo6 = "2015-12-12";  
+		
+		trip4.setDateFrom(Date.valueOf(dateFrom5));
+		trip4.setDateTo(Date.valueOf(dateTo6));		
 		trip4.setDestination("Krivan");		
 		trip4.setNumberOfAvailable(5);
 		trip4.setPrice(new BigDecimal("500"));

@@ -45,8 +45,11 @@ public class ExcursionDaoImpl implements ExcursionDao {
 	}
 
 	@Override
-	public List<Excursion> findAll() {
-		return em.createQuery("SELECT e FROM Excursion e", Excursion.class).getResultList();
+	public List<Excursion> listAll() {
+		return em.createQuery("SELECT e FROM Excursion e", 
+				Excursion.class).getResultList();
 	}
+
+	
     
 }

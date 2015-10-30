@@ -18,6 +18,6 @@ public interface ReservationDao {
 	
 	Reservation findById(Long id);
 	
-	List<Reservation> findAll();
+	List<Reservation> listAll();
     
 }

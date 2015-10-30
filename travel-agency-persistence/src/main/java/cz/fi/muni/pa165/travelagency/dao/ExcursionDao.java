@@ -19,7 +19,7 @@ public interface ExcursionDao {
 		
 	Excursion findById(Long id);
 		
-	List<Excursion> findAll();
+	List<Excursion> listAll();
 		
 }
 

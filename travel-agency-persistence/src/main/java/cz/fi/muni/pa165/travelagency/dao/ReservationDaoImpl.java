@@ -44,9 +44,12 @@ public class ReservationDaoImpl implements ReservationDao {
 	}
 
 	@Override
-	public List<Reservation> findAll() {
-		return em.createQuery("Select r FROM Reservation r", Reservation.class).getResultList();
+	public List<Reservation> listAll() {
+		return em.createQuery("Select r FROM Reservation r", 
+				Reservation.class).getResultList();
 	}
+
+	
     
 }
 
