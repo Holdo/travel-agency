@@ -44,8 +44,7 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
 
     private Reservation reservation;
     private Customer customer;
-    private Trip trip1;
-    private Trip trip2;
+    private Trip trip;
     private BigDecimal price = new BigDecimal(5000);
 
     @BeforeMethod
@@ -61,21 +60,14 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
         Date dateFrom2 = Date.valueOf(date);
         date = "2016-12-17";
         Date dateTo2 = Date.valueOf(date);
-        trip1 = new Trip();
-        trip2 = new Trip();
-        trip1.setDateFrom(dateFrom);
-        trip1.setDateTo(dateTo);
-        trip1.setDestination("Praha");
-        trip1.setNumberOfAvailable(5);
-        trip1.setPrice(BigDecimal.valueOf(5000));
-        trip2.setDateFrom(dateFrom2);
-        trip2.setDateTo(dateTo2);
-        trip2.setDestination("Bratislava");
-        trip2.setNumberOfAvailable(7);
-        trip2.setPrice(BigDecimal.valueOf(3000));
+        trip = new Trip();
+        trip.setDateFrom(dateFrom);
+        trip.setDateTo(dateTo);
+        trip.setDestination("Praha");
+        trip.setNumberOfAvailable(5);
+        trip.setPrice(BigDecimal.valueOf(5000));
         
-        tripDao.create(trip1);
-        tripDao.create(trip2);
+        tripDao.create(trip);
 
         customer.setEmail("diana@email.com");
         customer.setFirstName("Diana");
@@ -87,8 +79,7 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
 
         reservation.setCustomer(customer);
         reservation.setPrice(price);
-        reservation.addTrip(trip1);
-        reservation.addTrip(trip2);
+        reservation.setTrip(trip);
 
         reservationDao.create(reservation);
     }
@@ -98,9 +89,8 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
         Reservation res = em.find(Reservation.class, reservation.getId());
         Assert.assertEquals(res.getPrice(), price);
         Customer reservationCustomer = res.getCustomer();
-        Assert.assertNotNull(res.getTrips());
-        Assert.assertTrue(res.getTrips().contains(trip1), "Trip not set right in database");
-        Assert.assertTrue(res.getTrips().contains(trip2), "Trip not set right in database");
+        Assert.assertNotNull(res.getTrip());
+        Assert.assertEquals(res.getTrip(), trip, "Trip is not set right in database");
         Assert.assertNotNull(reservationCustomer);
         Assert.assertEquals(reservationCustomer.getFirstName(), "Diana");
         Assert.assertEquals(reservationCustomer.getLastName(), "Vilko");
@@ -120,8 +110,7 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
         Reservation res = new Reservation();
         res.setCustomer(customer);
         res.setPrice(null);
-        res.addTrip(trip1);
-        res.addTrip(trip2);
+        res.setTrip(trip);
         reservationDao.create(res);
     }
 
@@ -130,8 +119,7 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
         Reservation res = new Reservation();
         res.setCustomer(customer);
         reservation.setPrice(BigDecimal.valueOf(-1));
-        res.addTrip(trip1);
-        res.addTrip(trip2);
+        res.setTrip(trip);
         reservationDao.create(res);
     }
     

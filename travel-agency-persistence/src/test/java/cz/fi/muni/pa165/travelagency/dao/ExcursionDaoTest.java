@@ -50,7 +50,6 @@ public class ExcursionDaoTest extends AbstractTestNGSpringContextTests {
     public void createExcursions() {
         excursion = new Excursion();
         excursion.setDate(Date.valueOf(dateOfExcursion));
-        excursion.setDescription("Description of excursion.");
         excursion.setDestination("Some nice islands.");
         excursion.setDuration(Duration.ofHours(8));
         excursion.setPrice(BigDecimal.valueOf(1250.50));
@@ -83,10 +82,10 @@ public class ExcursionDaoTest extends AbstractTestNGSpringContextTests {
     
     @Test
     public void updateExcursionTest() {
-        excursion.setDescription("New description.");
+        excursion.setDestination("New destination");
         excursionDao.update(excursion);
         Excursion excursionFromDB = em.find(Excursion.class, excursion.getId());
-        Assert.assertEquals(excursionFromDB.getDescription(), "New description.");
+        Assert.assertEquals(excursionFromDB.getDestination(), "New destination");
     }
     
     @Test
@@ -109,7 +108,6 @@ public class ExcursionDaoTest extends AbstractTestNGSpringContextTests {
         e.setPrice(null);
         e.setTrip(trip);
         e.setDate(Date.valueOf(dateOfExcursion));
-        e.setDescription("Description of excursion.");
         e.setDestination("Some nice islands");
         e.setDuration(Duration.ofHours(8));
         excursionDao.create(e);
@@ -120,7 +118,6 @@ public class ExcursionDaoTest extends AbstractTestNGSpringContextTests {
         Excursion e = new Excursion();
         e.setDate(null);
         e.setTrip(trip);
-        e.setDescription("Description of excursion.");
         e.setDestination("Some nice islands");
         e.setDuration(Duration.ofHours(8));
         e.setPrice(BigDecimal.valueOf(1250.50));
@@ -133,20 +130,7 @@ public class ExcursionDaoTest extends AbstractTestNGSpringContextTests {
         e.setDuration(null);
         e.setTrip(trip);
         e.setDate(Date.valueOf(dateOfExcursion));
-        e.setDescription("Description of excursion.");
         e.setDestination("Some nice islands");
-        e.setPrice(BigDecimal.valueOf(1250.50));
-        excursionDao.create(e);
-    }
-    
-    @Test(expectedExceptions = ConstraintViolationException.class)
-    public void excursionDescriptionNull() {
-        Excursion e = new Excursion();
-        e.setDescription(null);
-        e.setTrip(trip);
-        e.setDate(Date.valueOf(dateOfExcursion));
-        e.setDestination("Some nice islands");
-        e.setDuration(Duration.ofHours(8));
         e.setPrice(BigDecimal.valueOf(1250.50));
         excursionDao.create(e);
     }
@@ -157,7 +141,6 @@ public class ExcursionDaoTest extends AbstractTestNGSpringContextTests {
         e.setDestination(null);
         e.setTrip(trip);
         e.setDate(Date.valueOf(dateOfExcursion));
-        e.setDescription("Description of excursion.");
         e.setDuration(Duration.ofHours(8));
         e.setPrice(BigDecimal.valueOf(1250.50));
         excursionDao.create(e);
@@ -168,7 +151,6 @@ public class ExcursionDaoTest extends AbstractTestNGSpringContextTests {
         Excursion e1 = new Excursion();
         e1.setTrip(trip);
         e1.setDate(Date.valueOf(dateOfExcursion));
-        e1.setDescription("Description of excursion.");
         e1.setDestination("Some nice islands");
         e1.setDuration(Duration.ofHours(8));
         e1.setPrice(BigDecimal.valueOf(1250.50));
@@ -177,7 +159,6 @@ public class ExcursionDaoTest extends AbstractTestNGSpringContextTests {
         Excursion e2 = new Excursion();
         e2.setTrip(trip);
         e2.setDate(Date.valueOf(dateOfExcursion));
-        e2.setDescription("Description of excursion.");
         e2.setDestination("Some nice islands");
         e2.setDuration(Duration.ofHours(8));
         e2.setPrice(BigDecimal.valueOf(1250.50));
@@ -193,7 +174,6 @@ public class ExcursionDaoTest extends AbstractTestNGSpringContextTests {
         e.setPrice(BigDecimal.valueOf(-1.50));
         e.setTrip(trip);
         e.setDate(Date.valueOf(dateOfExcursion));
-        e.setDescription("Description of excursion.");
         e.setDestination("Some nice islands");
         e.setDuration(Duration.ofHours(8));
         excursionDao.create(e);
