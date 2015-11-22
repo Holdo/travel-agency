@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.Duration;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,10 +35,6 @@ public class Excursion implements Serializable {
     @NotNull
     @Column(nullable = false)
     private Duration duration;
-
-    @NotNull
-    @Column(nullable = false)
-    private String description;
 
     @NotNull
     @Column(nullable = false)
@@ -89,14 +84,6 @@ public class Excursion implements Serializable {
         this.duration = duration;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getDestination() {
         return destination;
     }
@@ -118,7 +105,6 @@ public class Excursion implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((date == null) ? 0 : this.getDate().hashCode());
-        result = prime * result + ((description == null) ? 0 : this.getDescription().hashCode());
         result = prime * result + ((destination == null) ? 0 : this.getDestination().hashCode());
         result = prime * result + ((duration == null) ? 0 : this.getDuration().hashCode());
         result = prime * result + ((price == null) ? 0 : this.getPrice().hashCode());
@@ -143,13 +129,6 @@ public class Excursion implements Serializable {
                 return false;
             }
         } else if (!date.equals(other.getDate())) {
-            return false;
-        }
-        if (description == null) {
-            if (other.getDescription() != null) {
-                return false;
-            }
-        } else if (!description.equals(other.getDescription())) {
             return false;
         }
         if (destination == null) {
@@ -185,10 +164,6 @@ public class Excursion implements Serializable {
 
     @Override
     public String toString() {
-        return "Excursion [id=" + id + ", trip=" + trip + ","
-                + " date=" + date + ", duration=" + duration + ", description="
-                + description + ", destination=" + destination + ","
-                + " price=" + price + "]";
+        return "Excursion{" + "id=" + id + ", trip=" + trip + ", date=" + date + ", duration=" + duration + ", destination=" + destination + ", price=" + price + '}';
     }
-
 }

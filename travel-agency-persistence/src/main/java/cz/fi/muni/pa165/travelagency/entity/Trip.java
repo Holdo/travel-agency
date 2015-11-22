@@ -13,7 +13,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
@@ -50,7 +49,7 @@ public class Trip implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "trip")
     private Set<Excursion> excursions = new HashSet<>();
     
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "trips")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "trip")
     private Set<Reservation> reservations = new HashSet<>();
 
     public Trip() {

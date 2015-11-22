@@ -25,5 +25,8 @@
         <property name="entityManagerFactory" ref="EntityManagerFactory" />
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager" />
+    
+    <bean id="dozer" class="org.dozer.spring.DozerBeanMapperFactoryBean">
+    </bean>
 
 </beans>
