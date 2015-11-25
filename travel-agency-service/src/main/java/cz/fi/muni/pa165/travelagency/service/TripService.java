@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
  * @author Julius Stassik
  */
 
-@Service
+
 public interface TripService {
     
     
