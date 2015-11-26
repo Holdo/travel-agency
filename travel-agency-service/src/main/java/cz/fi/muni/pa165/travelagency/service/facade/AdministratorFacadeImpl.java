@@ -10,6 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class AdministratorFacadeImpl implements AdministratorFacade {
+public class AdministratorFacadeImpl extends UserFacadeImpl implements AdministratorFacade {
     
 }
