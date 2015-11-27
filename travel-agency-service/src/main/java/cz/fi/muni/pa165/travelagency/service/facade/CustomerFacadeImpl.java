@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author 
+ * @author Michal Holic
  */
 @Service
 @Transactional

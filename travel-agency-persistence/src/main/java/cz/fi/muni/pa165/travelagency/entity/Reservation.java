@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,10 +31,10 @@ public class Reservation implements Serializable {
     @Column(nullable = false)
     private BigDecimal price;
 
-    @ManyToOne(optional=false)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
 
-    @ManyToOne(optional=false)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Trip trip;
 
     public Long getId() {

@@ -1,7 +1,7 @@
 package cz.fi.muni.pa165.travelagency.service;
 
 import cz.fi.muni.pa165.travelagency.entity.Excursion;
-import java.util.Collection;
+import java.util.List;
 
 /**
  *
@@ -13,6 +13,6 @@ public interface ExcursionService {
     public void update(Excursion excursion);
     public void delete(Excursion excursion);
     public Excursion findById(Long id);
-    public Collection<Excursion> findAll();
+    public List<Excursion> findAll();
 
 }

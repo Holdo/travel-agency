@@ -24,14 +24,6 @@ public class DozerMapperServiceImpl implements DozerMapperService {
     XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(factory);
     
     private Mapper dozer;
-    
-    /*{
-        reader.loadBeanDefinitions(new ClassPathResource("/SpringXMLConfig.xml"));
-        dozer = (Mapper) factory.getBean("mapper");
-    }*/
-    
-    //private ApplicationContext springXMLContext = new ClassPathXmlApplicationContext("/SpringXMLConfig.xml");
-    //private Mapper dozer = (Mapper) springXMLContext.getBean("mapper");
 
     public DozerMapperServiceImpl() {
         reader.loadBeanDefinitions(new ClassPathResource("SpringXMLConfig.xml"));

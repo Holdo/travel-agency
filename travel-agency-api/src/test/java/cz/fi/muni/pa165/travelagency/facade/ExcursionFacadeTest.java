@@ -1,16 +1,15 @@
-package cz.fi.muni.pa165.travelagency.service;
+package cz.fi.muni.pa165.travelagency.facade;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
+import cz.fi.muni.pa165.travelagency.dto.ExcursionDTO;
+import cz.fi.muni.pa165.travelagency.dto.TripDTO;
 import cz.fi.muni.pa165.travelagency.entity.Customer;
+import cz.fi.muni.pa165.travelagency.entity.Excursion;
 import cz.fi.muni.pa165.travelagency.entity.Reservation;
 import cz.fi.muni.pa165.travelagency.entity.Trip;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.time.Duration;
 import org.hibernate.service.spi.ServiceException;
-import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -32,51 +31,31 @@ import org.testng.annotations.Test;
 @ContextConfiguration(locations = "/SpringXMLConfig.xml")
 @TestExecutionListeners(inheritListeners = false, listeners = { DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class, TransactionalTestExecutionListener.class })
 @Transactional
-public class CustomerServiceTest extends AbstractTestNGSpringContextTests {
+public class ExcursionFacadeTest extends AbstractTestNGSpringContextTests {
     
     @Autowired
-    //@InjectMocks
-    private CustomerService customerService;
+    ExcursionFacade excursionFacade;
     
-    @Autowired
-    private ReservationService reservationService;
-    
-    @Autowired
-    private TripService tripService;
-    
-    @BeforeClass
-    public void setup() throws ServiceException
-    {
-        MockitoAnnotations.initMocks(this);
-    }
-    
-    private Customer customer = new Customer();
-    private Trip trip = new Trip();
+    private ExcursionDTO excursion = new ExcursionDTO();
+    private TripDTO trip = new TripDTO();
     
     @BeforeMethod
     public void prepareTestEntities(){
-    	customer.setEmail("customer@test.com");
-        customer.setFirstName("David");
-        customer.setLastName("Hasselhoff");
-        customer.setPassword("password");
-        customer.setUsername("Hoff");
-        
-        customerService.create(customer);
-        
         trip.setDateFrom(Date.valueOf("2015-01-02"));
         trip.setDateTo(Date.valueOf("2015-05-06"));
-        trip.setDestination("Zemplinska Sirava");
+        trip.setDestination("Trip destination");
         trip.setNumberOfAvailable(3);
-        trip.setPrice(new BigDecimal("1000.50"));
+        trip.setPrice(new BigDecimal("12000.50"));
         
-        tripService.createTrip(trip);
+        excursion.setDate(Date.valueOf("2015-01-02"));
+        excursion.setDestination("Excursion destination");
+        excursion.setDuration(Duration.ofHours(6));
+        excursion.setPrice(new BigDecimal("1400.50"));
     }
     
     @Test
-    public void makeReservation(){
+    public void createExcursion(){
         //when(customerService.makeReservation(customer, trip)).thenReturn(Long.decode("15"));
-        long madeReservationId = customerService.makeReservation(customer, trip);
-        Reservation newReservation = reservationService.findById(madeReservationId);
-        Assert.assertEquals(newReservation.getTrip().getNumberOfAvailable(), Integer.decode("2"));
+        excursionFacade.create(excursion);
     }
 }

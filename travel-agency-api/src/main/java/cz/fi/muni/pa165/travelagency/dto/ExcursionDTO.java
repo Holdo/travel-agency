@@ -12,7 +12,7 @@ import java.util.Objects;
 public class ExcursionDTO {
     
     private Long id;
-    private Date excursionStartDay;
+    private Date date;
     private Duration duration;
     private String destination;
     private BigDecimal price;
@@ -25,14 +25,14 @@ public class ExcursionDTO {
         this.id = id;
     }
 
-    public Date getExcursionStartDay() {
-        return excursionStartDay;
+    public Date getDate() {
+        return date;
     }
 
-    public void setExcursionStartDay(Date excursionStartDay) {
-        this.excursionStartDay = excursionStartDay;
+    public void setDate(Date date) {
+        this.date = date;
     }
-
+    
     public Duration getDuration() {
         return duration;
     }
@@ -59,13 +59,13 @@ public class ExcursionDTO {
 
     @Override
     public int hashCode() {
-        int hash = 31;
-        hash = 97 * hash + id.hashCode();
-        hash = 97 * hash + Objects.hashCode(this.excursionStartDay);
-        hash = 97 * hash + Objects.hashCode(this.duration);
-        hash = 97 * hash + Objects.hashCode(this.destination);
-        hash = 97 * hash + Objects.hashCode(this.price);
-        return hash;
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((date == null) ? 0 : this.getDate().hashCode());
+        result = prime * result + ((destination == null) ? 0 : this.getDestination().hashCode());
+        result = prime * result + ((duration == null) ? 0 : this.getDuration().hashCode());
+        result = prime * result + ((price == null) ? 0 : this.getPrice().hashCode());
+        return result;
     }
 
     @Override
@@ -76,28 +76,38 @@ public class ExcursionDTO {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof ExcursionDTO)) {
             return false;
         }
         final ExcursionDTO other = (ExcursionDTO) obj;
-        if (!Objects.equals(this.destination, other.destination)) {
+        if (date == null) {
+            if (other.getDate() != null) {
+                return false;
+            }
+        } else if (!date.equals(other.getDate())) {
             return false;
         }
-        if (!Objects.equals(this.id, other.id)) {
+        if (destination == null) {
+            if (other.getDestination() != null) {
+                return false;
+            }
+        } else if (!destination.equals(other.getDestination())) {
             return false;
         }
-        if (!Objects.equals(this.excursionStartDay, other.excursionStartDay)) {
+        if (duration == null) {
+            if (other.getDuration() != null) {
+                return false;
+            }
+        } else if (!duration.equals(other.getDuration())) {
             return false;
         }
-        if (!Objects.equals(this.duration, other.duration)) {
-            return false;
-        }
-        if (!Objects.equals(this.price, other.price)) {
+        if (price == null) {
+            if (other.getPrice() != null) {
+                return false;
+            }
+        } else if (!price.equals(other.getPrice())) {
             return false;
         }
         return true;
     }
-    
-    
-    
 }

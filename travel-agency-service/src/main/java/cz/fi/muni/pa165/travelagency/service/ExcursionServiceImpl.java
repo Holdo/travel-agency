@@ -2,13 +2,13 @@ package cz.fi.muni.pa165.travelagency.service;
 
 import cz.fi.muni.pa165.travelagency.dao.ExcursionDao;
 import cz.fi.muni.pa165.travelagency.entity.Excursion;
-import java.util.Collection;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  *
- * @author 
+ * @author Michal Holic
  */
 @Service
 public class ExcursionServiceImpl implements ExcursionService {
@@ -37,7 +37,7 @@ public class ExcursionServiceImpl implements ExcursionService {
     }
 
     @Override
-    public Collection<Excursion> findAll() {
+    public List<Excursion> findAll() {
         return excursionDao.findAll();
     }
     
