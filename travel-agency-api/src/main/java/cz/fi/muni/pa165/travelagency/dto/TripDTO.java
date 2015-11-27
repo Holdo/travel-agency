@@ -1,10 +1,8 @@
 package cz.fi.muni.pa165.travelagency.dto;
 
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -13,144 +11,121 @@ import java.util.Set;
  */
 public class TripDTO {
 
-    private BigDecimal price;
+	private Long id;
 
-    private Long id;
+	private Date dateFrom;
 
-    private Date dateFrom;
+	private Date dateTo;
 
-    private Date dateTo;
+	private String destination;
 
-    private String destination;
+	private Integer numberOfAvailable;
 
-    private Integer numberOfAvailable;
+	private BigDecimal price;
 
-    private Set<ExcursionDTO> excursions = new HashSet<>();
+	private Set<ExcursionDTO> excursions = new HashSet<>();
 
-    private Set<ReservationDTO> reservations = new HashSet<>();
+	private Set<ReservationDTO> reservations = new HashSet<>();
 
-    public TripDTO() {
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public TripDTO(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void addExcursion(ExcursionDTO excursion) {
-        this.excursions.add(excursion);
-    }
+	public Date getDateFrom() {
+		return dateFrom;
+	}
 
-    public Set<ExcursionDTO> getExcursions() {
-        return Collections.unmodifiableSet(this.excursions);
-    }
+	public void setDateFrom(Date dateFrom) {
+		this.dateFrom = dateFrom;
+	}
 
-    public void removeExcursion(ExcursionDTO excursion) {
-        this.excursions.remove(excursion);
-    }
+	public Date getDateTo() {
+		return dateTo;
+	}
 
-    public void addReservation(ReservationDTO reservation) {
-        this.reservations.add(reservation);
-    }
+	public void setDateTo(Date dateTo) {
+		this.dateTo = dateTo;
+	}
 
-    public Set<ReservationDTO> getReservations() {
-        return Collections.unmodifiableSet(this.reservations);
-    }
+	public String getDestination() {
+		return destination;
+	}
 
-    public void removeReservation(ReservationDTO reservation) {
-        this.reservations.remove(reservation);
-    }
+	public void setDestination(String destination) {
+		this.destination = destination;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Integer getNumberOfAvailable() {
+		return numberOfAvailable;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setNumberOfAvailable(Integer numberOfAvailable) {
+		this.numberOfAvailable = numberOfAvailable;
+	}
 
-    public Date getDateFrom() {
-        return dateFrom;
-    }
+	public BigDecimal getPrice() {
+		return price;
+	}
 
-    public void setDateFrom(Date dateFrom) {
-        this.dateFrom = dateFrom;
-    }
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
 
-    public Date getDateTo() {
-        return dateTo;
-    }
+	public Set<ExcursionDTO> getExcursions() {
+		return excursions;
+	}
 
-    public void setDateTo(Date dateTo) {
-        this.dateTo = dateTo;
-    }
+	public void setExcursions(Set<ExcursionDTO> excursions) {
+		this.excursions = excursions;
+	}
 
-    public String getDestination() {
-        return destination;
-    }
+	public Set<ReservationDTO> getReservations() {
+		return reservations;
+	}
 
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
+	public void setReservations(Set<ReservationDTO> reservations) {
+		this.reservations = reservations;
+	}
 
-    public Integer getNumberOfAvailable() {
-        return numberOfAvailable;
-    }
+	@Override
+	public String toString() {
+		return "TripDTO{" +
+				"id=" + id +
+				", dateFrom=" + dateFrom +
+				", dateTo=" + dateTo +
+				", destination='" + destination + '\'' +
+				", numberOfAvailable=" + numberOfAvailable +
+				", price=" + price +
+				", excursions=" + excursions +
+				", reservations=" + reservations +
+				'}';
+	}
 
-    public void setNumberOfAvailable(Integer numberOfAvailable) {
-        this.numberOfAvailable = numberOfAvailable;
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof TripDTO)) return false;
 
-    public BigDecimal getPrice() {
-        return price;
-    }
+		TripDTO tripDTO = (TripDTO) o;
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+		if (!getDateFrom().equals(tripDTO.getDateFrom())) return false;
+		if (!getDateTo().equals(tripDTO.getDateTo())) return false;
+		if (!getDestination().equals(tripDTO.getDestination())) return false;
+		if (!getNumberOfAvailable().equals(tripDTO.getNumberOfAvailable())) return false;
+		return getPrice().equals(tripDTO.getPrice());
+	}
 
-    @Override
-    public String toString() {
-        return "TripDTO{" + "dateFrom=" + dateFrom + ", dateTo=" + dateTo + ", destination=" + destination + ", numberOfAvailable=" + numberOfAvailable + ", price=" + price + '}';
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.dateFrom);
-        hash = 37 * hash + Objects.hashCode(this.dateTo);
-        hash = 37 * hash + Objects.hashCode(this.destination);
-        hash = 37 * hash + Objects.hashCode(this.numberOfAvailable);
-        hash = 37 * hash + Objects.hashCode(this.price);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!(obj instanceof TripDTO)) {
-            return false;
-        }
-        final TripDTO other = (TripDTO) obj;
-        if (!Objects.equals(this.dateFrom, other.getDateFrom())) {
-            return false;
-        }
-        if (!Objects.equals(this.dateTo, other.getDateTo())) {
-            return false;
-        }
-        if (!Objects.equals(this.destination, other.getDestination())) {
-            return false;
-        }
-        if (!Objects.equals(this.numberOfAvailable, other.getNumberOfAvailable())) {
-            return false;
-        }
-        if (!Objects.equals(this.price, other.getPrice())) {
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public int hashCode() {
+		int result = getDateFrom().hashCode();
+		result = 31 * result + getDateTo().hashCode();
+		result = 31 * result + getDestination().hashCode();
+		result = 31 * result + getNumberOfAvailable().hashCode();
+		result = 31 * result + getPrice().hashCode();
+		return result;
+	}
 }
