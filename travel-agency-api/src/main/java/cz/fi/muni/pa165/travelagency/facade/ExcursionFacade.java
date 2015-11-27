@@ -21,21 +21,21 @@ public interface ExcursionFacade {
      * 
      * @param excursion - excursion which will be created 
      */
-    public void createExcursion(ExcursionDTO excursion);
+    public void create(ExcursionDTO excursion);
     
     /**
      * Delete excursion specified by its id
      * 
      * @param id - id of deleted excursion
      */
-    public void deleteExcursion(Long id);
+    public void delete(Long id);
     
     /**
      * Update excursion
      * 
      * @param excursion - excursion which will be updated
      */
-    public void updateExcursion(ExcursionDTO excursion);
+    public void update(ExcursionDTO excursion);
     
     /**
      * Find excursion by its id
@@ -44,14 +44,14 @@ public interface ExcursionFacade {
      * @return ExcursionDTO - desired excursion or null when there is no 
      *                         excursion with specified id
      */
-    public ExcursionDTO getExcursionById(Long id);
+    public ExcursionDTO getById(Long id);
     
     /**
      * find all excursions
      * 
      * @return list of all excursions
      */
-    public List<ExcursionDTO> getAllExcursions();
+    public List<ExcursionDTO> getAll();
 
       
 }

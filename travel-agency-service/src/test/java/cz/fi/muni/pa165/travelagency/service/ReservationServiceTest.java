@@ -21,6 +21,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
 /**
  * ReservationServiceImpl test
@@ -28,7 +30,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Julius Stassik
  */
-public class ReservationServiceTest {
+@ContextConfiguration(locations = "/SpringXMLConfig.xml")
+public class ReservationServiceTest extends AbstractJUnit4SpringContextTests {
     
     @Mock
     private ReservationDao reservationDao;
