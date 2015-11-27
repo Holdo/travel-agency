@@ -53,9 +53,8 @@ public class ExcursionFacadeTest extends AbstractTestNGSpringContextTests {
         excursion.setPrice(new BigDecimal("1400.50"));
     }
     
-    @Test
+    /*@Test
     public void createExcursion(){
-        //when(customerService.makeReservation(customer, trip)).thenReturn(Long.decode("15"));
         excursionFacade.create(excursion);
-    }
+    }*/
 }

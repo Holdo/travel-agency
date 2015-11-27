@@ -13,9 +13,9 @@ import cz.fi.muni.pa165.travelagency.facade.ExcursionFacade;
 import cz.fi.muni.pa165.travelagency.service.DozerMapperService;
 import cz.fi.muni.pa165.travelagency.service.ExcursionService;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import javax.inject.Inject;
 
 /**
  *
@@ -26,10 +26,10 @@ import javax.inject.Inject;
 @Transactional
 public class ExcursionFacadeImpl implements ExcursionFacade {
 
-    @Inject
+    @Autowired
     private ExcursionService excursionService;
     
-    @Inject
+    @Autowired
     private DozerMapperService dozerMapperService;
     
     @Override
