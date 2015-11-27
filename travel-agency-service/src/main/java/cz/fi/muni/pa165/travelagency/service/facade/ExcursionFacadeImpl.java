@@ -41,7 +41,7 @@ public class ExcursionFacadeImpl implements ExcursionFacade {
         }
         
         Excursion exc = dozerMapperService.mapTo(excursion, Excursion.class);
-        excursionService.createExcursion(exc);
+        excursionService.create(exc);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class ExcursionFacadeImpl implements ExcursionFacade {
             throw new IllegalArgumentException("desired excursion doesnt exist");
         }
         
-        excursionService.deleteExcursion(excursionService.findById(id));
+        excursionService.delete(excursionService.findById(id));
         
     }
 
@@ -65,7 +65,7 @@ public class ExcursionFacadeImpl implements ExcursionFacade {
         }
         
         Excursion mappedExcursion = dozerMapperService.mapTo(excursion, Excursion.class);
-        excursionService.updateExcursion(mappedExcursion);
+        excursionService.update(mappedExcursion);
     }
 
     @Override
