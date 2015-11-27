@@ -62,7 +62,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
 	@Override
-	public Reservation makeReservation(Customer customer, Trip trip) {
+	public long makeReservation(Customer customer, Trip trip) {
 		if (trip.getNumberOfAvailable() == 0) {
 			throw new TravelAgencyServiceException("Requested trip is no longer available.");
 		}
@@ -85,6 +85,6 @@ public class CustomerServiceImpl implements CustomerService {
 		trip.setNumberOfAvailable(trip.getNumberOfAvailable()-1);
 		tripDao.update(trip);
 
-		return reservation;
+		return reservation.getId();
 	}
 }

@@ -107,7 +107,7 @@ public class ReservationServiceTest extends AbstractJUnit4SpringContextTests {
     
     @Test
     public void createReservationTest(){
-        doNothing().when(reservationDao).update(any(Reservation.class));
+        doNothing().when(reservationDao).create(any(Reservation.class));
         
         reservationService.create(reservation1);
         verify(reservationDao).create(reservation1);
@@ -146,7 +146,8 @@ public class ReservationServiceTest extends AbstractJUnit4SpringContextTests {
         reservations.add(reservation2);
         
         when(reservationDao.findAll()).thenReturn(reservations);
-        List<Reservation> reservationsDto = reservationService.findAll();
+        List<Reservation> reservationsDto = new ArrayList();
+        reservationsDto = reservationService.findAll();
         assertEquals(reservationsDto.size(), 2);
         verify(reservationDao).findAll();
     }

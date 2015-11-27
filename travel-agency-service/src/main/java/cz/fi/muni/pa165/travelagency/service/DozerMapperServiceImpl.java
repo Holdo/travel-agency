@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.dozer.Mapper;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,8 +20,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class DozerMapperServiceImpl implements DozerMapperService {
 
-    private ApplicationContext springXMLContext = new ClassPathXmlApplicationContext("/SpringXMLConfig.xml");
-    private Mapper dozer = (Mapper) springXMLContext.getBean("mapper");
+    DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
+    XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(factory);
+    
+    private Mapper dozer;
+    
+    /*{
+        reader.loadBeanDefinitions(new ClassPathResource("/SpringXMLConfig.xml"));
+        dozer = (Mapper) factory.getBean("mapper");
+    }*/
+    
+    //private ApplicationContext springXMLContext = new ClassPathXmlApplicationContext("/SpringXMLConfig.xml");
+    //private Mapper dozer = (Mapper) springXMLContext.getBean("mapper");
+
+    public DozerMapperServiceImpl() {
+        reader.loadBeanDefinitions(new ClassPathResource("SpringXMLConfig.xml"));
+        dozer = (Mapper) factory.getBean("mapper");
+    }
     
     @Override
     public Mapper getMapper(){
@@ -24,13 +44,13 @@ public class DozerMapperServiceImpl implements DozerMapperService {
     }
     
     @Override
-    public  <T> T mapTo(Object u, Class<T> mapToClass)
+    public <T> T mapTo(Object u, Class<T> mapToClass)
     {
         return dozer.map(u,mapToClass);
     }
     
     @Override
-    public  <T> List<T> mapTo(Collection<?> objects, Class<T> mapToClass) {
+    public <T> List<T> mapTo(Collection<?> objects, Class<T> mapToClass) {
         List<T> mappedCollection = new ArrayList<>();
         for (Object object : objects) {
             mappedCollection.add(dozer.map(object, mapToClass));
