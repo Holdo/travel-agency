@@ -33,7 +33,7 @@ public class ExcursionFacadeImpl implements ExcursionFacade {
     private DozerMapperService dozerMapperService;
     
     @Override
-    public void createExcursion(ExcursionDTO excursion) {
+    public void create(ExcursionDTO excursion) {
         if(excursion == null){
             throw new IllegalArgumentException("param excursion is null");
         } else if (excursionService.findById(excursion.getId()) == null){
@@ -41,23 +41,23 @@ public class ExcursionFacadeImpl implements ExcursionFacade {
         }
         
         Excursion exc = dozerMapperService.mapTo(excursion, Excursion.class);
-        excursionService.createExcursion(exc);
+        excursionService.create(exc);
     }
 
     @Override
-    public void deleteExcursion(Long id) {
+    public void delete(Long id) {
         if(id == null){
             throw new IllegalArgumentException("param id is null");
         } else if (excursionService.findById(id) == null){
             throw new IllegalArgumentException("desired excursion doesnt exist");
         }
         
-        excursionService.deleteExcursion(excursionService.findById(id));
+        excursionService.delete(excursionService.findById(id));
         
     }
 
     @Override
-    public void updateExcursion(ExcursionDTO excursion) {
+    public void update(ExcursionDTO excursion) {
         if(excursion == null){
             throw new IllegalArgumentException("param excursion is null");
         } else if (excursionService.findById(excursion.getId()) == null){
@@ -65,11 +65,11 @@ public class ExcursionFacadeImpl implements ExcursionFacade {
         }
         
         Excursion mappedExcursion = dozerMapperService.mapTo(excursion, Excursion.class);
-        excursionService.updateExcursion(mappedExcursion);
+        excursionService.update(mappedExcursion);
     }
 
     @Override
-    public ExcursionDTO getExcursionById(Long id) {
+    public ExcursionDTO getById(Long id) {
         if(id == null){
             throw new IllegalArgumentException("param id is null");
         } else if (excursionService.findById(id) == null){
@@ -80,7 +80,7 @@ public class ExcursionFacadeImpl implements ExcursionFacade {
     }
 
     @Override
-    public List<ExcursionDTO> getAllExcursions() {
+    public List<ExcursionDTO> getAll() {
         return dozerMapperService.mapTo(excursionService.findAll(), ExcursionDTO.class);
     }
     

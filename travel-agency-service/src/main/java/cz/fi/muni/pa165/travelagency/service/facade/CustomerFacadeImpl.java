@@ -4,6 +4,8 @@ import cz.fi.muni.pa165.travelagency.dto.CustomerDTO;
 import cz.fi.muni.pa165.travelagency.dto.TripDTO;
 import cz.fi.muni.pa165.travelagency.dto.UserDTO;
 import cz.fi.muni.pa165.travelagency.entity.Customer;
+import cz.fi.muni.pa165.travelagency.entity.Reservation;
+import cz.fi.muni.pa165.travelagency.entity.Trip;
 import cz.fi.muni.pa165.travelagency.facade.CustomerFacade;
 import cz.fi.muni.pa165.travelagency.service.CustomerService;
 import cz.fi.muni.pa165.travelagency.service.DozerMapperService;
@@ -24,27 +26,28 @@ public class CustomerFacadeImpl extends UserFacadeImpl implements CustomerFacade
     private CustomerService customerService;
 
     @Autowired
-    private DozerMapperService dozerMapperService;
+    private DozerMapperService dms;
 
     @Override
     public long makeReservation(CustomerDTO customerDTO, TripDTO tripDTO) {
-        return customerService.makeReservation(customerDTO, tripDTO);
+        Reservation createdReservation = customerService.makeReservation(dms.mapTo(customerDTO, Customer.class), dms.mapTo(tripDTO, Trip.class));
+        return createdReservation.getId();
     }
 
     @Override
     public CustomerDTO findCustomerById(Long customerId) {
         Customer customer = customerService.findById(customerId);
-        return (customer == null) ? null : dozerMapperService.mapTo(customer, CustomerDTO.class);
+        return (customer == null) ? null : dms.mapTo(customer, CustomerDTO.class);
     }
 
     @Override
     public CustomerDTO findCustomerByEmail(String email) {
         Customer customer = customerService.findByEmail(email);
-        return (customer == null) ? null : dozerMapperService.mapTo(customer, CustomerDTO.class);
+        return (customer == null) ? null : dms.mapTo(customer, CustomerDTO.class);
     }
 
     @Override
     public Collection<CustomerDTO> getAllCustomers() {
-        return dozerMapperService.mapTo(customerService.findAll(), CustomerDTO.class);
+        return dms.mapTo(customerService.findAll(), CustomerDTO.class);
     }
 }

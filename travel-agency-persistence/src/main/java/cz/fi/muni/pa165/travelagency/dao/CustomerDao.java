@@ -40,6 +40,14 @@ public interface CustomerDao {
     Customer findById(Long id);
     
     /*
+     * Finds a customer in the database by his email.
+     * 
+     * @param customer email, must not be null or empty
+     * @return Customer object or null, if not found
+     */
+    Customer findByEmail(String email);
+    
+    /*
      * Lists all the customers in the database.
      * 
      * @return List of all the customers in the database
