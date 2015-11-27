@@ -2,6 +2,7 @@ package cz.fi.muni.pa165.travelagency.service.facade;
 
 import cz.fi.muni.pa165.travelagency.dto.TripDTO;
 import cz.fi.muni.pa165.travelagency.entity.Trip;
+import cz.fi.muni.pa165.travelagency.facade.TripFacade;
 import cz.fi.muni.pa165.travelagency.service.DozerMapperService;
 import cz.fi.muni.pa165.travelagency.service.TripService;
 import java.util.List;
@@ -15,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class TripFacadeImpl implements TripFacade{
+public class TripFacadeImpl implements TripFacade {
     
     @Autowired
     private TripService tripService;    

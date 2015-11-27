@@ -17,5 +17,5 @@ public interface CustomerService {
 	public List<Customer> findAll();
 	public Customer findById(Long id);
         public Customer findByEmail(String email);
-	public Reservation makeReservation(Customer customer, Trip trip);
+	public long makeReservation(Customer customer, Trip trip);
 }

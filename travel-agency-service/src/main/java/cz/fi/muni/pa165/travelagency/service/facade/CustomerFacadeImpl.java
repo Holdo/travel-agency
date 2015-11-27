@@ -30,8 +30,7 @@ public class CustomerFacadeImpl extends UserFacadeImpl implements CustomerFacade
 
     @Override
     public long makeReservation(CustomerDTO customerDTO, TripDTO tripDTO) {
-        Reservation createdReservation = customerService.makeReservation(dms.mapTo(customerDTO, Customer.class), dms.mapTo(tripDTO, Trip.class));
-        return createdReservation.getId();
+        return customerService.makeReservation(dms.mapTo(customerDTO, Customer.class), dms.mapTo(tripDTO, Trip.class));
     }
 
     @Override
