@@ -12,7 +12,7 @@ public interface ExcursionService {
     public void create(Excursion excursion);
     public void update(Excursion excursion);
     public void delete(Excursion excursion);
-    public Excursion findById(Long id);
-    public List<Excursion> findAll();
+    public Excursion getById(Long id);
+    public List<Excursion> getAll();
 
 }

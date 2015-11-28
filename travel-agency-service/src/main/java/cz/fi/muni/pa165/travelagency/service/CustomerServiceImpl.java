@@ -47,18 +47,18 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public List<Customer> findAll() {
-		return customerDao.findAll();
+	public List<Customer> getAll() {
+		return customerDao.getAll();
 	}
 
 	@Override
-	public Customer findById(Long id) {
-		return customerDao.findById(id);
+	public Customer getById(Long id) {
+		return customerDao.getById(id);
 	}
         
-        @Override
-        public Customer findByEmail(String email) {
-            return customerDao.findByEmail(email);
+	@Override
+	public Customer getByEmail(String email) {
+            return customerDao.getByEmail(email);
         }
 
 	@Override

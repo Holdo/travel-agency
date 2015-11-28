@@ -82,14 +82,14 @@ public class TripDaoTest extends AbstractTestNGSpringContextTests {
 	
 	@Test
 	public void find(){
-		Trip foundTrip = tripDao.findById(trip1.getId());
+		Trip foundTrip = tripDao.getById(trip1.getId());
 		Assert.assertEquals(foundTrip, trip1);
 		
 	}
 	
 	@Test
 	public void findAll(){
-		List<Trip> trips = tripDao.findAll();
+		List<Trip> trips = tripDao.getAll();
 		Assert.assertEquals(trips.size(), 2);
 	}
 	
@@ -97,7 +97,7 @@ public class TripDaoTest extends AbstractTestNGSpringContextTests {
 	public void update(){
 		trip1.setDestination("Somewhere");
 		tripDao.update(trip1);
-		Trip foundTrip = tripDao.findById(trip1.getId());
+		Trip foundTrip = tripDao.getById(trip1.getId());
 		Assert.assertEquals(foundTrip, trip1);
 		
 	}
@@ -105,7 +105,7 @@ public class TripDaoTest extends AbstractTestNGSpringContextTests {
 	@Test
 	public void remove(){
 		tripDao.delete(trip1);
-		Assert.assertNull(tripDao.findById(trip1.getId()));
+		Assert.assertNull(tripDao.getById(trip1.getId()));
 		
 	}
 	

@@ -30,16 +30,16 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public void delete(Customer customer) {
-        em.remove(findById(customer.getId()));
+        em.remove(getById(customer.getId()));
     }
 
     @Override
-    public Customer findById(Long id) {
+    public Customer getById(Long id) {
         return em.find(Customer.class, id);
     }
     
     @Override
-    public Customer findByEmail(String email) {
+    public Customer getByEmail(String email) {
         if (email == null || email.isEmpty()) {
             throw new IllegalArgumentException("Cannot search Customer for a null e-mail");
         }
@@ -53,7 +53,7 @@ public class CustomerDaoImpl implements CustomerDao {
     }
 
     @Override
-    public List<Customer> findAll() {
+    public List<Customer> getAll() {
         return em.createQuery("SELECT c FROM Customer c", Customer.class).getResultList();
     }
 }

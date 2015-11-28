@@ -133,10 +133,10 @@ public class ReservationServiceTest extends AbstractJUnit4SpringContextTests {
     @Test
     public void findByIdTest(){
         Long id = reservation1.getId();
-        when(reservationDao.findById(any(Long.class))).thenReturn(reservation1);
+        when(reservationDao.getById(any(Long.class))).thenReturn(reservation1);
         
-        reservationService.findById(id);
-        verify(reservationDao).findById(id);
+        reservationService.getById(id);
+        verify(reservationDao).getById(id);
     }
     
     @Test
@@ -145,10 +145,10 @@ public class ReservationServiceTest extends AbstractJUnit4SpringContextTests {
         reservations.add(reservation1);
         reservations.add(reservation2);
         
-        when(reservationDao.findAll()).thenReturn(reservations);
-        List<Reservation> reservationsDto = reservationService.findAll();
+        when(reservationDao.getAll()).thenReturn(reservations);
+        List<Reservation> reservationsDto = reservationService.getAll();
         assertEquals(reservationsDto.size(), 2);
-        verify(reservationDao).findAll();
+        verify(reservationDao).getAll();
     }
             
 }

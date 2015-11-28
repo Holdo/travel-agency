@@ -50,12 +50,12 @@ public class AdministratorDaoTest extends AbstractTestNGSpringContextTests{
     
     @Test
     public void createTest() {
-        Assert.assertNotNull(administratorDao.findById(administrator.getId()), "Administrator doesn't exist!");
+        Assert.assertNotNull(administratorDao.getById(administrator.getId()), "Administrator doesn't exist!");
     }
     
     @Test
     public void findByIdTest() {
-	Assert.assertNotNull(administratorDao.findById(administrator.getId()), "Administrator wasn't found!");
+	Assert.assertNotNull(administratorDao.getById(administrator.getId()), "Administrator wasn't found!");
     }
     
     @Test
@@ -75,9 +75,9 @@ public class AdministratorDaoTest extends AbstractTestNGSpringContextTests{
     
     @Test
     public void findAll() {                
-        List<Administrator> administrators = administratorDao.findAll();
+        List<Administrator> administrators = administratorDao.getAll();
 	Assert.assertEquals(administrators.size(), 1, "There's an incorrect amount of administrators in the database!");
-        Assert.assertTrue(administrators.contains(administratorDao.findById(administrator.getId())), "Administrator isn't present in the database!");
+        Assert.assertTrue(administrators.contains(administratorDao.getById(administrator.getId())), "Administrator isn't present in the database!");
         
     }
     

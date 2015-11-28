@@ -31,12 +31,12 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public Reservation findById(Long id) {
-        return reservationDao.findById(id);
+    public Reservation getById(Long id) {
+        return reservationDao.getById(id);
     }
 
     @Override
-    public List<Reservation> findAll() {
-        return reservationDao.findAll();
+    public List<Reservation> getAll() {
+        return reservationDao.getAll();
     }
 }

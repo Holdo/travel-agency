@@ -29,16 +29,16 @@ public class ReservationDaoImpl implements ReservationDao {
     
     @Override
     public void delete(Reservation reservation) {
-        em.remove(reservation);
+        em.remove(getById(reservation.getId()));
     }
     
     @Override
-    public Reservation findById(Long id) {
+    public Reservation getById(Long id) {
         return em.find(Reservation.class, id);
     }
 
     @Override
-    public List<Reservation> findAll() {
+    public List<Reservation> getAll() {
         return em.createQuery("SELECT r FROM Reservation r", Reservation.class).getResultList();
     }
 }

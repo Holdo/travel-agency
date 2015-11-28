@@ -33,7 +33,7 @@ public class ReservationFacadeImpl implements ReservationFacade{
 
     @Override
     public void delete(Long id) {
-        reservationService.delete(reservationService.findById(id));
+        reservationService.delete(reservationService.getById(id));
     }
 
     @Override
@@ -44,12 +44,12 @@ public class ReservationFacadeImpl implements ReservationFacade{
 
     @Override
     public ReservationDTO getById(Long id) {
-        return dozerMapperService.mapTo(reservationService.findById(id), ReservationDTO.class);
+        return dozerMapperService.mapTo(reservationService.getById(id), ReservationDTO.class);
     }
 
     @Override
     public List<ReservationDTO> getAll() {
-        return dozerMapperService.mapTo(reservationService.findAll(), ReservationDTO.class);
+        return dozerMapperService.mapTo(reservationService.getAll(), ReservationDTO.class);
     }
     
 }

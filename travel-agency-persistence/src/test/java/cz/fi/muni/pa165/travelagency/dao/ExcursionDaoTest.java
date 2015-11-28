@@ -69,14 +69,14 @@ public class ExcursionDaoTest extends AbstractTestNGSpringContextTests {
     
     @Test
     public void databaseDoesNotContainExcursion() {
-        Excursion excursionFromDB = excursionDao.findById(excursion.getId());
+        Excursion excursionFromDB = excursionDao.getById(excursion.getId());
         Assert.assertNotNull(excursionFromDB, "Excursion was not saved in the DB.");
         Assert.assertEquals(excursionFromDB, excursion, "Excursion from DB does not match Excursion which was saved to DB.");
     }
     
     @Test
     public void excursionDoesNotContainTrip() {
-        Excursion excursionFromDB = excursionDao.findById(excursion.getId());
+        Excursion excursionFromDB = excursionDao.getById(excursion.getId());
         Assert.assertNotNull(excursionFromDB.getTrip(), "Trip is not in the Excursion.");
     }
     
@@ -90,7 +90,7 @@ public class ExcursionDaoTest extends AbstractTestNGSpringContextTests {
     
     @Test
     public void findAllTest() {
-        List<Excursion> listOfExcursionsFromDB = excursionDao.findAll();
+        List<Excursion> listOfExcursionsFromDB = excursionDao.getAll();
         Assert.assertEquals(listOfExcursionsFromDB.size(), 1, "There's an incorrect amount of excursions in the database!");
         Assert.assertTrue(listOfExcursionsFromDB.contains(excursion), "Can't find list of excursions in the DB.");
     }
@@ -164,7 +164,7 @@ public class ExcursionDaoTest extends AbstractTestNGSpringContextTests {
         e2.setPrice(BigDecimal.valueOf(1250.50));
         excursionDao.create(e2);
         
-        Assert.assertTrue(excursionDao.findById(e1.getId()).getId() != excursionDao.findById(e2.getId()).getId(),
+        Assert.assertTrue(excursionDao.getById(e1.getId()).getId() != excursionDao.getById(e2.getId()).getId(),
                 "Ids of two Excursion entities in DB are the same.");
     }
 

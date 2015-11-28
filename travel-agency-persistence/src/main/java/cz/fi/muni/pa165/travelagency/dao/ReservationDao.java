@@ -37,7 +37,7 @@ public interface ReservationDao {
      * @param reservation id, must not be null
      * @return Reservation object or null, if not found
      */
-    Reservation findById(Long id);
+    Reservation getById(Long id);
     
     /*
      * Lists all the reservations in the database.
@@ -45,5 +45,5 @@ public interface ReservationDao {
      * @return List of all the reservations in the database
      *         List is empty if the are no reservations in the database
      */
-    List<Reservation> findAll();
+    List<Reservation> getAll();
 }

@@ -32,13 +32,13 @@ public class ExcursionServiceImpl implements ExcursionService {
     }
 
     @Override
-    public Excursion findById(Long id) {
-        return excursionDao.findById(id);
+    public Excursion getById(Long id) {
+        return excursionDao.getById(id);
     }
 
     @Override
-    public List<Excursion> findAll() {
-        return excursionDao.findAll();
+    public List<Excursion> getAll() {
+        return excursionDao.getAll();
     }
     
 }

@@ -29,7 +29,7 @@ public class ExcursionDaoImpl implements ExcursionDao {
 
 	@Override
 	public void delete(Excursion excursion) {
-		em.remove(findById(excursion.getId()));
+		em.remove(getById(excursion.getId()));
 		
 	}
 
@@ -40,12 +40,12 @@ public class ExcursionDaoImpl implements ExcursionDao {
 	}
 
 	@Override
-	public Excursion findById(Long id) {
+	public Excursion getById(Long id) {
 		return em.find(Excursion.class, id);
 	}
 
 	@Override
-	public List<Excursion> findAll() {
+	public List<Excursion> getAll() {
 		return em.createQuery("SELECT e FROM Excursion e", 
 				Excursion.class).getResultList();
 	}

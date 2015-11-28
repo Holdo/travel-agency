@@ -26,7 +26,7 @@ public interface AdministratorDao {
      * @return Trip object.
      *         null if not found
      */
-    public Administrator findById(Long id);
+    public Administrator getById(Long id);
     
     /*
      * Updates an administrator entity in the database.
@@ -50,6 +50,6 @@ public interface AdministratorDao {
      * @return List of all the administrators in the database
      *         empty List if the are no administrators in the database
      */
-    public List<Administrator> findAll();
+    public List<Administrator> getAll();
     
 }

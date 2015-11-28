@@ -25,27 +25,27 @@ public class TripFacadeImpl implements TripFacade {
     
     @Override
     public void create(TripDTO trip) {    
-        tripService.createTrip(dozerMapperService.mapTo(trip, Trip.class));
+        tripService.create(dozerMapperService.mapTo(trip, Trip.class));
     }
 
     @Override
     public void delete(Long id) {
-        tripService.deleteTrip(tripService.findById(id));        
+        tripService.delete(tripService.getById(id));
     }
 
     @Override
     public void update(TripDTO trip) {
-        tripService.updateTrip(dozerMapperService.mapTo(trip, Trip.class));
+        tripService.update(dozerMapperService.mapTo(trip, Trip.class));
     }
 
     @Override
     public TripDTO getById(Long id) {
-        return dozerMapperService.mapTo(tripService.findById(id), TripDTO.class);
+        return dozerMapperService.mapTo(tripService.getById(id), TripDTO.class);
     }
 
     @Override
     public List<TripDTO> getAll() {
-        return dozerMapperService.mapTo(tripService.findAll(), TripDTO.class);
+        return dozerMapperService.mapTo(tripService.getAll(), TripDTO.class);
     }
     
 }

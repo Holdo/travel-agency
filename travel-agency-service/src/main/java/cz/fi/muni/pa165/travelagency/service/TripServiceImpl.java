@@ -18,7 +18,7 @@ public class TripServiceImpl implements TripService {
     private TripDao tripDao;
     
     @Override
-    public Trip createTrip(Trip trip){
+    public Trip create(Trip trip){
         
         if(trip == null) throw new IllegalArgumentException("param trip is null");
         
@@ -28,7 +28,7 @@ public class TripServiceImpl implements TripService {
     }
     
     @Override
-    public void updateTrip(Trip trip){
+    public void update(Trip trip){
         
         if(trip == null) throw new IllegalArgumentException("param trip is null");
         
@@ -37,7 +37,7 @@ public class TripServiceImpl implements TripService {
     }
     
     @Override
-    public void deleteTrip(Trip trip){
+    public void delete(Trip trip){
         
         if(trip == null) throw new IllegalArgumentException("param trip is null");
         
@@ -46,18 +46,18 @@ public class TripServiceImpl implements TripService {
     }
     
     @Override
-    public Trip findById(Long id){
+    public Trip getById(Long id){
         
         if (id == null || id < 0) throw new IllegalArgumentException("param id is null or < 0");
         
-        return tripDao.findById(id);
+        return tripDao.getById(id);
         
     }
 
     @Override
-    public List<Trip> findAll(){
+    public List<Trip> getAll(){
         
-       return tripDao.findAll();
+       return tripDao.getAll();
         
     }
 }

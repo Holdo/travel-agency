@@ -32,12 +32,12 @@ public class AdministratorServiceImpl implements AdministratorService {
     }
 
     @Override
-    public Administrator findById(Long id) {
-        return administratorDao.findById(id);
+    public Administrator getById(Long id) {
+        return administratorDao.getById(id);
     }
 
     @Override
-    public List<Administrator> listAll() {
-	return administratorDao.findAll();   
+    public List<Administrator> getAll() {
+	return administratorDao.getAll();
     }
 }

@@ -125,13 +125,13 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
     
     @Test
     public void findAllNotNull() {
-        List<Reservation> foundReservations = reservationDao.findAll();
+        List<Reservation> foundReservations = reservationDao.getAll();
         Assert.assertNotNull(foundReservations);
     }
 
     @Test
     public void findAllTest() {
-        List<Reservation> foundReservations = reservationDao.findAll();
+        List<Reservation> foundReservations = reservationDao.getAll();
         Assert.assertEquals(foundReservations.size(), 1, "There's an incorrect amount of reservations in the database!");
         Assert.assertTrue(foundReservations.contains(reservation), "Can't find list of reservations in the DB.");
     }

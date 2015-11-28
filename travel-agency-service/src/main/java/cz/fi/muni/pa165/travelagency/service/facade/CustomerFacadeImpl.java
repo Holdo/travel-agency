@@ -35,18 +35,18 @@ public class CustomerFacadeImpl extends UserFacadeImpl implements CustomerFacade
 
     @Override
     public CustomerDTO findCustomerById(Long customerId) {
-        Customer customer = customerService.findById(customerId);
+        Customer customer = customerService.getById(customerId);
         return (customer == null) ? null : dms.mapTo(customer, CustomerDTO.class);
     }
 
     @Override
     public CustomerDTO findCustomerByEmail(String email) {
-        Customer customer = customerService.findByEmail(email);
+        Customer customer = customerService.getByEmail(email);
         return (customer == null) ? null : dms.mapTo(customer, CustomerDTO.class);
     }
 
     @Override
     public Collection<CustomerDTO> getAllCustomers() {
-        return dms.mapTo(customerService.findAll(), CustomerDTO.class);
+        return dms.mapTo(customerService.getAll(), CustomerDTO.class);
     }
 }

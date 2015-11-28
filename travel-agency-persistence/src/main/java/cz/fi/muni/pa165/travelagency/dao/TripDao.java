@@ -42,7 +42,7 @@ public interface TripDao {
      * @return Trip object.
      *         null if not found
      */
-    Trip findById(Long id);
+    Trip getById(Long id);
 
     /*
      * Returns all the trips in the database.
@@ -50,5 +50,5 @@ public interface TripDao {
      * @return List of all the trips in the database
      *         empty List if the are no trips in the database
      */
-    List<Trip> findAll();
+    List<Trip> getAll();
 }

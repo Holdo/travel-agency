@@ -29,16 +29,16 @@ public class TripDaoImpl implements TripDao {
 
     @Override
     public void delete(Trip trip) {
-        em.remove(findById(trip.getId()));
+        em.remove(getById(trip.getId()));
     }
 
     @Override
-    public Trip findById(Long id) {
+    public Trip getById(Long id) {
         return em.find(Trip.class, id);
     }
 
     @Override
-    public List<Trip> findAll() {
+    public List<Trip> getAll() {
         return em.createQuery("SELECT t FROM Trip t", Trip.class).getResultList();
     }
 }

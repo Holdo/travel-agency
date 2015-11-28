@@ -38,7 +38,7 @@ public interface AdministratorService {
      * @return Administrator object
      *         null if not found
      */
-    Administrator findById(Long id);
+    Administrator getById(Long id);
     
     /*
      * Returns all the administrators.
@@ -46,6 +46,6 @@ public interface AdministratorService {
      * @return List of all the administrators
      *         empty List if the are no administrators
      */
-    List<Administrator> listAll();
+    List<Administrator> getAll();
     
 }

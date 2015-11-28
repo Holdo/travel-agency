@@ -27,7 +27,7 @@ public class AdministratorDaoImpl  implements AdministratorDao {
     }  
     
     @Override
-    public Administrator findById(Long id){
+    public Administrator getById(Long id){
         return em.find(Administrator.class, id);
     }  
     
@@ -38,11 +38,11 @@ public class AdministratorDaoImpl  implements AdministratorDao {
     
     @Override
     public void delete(Administrator administrator){
-        em.remove(findById(administrator.getId()));
+        em.remove(getById(administrator.getId()));
     }
     
     @Override
-    public List<Administrator> findAll(){
+    public List<Administrator> getAll(){
 	return em.createQuery("SELECT a FROM Administrator a", Administrator.class).getResultList();
     }
     

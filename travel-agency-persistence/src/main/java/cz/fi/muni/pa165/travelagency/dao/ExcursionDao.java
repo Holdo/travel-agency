@@ -39,7 +39,7 @@ public interface ExcursionDao {
 	 * @param excursion id, must not be null
 	 * @return Excursion object or null, if not found
 	 */
-	Excursion findById(Long id);
+	Excursion getById(Long id);
 		
 	/*
 	 * Lists all the excursions from the database.
@@ -47,7 +47,7 @@ public interface ExcursionDao {
 	 * @return List of all the excursions from the database
 	 * List is empty if the are no excursions in the database
 	 */
-	List<Excursion> findAll();
+	List<Excursion> getAll();
 		
 }
 

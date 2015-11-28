@@ -37,7 +37,7 @@ public interface CustomerDao {
      * @param customer id, must not be null
      * @return Customer object or null, if not found
      */
-    Customer findById(Long id);
+    Customer getById(Long id);
     
     /*
      * Finds a customer in the database by his email.
@@ -45,7 +45,7 @@ public interface CustomerDao {
      * @param customer email, must not be null or empty
      * @return Customer object or null, if not found
      */
-    Customer findByEmail(String email);
+    Customer getByEmail(String email);
     
     /*
      * Lists all the customers in the database.
@@ -53,5 +53,5 @@ public interface CustomerDao {
      * @return List of all the customers in the database
      *         List is empty if the are no customers in the database
      */
-    List<Customer> findAll();
+    List<Customer> getAll();
 }

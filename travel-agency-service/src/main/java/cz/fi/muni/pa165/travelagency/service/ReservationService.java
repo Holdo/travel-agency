@@ -12,6 +12,6 @@ public interface ReservationService {
     public void create(Reservation reservation);
     public void update(Reservation reservation);
     public void delete(Reservation reservation);
-    public Reservation findById(Long id);
-    public List<Reservation> findAll();
+    public Reservation getById(Long id);
+    public List<Reservation> getAll();
 }
