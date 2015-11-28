@@ -30,6 +30,11 @@
     <tx:annotation-driven transaction-manager="transactionManager" />
     
     <bean id="mapper" name="mapper" class="org.dozer.DozerBeanMapper">
+        <property name="mappingFiles">
+            <list>
+                <value>dozer-custom-mappings.xml</value>
+            </list>
+        </property>
     </bean>
 
 </beans>

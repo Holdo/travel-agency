@@ -9,10 +9,10 @@ import java.util.List;
  */
 public interface ExcursionService {
 
-    public void create(Excursion excursion);
-    public void update(Excursion excursion);
-    public void delete(Excursion excursion);
-    public Excursion getById(Long id);
-    public List<Excursion> getAll();
+    void create(Excursion excursion);
+    void update(Excursion excursion);
+    void delete(Excursion excursion);
+    Excursion getById(Long id);
+    List<Excursion> getAll();
 
 }

@@ -5,21 +5,17 @@ import cz.fi.muni.pa165.travelagency.dto.TripDTO;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.Duration;
+import java.util.List;
 
 import cz.fi.muni.pa165.travelagency.facade.ExcursionFacade;
-import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
- *
  * @author Michal Holic
  */
 @ContextConfiguration(locations = "/SpringXMLConfig.xml")
@@ -32,7 +28,7 @@ public class ExcursionFacadeTest extends AbstractTransactionalTestNGSpringContex
 	private TripDTO trip = new TripDTO();
 
 	@BeforeMethod
-	public void prepareTestEntities(){
+	public void prepareTestEntities() {
 		trip.setDateFrom(Date.valueOf("2015-01-02"));
 		trip.setDateTo(Date.valueOf("2015-05-06"));
 		trip.setDestination("Trip destination");
@@ -46,7 +42,25 @@ public class ExcursionFacadeTest extends AbstractTransactionalTestNGSpringContex
 	}
 
 	@Test
-	public void createExcursion(){
+	public void crudFacadeExcursionTest() {
 		excursionFacade.create(excursion);
+		List<ExcursionDTO> excursionDTOs = excursionFacade.getAll();
+		Assert.assertEquals(excursionDTOs.size(), 1);
+		Long excursionId = excursionDTOs.get(0).getId();
+		excursion.setId(excursionId);
+		excursion.setDestination("New destination");
+		excursionFacade.update(excursion);
+		excursionDTOs = excursionFacade.getAll();
+		Assert.assertEquals(excursionDTOs.size(), 1);
+		Assert.assertEquals(excursionDTOs.get(0).getDestination(), excursion.getDestination());
+		excursionFacade.delete(excursionId);
+		boolean deleted = false;
+		try {
+			excursionFacade.getById(excursionId);
+		} catch (IllegalArgumentException e) {
+			if (e.getMessage().equals("desired excursion does not exist"))
+				deleted = true;
+		}
+		Assert.assertTrue(deleted);
 	}
 }

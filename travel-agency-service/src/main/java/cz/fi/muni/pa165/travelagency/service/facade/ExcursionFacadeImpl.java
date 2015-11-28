@@ -39,6 +39,7 @@ public class ExcursionFacadeImpl implements ExcursionFacade {
         }
         
         Excursion exc = dozerMapperService.mapTo(excursion, Excursion.class);
+        exc.setDuration(excursion.getDuration());
         excursionService.create(exc);
     }
 
@@ -47,7 +48,7 @@ public class ExcursionFacadeImpl implements ExcursionFacade {
         if(id == null){
             throw new IllegalArgumentException("param id is null");
         } else if (excursionService.getById(id) == null){
-            throw new IllegalArgumentException("desired excursion doesnt exist");
+            throw new IllegalArgumentException("desired excursion does not exist");
         }
         
         excursionService.delete(excursionService.getById(id));
@@ -58,11 +59,10 @@ public class ExcursionFacadeImpl implements ExcursionFacade {
     public void update(ExcursionDTO excursion) {
         if(excursion == null){
             throw new IllegalArgumentException("param excursion is null");
-        } else if (excursionService.getById(excursion.getId()) == null){
-            throw new IllegalArgumentException("desired excursion doesnt exist");
         }
         
         Excursion mappedExcursion = dozerMapperService.mapTo(excursion, Excursion.class);
+        mappedExcursion.setDuration(excursion.getDuration());
         excursionService.update(mappedExcursion);
     }
 
@@ -71,15 +71,22 @@ public class ExcursionFacadeImpl implements ExcursionFacade {
         if(id == null){
             throw new IllegalArgumentException("param id is null");
         } else if (excursionService.getById(id) == null){
-            throw new IllegalArgumentException("desired excursion doesnt exist");
+            throw new IllegalArgumentException("desired excursion does not exist");
         }
-        
-        return dozerMapperService.mapTo(excursionService.getById(id), ExcursionDTO.class);
+        Excursion excursion = excursionService.getById(id);
+        ExcursionDTO excursionDTO = dozerMapperService.mapTo(excursion, ExcursionDTO.class);
+        excursionDTO.setDuration(excursion.getDuration());
+        return excursionDTO;
     }
 
     @Override
     public List<ExcursionDTO> getAll() {
-        return dozerMapperService.mapTo(excursionService.getAll(), ExcursionDTO.class);
+        List<Excursion> excursions = excursionService.getAll();
+        List<ExcursionDTO> excursionDTOs = dozerMapperService.mapTo(excursions, ExcursionDTO.class);
+        for (int i = 0; i<excursionDTOs.size(); i++) {
+            excursionDTOs.get(i).setDuration(excursions.get(i).getDuration());
+        }
+        return excursionDTOs;
     }
     
 }
