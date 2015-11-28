@@ -1,7 +1,8 @@
 package cz.fi.muni.pa165.travelagency.service;
 
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 
 import cz.fi.muni.pa165.travelagency.dao.CustomerDao;
 import cz.fi.muni.pa165.travelagency.dao.ReservationDao;
@@ -33,8 +34,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import javax.validation.ConstraintViolationException;
 
 /**
  *
@@ -105,10 +104,8 @@ public class CustomerServiceTest extends AbstractTransactionalTestNGSpringContex
     
     @Test
     public void makeReservationReducesNumberOfAvailableTrips() {
-		doNothing().when(reservationDao).create(any(Reservation.class));
 		doNothing().when(tripDao).create(any(Trip.class));
-		when(reservation.getId()).thenReturn(15l);
-		//doReturn(Long.decode("15")).when(reservation).getId();
+		when(reservationDao.create(reservation)).thenReturn(15l);
 		customerService.makeReservation(customer, trip);
         Assert.assertEquals(trip.getNumberOfAvailable(), Integer.decode("2"));
     }

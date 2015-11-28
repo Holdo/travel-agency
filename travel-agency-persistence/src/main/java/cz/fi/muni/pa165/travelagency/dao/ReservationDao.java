@@ -14,8 +14,9 @@ public interface ReservationDao {
      * Creates a reservation entity in the database.
      * 
      * @param reservation to be created, must not be null
+     * @return long reservation id
      */
-    void create(Reservation reservation);
+    long create(Reservation reservation);
     
     /*
      * Updates a reservation entity in the database.

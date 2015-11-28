@@ -18,8 +18,9 @@ public class ReservationDaoImpl implements ReservationDao {
     private EntityManager em;
 
     @Override
-    public void create(Reservation reservation) {
+    public long create(Reservation reservation) {
         em.persist(reservation);
+        return getById(reservation.getId()).getId();
     }
     
     @Override
