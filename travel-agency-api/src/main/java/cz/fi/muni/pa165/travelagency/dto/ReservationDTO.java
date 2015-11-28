@@ -1,4 +1,3 @@
-
 package cz.fi.muni.pa165.travelagency.dto;
 
 import java.math.BigDecimal;
@@ -12,7 +11,7 @@ public class ReservationDTO {
     
     private Long id;
     private BigDecimal price;
-    private UserDTO customer;
+    private CustomerDTO customer;
     private TripDTO trip;
     
     public Long getId() {
@@ -31,11 +30,11 @@ public class ReservationDTO {
         this.price = price;
     }
 
-    public UserDTO getCustomer() {
+    public CustomerDTO getCustomer() {
         return customer;
     }
 
-    public void setCustomer(UserDTO customer) {
+    public void setCustomer(CustomerDTO customer) {
         this.customer = customer;
     }
 

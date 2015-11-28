@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.travelagency.dto;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -106,26 +107,27 @@ public class TripDTO {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof TripDTO)) return false;
-
-		TripDTO tripDTO = (TripDTO) o;
-
-		if (!getDateFrom().equals(tripDTO.getDateFrom())) return false;
-		if (!getDateTo().equals(tripDTO.getDateTo())) return false;
-		if (!getDestination().equals(tripDTO.getDestination())) return false;
-		if (!getNumberOfAvailable().equals(tripDTO.getNumberOfAvailable())) return false;
-		return getPrice().equals(tripDTO.getPrice());
+	public int hashCode() {
+		int hash = 7;
+		hash = 37 * hash + Objects.hashCode(this.dateFrom);
+		hash = 37 * hash + Objects.hashCode(this.dateTo);
+		hash = 37 * hash + Objects.hashCode(this.destination);
+		hash = 37 * hash + Objects.hashCode(this.numberOfAvailable);
+		hash = 37 * hash + Objects.hashCode(this.price);
+		return hash;
 	}
 
 	@Override
-	public int hashCode() {
-		int result = getDateFrom().hashCode();
-		result = 31 * result + getDateTo().hashCode();
-		result = 31 * result + getDestination().hashCode();
-		result = 31 * result + getNumberOfAvailable().hashCode();
-		result = 31 * result + getPrice().hashCode();
-		return result;
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (!(obj instanceof TripDTO)) return false;
+		final TripDTO other = (TripDTO) obj;
+		if (!Objects.equals(this.dateFrom, other.getDateFrom())) return false;
+		if (!Objects.equals(this.dateTo, other.getDateTo())) return false;
+		if (!Objects.equals(this.destination, other.getDestination())) return false;
+		if (!Objects.equals(this.numberOfAvailable, other.getNumberOfAvailable())) return false;
+		if (!Objects.equals(this.price, other.getPrice())) return false;
+		return true;
 	}
 }

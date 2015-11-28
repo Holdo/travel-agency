@@ -48,10 +48,10 @@ public class DozerMapperServiceTest extends AbstractTestNGSpringContextTests {
         reservations = customer.getReservations();
     }
     
-    /*@Test
+    @Test
     public void collectionMappingTest(){
     	List<ReservationDTO> listOfDTOS = dms.mapTo(reservations, ReservationDTO.class);
-    	Assert.assertEquals(listOfDTOS.get(0).getCustomer(), customer);
-    }*/
+    	Assert.assertEquals(listOfDTOS.get(0).getCustomer().getLastName(), "Hasselhoff");
+    }
     
 }
