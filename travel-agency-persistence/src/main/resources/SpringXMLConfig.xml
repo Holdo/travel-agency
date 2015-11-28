@@ -16,13 +16,16 @@
     
     <jdbc:embedded-database id="dataSource" type="DERBY" />
     
-    <bean id="EntityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource" />
+        <property name="loadTimeWeaver" ref="loadTimeWeaver" />
         <property name="persistenceProviderClass" value="org.hibernate.jpa.HibernatePersistenceProvider" />
     </bean>
+
+    <bean id="loadTimeWeaver" class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" />
     
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="EntityManagerFactory" />
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager" />
     

@@ -36,8 +36,6 @@ public class ExcursionFacadeImpl implements ExcursionFacade {
     public void create(ExcursionDTO excursion) {
         if(excursion == null){
             throw new IllegalArgumentException("param excursion is null");
-        } else if (excursionService.getById(excursion.getId()) == null){
-            throw new IllegalArgumentException("desired excursion doesnt exist");
         }
         
         Excursion exc = dozerMapperService.mapTo(excursion, Excursion.class);

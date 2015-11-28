@@ -107,7 +107,7 @@ public class CustomerServiceTest extends AbstractTransactionalTestNGSpringContex
     public void makeReservationReducesNumberOfAvailableTrips() {
 		doNothing().when(reservationDao).create(any(Reservation.class));
 		doNothing().when(tripDao).create(any(Trip.class));
-		when(reservation.getId()).thenReturn(Long.decode("15"));
+		when(reservation.getId()).thenReturn(15l);
 		//doReturn(Long.decode("15")).when(reservation).getId();
 		customerService.makeReservation(customer, trip);
         Assert.assertEquals(trip.getNumberOfAvailable(), Integer.decode("2"));
