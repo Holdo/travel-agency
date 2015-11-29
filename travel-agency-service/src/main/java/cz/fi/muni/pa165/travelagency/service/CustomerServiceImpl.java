@@ -80,7 +80,7 @@ public class CustomerServiceImpl implements CustomerService {
 		long createdReservationId = reservationDao.create(reservation);
 
 		customer.addReservation(reservation);
-		update(customer);
+		customerDao.update(customer);
 		trip.addReservation(reservation);
 		trip.setNumberOfAvailable(trip.getNumberOfAvailable()-1);
 		tripDao.update(trip);

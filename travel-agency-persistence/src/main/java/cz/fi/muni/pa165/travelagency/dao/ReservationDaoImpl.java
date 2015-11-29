@@ -7,7 +7,6 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 /**
- *
  * 
  * @author Michal Holic
  */
@@ -20,7 +19,7 @@ public class ReservationDaoImpl implements ReservationDao {
     @Override
     public long create(Reservation reservation) {
         em.persist(reservation);
-        return getById(reservation.getId()).getId();
+        return reservation.getId();
     }
     
     @Override
