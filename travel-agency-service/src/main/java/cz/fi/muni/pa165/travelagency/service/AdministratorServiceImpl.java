@@ -2,6 +2,8 @@ package cz.fi.muni.pa165.travelagency.service;
 
 import cz.fi.muni.pa165.travelagency.dao.AdministratorDao;
 import cz.fi.muni.pa165.travelagency.entity.Administrator;
+import cz.fi.muni.pa165.travelagency.entity.Trip;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,9 @@ public class AdministratorServiceImpl implements AdministratorService {
     
     @Autowired
     private AdministratorDao administratorDao;
+    
+    @Autowired
+    private TripService tripService;
     
     @Override
     public void create(Administrator trip) {
@@ -39,5 +44,29 @@ public class AdministratorServiceImpl implements AdministratorService {
     @Override
     public List<Administrator> getAll() {
 	return administratorDao.getAll();
+    }
+
+    @Override
+    public List<Trip> getTripsWithoutExcursions() {
+        List<Trip> tripListIn = tripService.getAll();
+        List<Trip> tripListOut = new ArrayList<Trip>();
+        for(Trip trip : tripListIn){
+            if(trip.getExcursions().isEmpty()){
+                tripListOut.add(trip);
+            }
+        }
+        return tripListOut;
+    }
+
+    @Override
+    public List<Trip> getTripsUnavailble() {
+        List<Trip> tripListIn = tripService.getAll();
+        List<Trip> tripListOut = new ArrayList<Trip>();
+        for(Trip trip : tripListIn){
+            if(trip.getNumberOfAvailable() == 0){
+                tripListOut.add(trip);
+            }
+        }        
+        return tripListOut;
     }
 }
