@@ -2,6 +2,7 @@
 package cz.fi.muni.pa165.travelagency.service;
 
 import cz.fi.muni.pa165.travelagency.entity.Administrator;
+import cz.fi.muni.pa165.travelagency.entity.Trip;
 import java.util.List;
 
 /**
@@ -48,4 +49,19 @@ public interface AdministratorService {
      */
     List<Administrator> getAll();
     
+    /*
+     * Returns all the trips with no excursions.
+     * 
+     * @return List of all the specified trips
+     *         empty List if the are no such trips
+     */    
+    List<Trip> getTripsWithoutExcursions();
+    
+    /*
+     * Returns list of all the trips with no space for more custoemrs available
+     * 
+     * @return List of all the specified trips
+     *         empty List if the are no such trips
+     */
+    List<Trip> getTripsUnavailble();  
 }
