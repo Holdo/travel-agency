@@ -14,7 +14,6 @@ import cz.fi.muni.pa165.travelagency.entity.Trip;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.Duration;
-import java.util.Set;
 
 import cz.fi.muni.pa165.travelagency.exceptions.TravelAgencyServiceException;
 import org.hibernate.service.spi.ServiceException;
@@ -23,13 +22,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -42,30 +35,22 @@ import org.testng.annotations.Test;
 @ContextConfiguration(locations = "/SpringXMLConfig.xml")
 public class CustomerServiceTest extends AbstractTransactionalTestNGSpringContextTests {
 
-	@Mock
-	private ReservationDao reservationDao;
+    @Autowired
+    @Mock
+    private ReservationDao reservationDao;
 
-	@Mock
-	private CustomerDao customerDao;
+    @Mock
+    private CustomerDao customerDao;
 
-	@Mock
-	private TripDao tripDao;
+    @Mock
+    private TripDao tripDao;
 
-	@Mock
-	private Reservation reservation;
+    @Mock
+    private Reservation reservation;
     
     @Autowired
-	@InjectMocks
+    @InjectMocks
     private CustomerService customerService;
-
-	@Autowired
-	private ExcursionService excursionService;
-    
-    @Autowired
-    private ReservationService reservationService;
-    
-    @Autowired
-    private TripService tripService;
     
     @BeforeClass
     public void setup() throws ServiceException
@@ -74,22 +59,21 @@ public class CustomerServiceTest extends AbstractTransactionalTestNGSpringContex
     }
     
     private Customer customer = new Customer();
-	private Excursion excursion = new Excursion();
+    private Excursion excursion = new Excursion();
     private Trip trip = new Trip();
     
     @BeforeMethod
     public void prepareTestEntities(){
-    	customer.setEmail("customer@test.com");
+        customer.setEmail("customer@test.com");
         customer.setFirstName("David");
         customer.setLastName("Hasselhoff");
         customer.setPassword("password");
         customer.setUsername("Hoff");
 
-
-		excursion.setDate(Date.valueOf("2015-01-03"));
-		excursion.setDestination("Some nice islands.");
-		excursion.setDuration(Duration.ofHours(8));
-		excursion.setPrice(BigDecimal.valueOf(1250.50));
+        excursion.setDate(Date.valueOf("2015-01-03"));
+        excursion.setDestination("Some nice islands.");
+        excursion.setDuration(Duration.ofHours(8));
+        excursion.setPrice(BigDecimal.valueOf(1250.50));
 
         trip.setDateFrom(Date.valueOf("2015-01-02"));
         trip.setDateTo(Date.valueOf("2015-05-06"));
@@ -97,22 +81,30 @@ public class CustomerServiceTest extends AbstractTransactionalTestNGSpringContex
         trip.setNumberOfAvailable(3);
         trip.setPrice(BigDecimal.valueOf(12000.50));
 
-		excursion.setTrip(trip);
+        excursion.setTrip(trip);
 
-		trip.addExcursion(excursion);
+        trip.addExcursion(excursion);
     }
     
     @Test
     public void makeReservationReducesNumberOfAvailableTrips() {
-		doNothing().when(tripDao).create(any(Trip.class));
-		when(reservationDao.create(reservation)).thenReturn(15l);
-		customerService.makeReservation(customer, trip);
+        doNothing().when(customerDao).update(any(Customer.class));
+        doNothing().when(tripDao).update(any(Trip.class));
+        when(reservationDao.create(reservation)).thenReturn(15l);
+        customerService.makeReservation(customer, trip);
         Assert.assertEquals(trip.getNumberOfAvailable(), Integer.decode("2"));
     }
 
-	@Test(expectedExceptions = TravelAgencyServiceException.class)
-	public void makeReservationFailsIfNoTripsAreAvailable() {
-		trip.setNumberOfAvailable(0);
-		customerService.makeReservation(customer, trip);
-	}
+    @Test(expectedExceptions = TravelAgencyServiceException.class)
+    public void makeReservationFailsIfNoTripsAreAvailable() {
+        trip.setNumberOfAvailable(0);
+        customerService.makeReservation(customer, trip);
+    }
+
+    @Test //this test works if we turn off Mockito but doesnt work if it is on --- bug?
+    public void makeReservationFinalPriceTest() {
+        long reservationId = customerService.makeReservation(customer, trip);
+        Reservation newReservation = reservationDao.getById(reservationId);
+        Assert.assertEquals(newReservation.getPrice(), trip.getPrice().add(excursion.getPrice()));
+    }
 }

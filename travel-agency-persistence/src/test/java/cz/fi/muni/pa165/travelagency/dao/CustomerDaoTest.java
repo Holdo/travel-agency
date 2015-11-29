@@ -65,7 +65,7 @@ public class CustomerDaoTest extends AbstractTestNGSpringContextTests{
     
     @Test
     public void findByIdTest() {
-	Assert.assertNotNull(customerDao.getById(customer.getId()), "Customer wasn't found!");
+	    Assert.assertNotNull(customerDao.getById(customer.getId()), "Customer wasn't found!");
     }
     
     @Test
@@ -86,7 +86,7 @@ public class CustomerDaoTest extends AbstractTestNGSpringContextTests{
     @Test
     public void findAllTest() {                
         List<Customer> customers = customerDao.getAll();
-	Assert.assertEquals(customers.size(), 1, "There's an incorrect amount of customers in the database!");
+	    Assert.assertEquals(customers.size(), 1, "There's an incorrect amount of customers in the database!");
         Assert.assertTrue(customers.contains(customerDao.getById(customer.getId())), "Customer isn't present in the database!");
         
     }

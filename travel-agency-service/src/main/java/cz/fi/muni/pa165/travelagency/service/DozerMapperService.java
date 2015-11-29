@@ -10,15 +10,15 @@ import org.dozer.Mapper;
  * @author Michal Holic
  */
 public interface DozerMapperService {
-    public Mapper getMapper();
+    Mapper getMapper();
     
     /*
      * Maps classes
      */
-    public <T> T mapTo(Object u, Class<T> mapToClass);
+    <T> T mapTo(Object u, Class<T> mapToClass);
     
     /*
      * Maps collections
      */
-    public <T> List<T> mapTo(Collection<?> objects, Class<T> mapToClass);
+    <T> List<T> mapTo(Collection<?> objects, Class<T> mapToClass);
 }

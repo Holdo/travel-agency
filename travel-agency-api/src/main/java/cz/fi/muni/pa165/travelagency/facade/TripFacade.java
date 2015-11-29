@@ -14,20 +14,20 @@ public interface TripFacade {
      * 
      * @param trip to be created
      */
-    public void create(TripDTO trip);
+    void create(TripDTO trip);
     /*
      * Deletes a trip
      * 
      * @param trip to be deleted
      */
-    public void delete(Long id);
+    void delete(Long id);
     
     /*
      * Updates a trip
      * 
      * @param trip to be updated
      */
-    public void update(TripDTO trip);
+    void update(TripDTO trip);
     
     /*
      * Finds and returns a trip based on recieved id.
@@ -36,7 +36,7 @@ public interface TripFacade {
      * @return Trip object
      *         null if not found
      */
-    public TripDTO getById(Long id);
+    TripDTO getById(Long id);
     
     /*
      * Returns all the trips.
@@ -44,5 +44,5 @@ public interface TripFacade {
      * @return List of all the trips
      *         empty List if the are no trips
      */
-    public List<TripDTO> getAll();
+    List<TripDTO> getAll();
 }

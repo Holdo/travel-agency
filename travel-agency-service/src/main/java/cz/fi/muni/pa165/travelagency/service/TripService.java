@@ -19,21 +19,21 @@ public interface TripService {
     * @param trip
     * @return created Trip
     */ 
-   public Trip create(Trip trip);
+   Trip create(Trip trip);
    
    /**
     * update trip
     * 
     * @param trip which will be updated
     */
-   public void update(Trip trip);
+   void update(Trip trip);
    
    /**
     * delete trip
     * 
     * @param trip which will be deleted 
     */
-   public void delete(Trip trip);
+   void delete(Trip trip);
    
    /**
     * find trip by its id
@@ -41,13 +41,13 @@ public interface TripService {
     * @param id - id of trip which has to be found
     * @return trip which was found 
     */
-   public Trip getById(Long id);
+   Trip getById(Long id);
    
    /**
     * find all trips
     * 
     * @return list of all trips
     */
-   public List<Trip> getAll();
+   List<Trip> getAll();
     
 }
