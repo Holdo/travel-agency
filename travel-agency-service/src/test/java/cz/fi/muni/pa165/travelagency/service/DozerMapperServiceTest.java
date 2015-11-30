@@ -25,11 +25,12 @@ public class DozerMapperServiceTest extends AbstractTestNGSpringContextTests {
     @Autowired
     DozerMapperService dms;
     
-    private Customer customer = new Customer();
-    private Collection<Reservation> reservations = new HashSet<>();
+    private Customer customer;
+    private Collection<Reservation> reservations;
     
     @BeforeMethod
     public void createCustomerWithReservation(){
+        customer = new Customer();
         customer.setEmail("customer@test.com");
         customer.setFirstName("David");
         customer.setLastName("Hasselhoff");
@@ -44,7 +45,8 @@ public class DozerMapperServiceTest extends AbstractTestNGSpringContextTests {
         reservation.setTrip(new Trip());
         
         customer.addReservation(reservation);
-        
+
+        reservations = new HashSet<>();
         reservations = customer.getReservations();
     }
     

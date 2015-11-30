@@ -1,9 +1,7 @@
 package cz.fi.muni.pa165.travelagency.service.facade;
 
 import cz.fi.muni.pa165.travelagency.dto.TripDTO;
-import cz.fi.muni.pa165.travelagency.entity.Trip;
 import cz.fi.muni.pa165.travelagency.facade.TripFacade;
-import cz.fi.muni.pa165.travelagency.service.DozerMapperService;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -18,16 +16,11 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 
-import static org.junit.Assert.assertEquals;
-
 /**
- * @author Branislav Bohumel
+ * @author Michal Holic
  */
 @ContextConfiguration(locations = "/SpringXMLConfig.xml")
 public class TripFacadeTest extends AbstractTransactionalTestNGSpringContextTests {
-
-	@Autowired
-	private DozerMapperService dms;
 
 	@Autowired
 	private TripFacade tripFacade;

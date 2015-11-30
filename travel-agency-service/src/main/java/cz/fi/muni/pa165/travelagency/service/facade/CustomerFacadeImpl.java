@@ -2,14 +2,14 @@ package cz.fi.muni.pa165.travelagency.service.facade;
 
 import cz.fi.muni.pa165.travelagency.dto.CustomerDTO;
 import cz.fi.muni.pa165.travelagency.dto.TripDTO;
-import cz.fi.muni.pa165.travelagency.dto.UserDTO;
 import cz.fi.muni.pa165.travelagency.entity.Customer;
-import cz.fi.muni.pa165.travelagency.entity.Reservation;
 import cz.fi.muni.pa165.travelagency.entity.Trip;
 import cz.fi.muni.pa165.travelagency.facade.CustomerFacade;
 import cz.fi.muni.pa165.travelagency.service.CustomerService;
 import cz.fi.muni.pa165.travelagency.service.DozerMapperService;
 import java.util.Collection;
+
+import cz.fi.muni.pa165.travelagency.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,11 +26,31 @@ public class CustomerFacadeImpl extends UserFacadeImpl implements CustomerFacade
     private CustomerService customerService;
 
     @Autowired
+    private TripService tripService;
+
+    @Autowired
     private DozerMapperService dms;
 
     @Override
+    public void create(CustomerDTO customerDTO) {
+        customerService.create(dms.mapTo(customerDTO, Customer.class));
+    }
+
+    @Override
     public long makeReservation(CustomerDTO customerDTO, TripDTO tripDTO) {
-        return customerService.makeReservation(dms.mapTo(customerDTO, Customer.class), dms.mapTo(tripDTO, Trip.class));
+        Customer customer = customerService.getById(customerDTO.getId());
+        Trip trip = tripService.getById(tripDTO.getId());
+        return customerService.makeReservation(customer, trip);
+    }
+
+    @Override
+    public void update(CustomerDTO customerDTO) {
+        customerService.update(dms.mapTo(customerDTO, Customer.class));
+    }
+
+    @Override
+    public void delete(long id) {
+        customerService.delete(customerService.getById(id));
     }
 
     @Override

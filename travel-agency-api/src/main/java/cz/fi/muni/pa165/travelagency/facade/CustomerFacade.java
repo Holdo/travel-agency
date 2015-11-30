@@ -9,7 +9,14 @@ import java.util.Collection;
  * @author Michal Holic
  */
 public interface CustomerFacade extends UserFacade {
-    
+
+	/**
+     * Creates customer in the database
+     *
+     * @param customerDTO
+     */
+    void create(CustomerDTO customerDTO);
+
     /**
      * Makes reservation for Customer
      * 
@@ -17,6 +24,20 @@ public interface CustomerFacade extends UserFacade {
      * @param tripDTO - trip which customer wishes to reserve
      */
     long makeReservation(CustomerDTO customerDTO, TripDTO tripDTO);
+
+	/**
+	 * Updates customer in the database
+     *
+     * @param customerDTO
+     */
+    void update(CustomerDTO customerDTO);
+
+	/**
+	 * Deletes customer from the database by his id
+     *
+     * @param id
+     */
+    void delete(long id);
     
     /**
      * Finds Customer by id

@@ -8,26 +8,20 @@ import java.util.List;
  * @author Julius Stassik
  */
 public interface ReservationFacade {
-    /**
-     * Create reservation
-     * 
-     * @param reservation - reservation which will be created 
-     */
-    public void create(ReservationDTO reservation);
-    
+
     /**
      * Delete reservation specified by its id
      * 
      * @param id - id of deleted reservation
      */
-    public void delete(Long id);
+    void delete(Long id);
     
     /**
      * Update reservation
      * 
      * @param reservation - reservation which will be updated
      */
-    public void update(ReservationDTO reservation);
+    void update(ReservationDTO reservation);
     
     /**
      * Find reservation by its id
@@ -36,12 +30,12 @@ public interface ReservationFacade {
      * @return ReservationDTO - desired reservation or null when there is no 
      *                         reservation with specified id
      */
-    public ReservationDTO getById(Long id);
+    ReservationDTO getById(Long id);
     
     /**
      * find all reservations
      * 
      * @return list of all reservations
      */
-    public List<ReservationDTO> getAll();
+    List<ReservationDTO> getAll();
 }

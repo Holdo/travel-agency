@@ -58,23 +58,26 @@ public class CustomerServiceTest extends AbstractTransactionalTestNGSpringContex
         MockitoAnnotations.initMocks(this);
     }
     
-    private Customer customer = new Customer();
-    private Excursion excursion = new Excursion();
-    private Trip trip = new Trip();
+    private Customer customer;
+    private Excursion excursion;
+    private Trip trip;
     
     @BeforeMethod
     public void prepareTestEntities(){
+        customer = new Customer();
         customer.setEmail("customer@test.com");
         customer.setFirstName("David");
         customer.setLastName("Hasselhoff");
         customer.setPassword("password");
         customer.setUsername("Hoff");
 
+        excursion = new Excursion();
         excursion.setDate(Date.valueOf("2015-01-03"));
         excursion.setDestination("Some nice islands.");
         excursion.setDuration(Duration.ofHours(8));
         excursion.setPrice(BigDecimal.valueOf(1250.50));
 
+        trip = new Trip();
         trip.setDateFrom(Date.valueOf("2015-01-02"));
         trip.setDateTo(Date.valueOf("2015-05-06"));
         trip.setDestination("Zemplinska Sirava");
@@ -82,7 +85,6 @@ public class CustomerServiceTest extends AbstractTransactionalTestNGSpringContex
         trip.setPrice(BigDecimal.valueOf(12000.50));
 
         excursion.setTrip(trip);
-
         trip.addExcursion(excursion);
     }
     
@@ -90,7 +92,7 @@ public class CustomerServiceTest extends AbstractTransactionalTestNGSpringContex
     public void makeReservationReducesNumberOfAvailableTrips() {
         doNothing().when(customerDao).update(any(Customer.class));
         doNothing().when(tripDao).update(any(Trip.class));
-        when(reservationDao.create(reservation)).thenReturn(15l);
+        when(reservationDao.create(reservation)).thenReturn(15L);
         customerService.makeReservation(customer, trip);
         Assert.assertEquals(trip.getNumberOfAvailable(), Integer.decode("2"));
     }
@@ -101,8 +103,9 @@ public class CustomerServiceTest extends AbstractTransactionalTestNGSpringContex
         customerService.makeReservation(customer, trip);
     }
 
-    @Test //this test works if we turn off Mockito but doesnt work if it is on --- bug?
+    @Test //thenCallRealMethod() doesnt work as intended
     public void makeReservationFinalPriceTest() {
+        when(reservationDao.create(reservation)).thenCallRealMethod();
         long reservationId = customerService.makeReservation(customer, trip);
         Reservation newReservation = reservationDao.getById(reservationId);
         Assert.assertEquals(newReservation.getPrice(), trip.getPrice().add(excursion.getPrice()));

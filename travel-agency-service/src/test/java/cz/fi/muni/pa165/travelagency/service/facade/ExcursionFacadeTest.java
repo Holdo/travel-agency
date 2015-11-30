@@ -24,17 +24,19 @@ public class ExcursionFacadeTest extends AbstractTransactionalTestNGSpringContex
 	@Autowired
 	ExcursionFacade excursionFacade;
 
-	private ExcursionDTO excursion = new ExcursionDTO();
-	private TripDTO trip = new TripDTO();
+	private ExcursionDTO excursion;
+	private TripDTO trip;
 
 	@BeforeMethod
 	public void prepareTestEntities() {
+		trip = new TripDTO();
 		trip.setDateFrom(Date.valueOf("2015-01-02"));
 		trip.setDateTo(Date.valueOf("2015-05-06"));
 		trip.setDestination("Trip destination");
 		trip.setNumberOfAvailable(3);
 		trip.setPrice(new BigDecimal("12000.50"));
 
+		excursion = new ExcursionDTO();
 		excursion.setDate(Date.valueOf("2015-01-02"));
 		excursion.setDestination("Excursion destination");
 		excursion.setDuration(Duration.ofHours(6));

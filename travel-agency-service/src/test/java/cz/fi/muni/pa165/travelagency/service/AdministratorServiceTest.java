@@ -46,9 +46,6 @@ public class AdministratorServiceTest extends AbstractTransactionalTestNGSpringC
     @Autowired
     private TripService tripService;
     
-    @Autowired
-    private TripService excursionService;
-    
     private Administrator administrator, administrator2;
     private List<Administrator> administratorList = new ArrayList<>(); 
     
