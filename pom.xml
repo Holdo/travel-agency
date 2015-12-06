@@ -28,5 +28,6 @@
         <module>travel-agency-service</module>
         <module>travel-agency-rest</module>
         <module>travel-agency-spring-mvc</module>
-    </modules>
+    <module>travel-agency-sample-data</module>
+  </modules>
 </project>

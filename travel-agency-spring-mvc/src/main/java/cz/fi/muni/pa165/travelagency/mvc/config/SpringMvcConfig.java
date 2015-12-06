@@ -1,10 +1,11 @@
 package cz.fi.muni.pa165.travelagency.mvc.config;
 
+import cz.fi.muni.pa165.travelagency.sampledata.TravelAgencySampleDataConfiguration;
 import javax.validation.Validator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.Import;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  */
 @EnableWebMvc
 @Configuration
+@Import({TravelAgencySampleDataConfiguration.class})
 @ComponentScan(basePackages = "cz.fi.muni.pa165.travelagency.mvc.controllers")
 public class SpringMvcConfig extends WebMvcConfigurerAdapter {
     
