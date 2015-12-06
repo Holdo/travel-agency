@@ -23,6 +23,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.testng.Assert;
@@ -35,6 +36,7 @@ import org.testng.annotations.Test;
  * @author Michal Holic
  */
 @ContextConfiguration(locations = "/SpringXMLConfig.xml")
+@DirtiesContext(classMode=DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD) //this is here so the mockito does not affect other tests
 public class CustomerServiceTest extends AbstractTransactionalTestNGSpringContextTests {
 
     private ReservationDao reservationDao;

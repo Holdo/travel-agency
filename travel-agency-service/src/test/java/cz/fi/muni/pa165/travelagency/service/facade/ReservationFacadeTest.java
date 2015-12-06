@@ -62,12 +62,13 @@ public class ReservationFacadeTest extends AbstractTransactionalTestNGSpringCont
 		reservationDTO.setPrice(new BigDecimal("1100"));
 	}
 
-
 	@Test
 	public void crudTest(){
 		customerFacade.create(customerDTO);
 		tripFacade.create(tripDTO);
-		customerDTO.setId(customerFacade.findCustomerByEmail(customerDTO.getEmail()).getId());
+                CustomerDTO foundCustomer = customerFacade.findCustomerByEmail(customerDTO.getEmail());
+                Long foundCustomerId = foundCustomer.getId();
+                customerDTO.setId(foundCustomerId);
 		tripDTO.setId(tripFacade.getAll().get(0).getId());
 		long reservationId = customerFacade.makeReservation(customerDTO, tripDTO);
 		Assert.assertNotNull(reservationId);

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ImportResource;
  *
  * @author Michal Holic
  */
-@Configuration
+//@Configuration
 @ImportResource(locations = "classpath:SpringXMLConfig.xml")
 @ComponentScan(basePackageClasses = {SampleDataLoadingFacadeImpl.class})
 public class TravelAgencySampleDataConfiguration {

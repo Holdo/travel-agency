@@ -16,6 +16,6 @@ public interface CustomerService {
 	void delete(Customer customer);
 	List<Customer> getAll();
 	Customer getById(Long id);
-    Customer getByEmail(String email);
+        Customer getByEmail(String email);
 	long makeReservation(Customer customer, Trip trip);
 }
