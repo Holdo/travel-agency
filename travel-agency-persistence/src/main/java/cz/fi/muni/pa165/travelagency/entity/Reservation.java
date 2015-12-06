@@ -70,6 +70,16 @@ public class Reservation implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", price=" + price +
+                ", customer=" + customer +
+                ", trip=" + trip +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         int hash = 5;
         hash = 29 * hash + Objects.hashCode(this.price);

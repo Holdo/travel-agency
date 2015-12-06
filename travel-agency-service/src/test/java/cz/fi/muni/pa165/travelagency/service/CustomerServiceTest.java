@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import cz.fi.muni.pa165.travelagency.dao.CustomerDao;
 import cz.fi.muni.pa165.travelagency.dao.ReservationDao;
+import cz.fi.muni.pa165.travelagency.dao.ReservationDaoImpl;
 import cz.fi.muni.pa165.travelagency.dao.TripDao;
 import cz.fi.muni.pa165.travelagency.entity.Customer;
 import cz.fi.muni.pa165.travelagency.entity.Excursion;
@@ -19,6 +20,7 @@ import cz.fi.muni.pa165.travelagency.exceptions.TravelAgencyServiceException;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -35,9 +37,10 @@ import org.testng.annotations.Test;
 @ContextConfiguration(locations = "/SpringXMLConfig.xml")
 public class CustomerServiceTest extends AbstractTransactionalTestNGSpringContextTests {
 
-    @Autowired
-    @Mock
     private ReservationDao reservationDao;
+
+    @Autowired
+    private ReservationDao reservationDaoUnmocked;
 
     @Mock
     private CustomerDao customerDao;
@@ -45,13 +48,10 @@ public class CustomerServiceTest extends AbstractTransactionalTestNGSpringContex
     @Mock
     private TripDao tripDao;
 
-    @Mock
-    private Reservation reservation;
-    
     @Autowired
     @InjectMocks
     private CustomerService customerService;
-    
+
     @BeforeClass
     public void setup() throws ServiceException
     {
@@ -64,6 +64,8 @@ public class CustomerServiceTest extends AbstractTransactionalTestNGSpringContex
     
     @BeforeMethod
     public void prepareTestEntities(){
+        reservationDao = Mockito.mock(ReservationDaoImpl.class);
+
         customer = new Customer();
         customer.setEmail("customer@test.com");
         customer.setFirstName("David");
@@ -87,12 +89,12 @@ public class CustomerServiceTest extends AbstractTransactionalTestNGSpringContex
         excursion.setTrip(trip);
         trip.addExcursion(excursion);
     }
-    
+
     @Test
     public void makeReservationReducesNumberOfAvailableTrips() {
         doNothing().when(customerDao).update(any(Customer.class));
         doNothing().when(tripDao).update(any(Trip.class));
-        when(reservationDao.create(reservation)).thenReturn(15L);
+        when(reservationDao.create(any(Reservation.class))).thenReturn(15L);
         customerService.makeReservation(customer, trip);
         Assert.assertEquals(trip.getNumberOfAvailable(), Integer.decode("2"));
     }
@@ -103,11 +105,12 @@ public class CustomerServiceTest extends AbstractTransactionalTestNGSpringContex
         customerService.makeReservation(customer, trip);
     }
 
-    @Test //thenCallRealMethod() doesnt work as intended
+    @Test
     public void makeReservationFinalPriceTest() {
-        when(reservationDao.create(reservation)).thenCallRealMethod();
-        long reservationId = customerService.makeReservation(customer, trip);
-        Reservation newReservation = reservationDao.getById(reservationId);
+        when(reservationDao.create(any(Reservation.class))).thenCallRealMethod();
+        Long reservationId = customerService.makeReservation(customer, trip);
+        System.out.println("reservationId = " + reservationId);
+        Reservation newReservation = reservationDaoUnmocked.getById(reservationId);
         Assert.assertEquals(newReservation.getPrice(), trip.getPrice().add(excursion.getPrice()));
     }
 }
