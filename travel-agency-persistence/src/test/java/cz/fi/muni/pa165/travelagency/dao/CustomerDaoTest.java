@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import cz.fi.muni.pa165.travelagency.entity.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -49,6 +51,7 @@ public class CustomerDaoTest extends AbstractTestNGSpringContextTests{
         customer.setEmail("happycustomer@gmail.com");
         customer.setFirstName("Happy");
         customer.setLastName("Customer");
+        customer.setRole(UserRole.ROLE_USER);
         
         customerDao.create(customer);
         

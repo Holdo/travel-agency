@@ -1,10 +1,6 @@
 package cz.fi.muni.pa165.travelagency.sampledata;
 
-import cz.fi.muni.pa165.travelagency.entity.Administrator;
-import cz.fi.muni.pa165.travelagency.entity.Customer;
-import cz.fi.muni.pa165.travelagency.entity.Excursion;
-import cz.fi.muni.pa165.travelagency.entity.Reservation;
-import cz.fi.muni.pa165.travelagency.entity.Trip;
+import cz.fi.muni.pa165.travelagency.entity.*;
 import cz.fi.muni.pa165.travelagency.service.AdministratorService;
 import cz.fi.muni.pa165.travelagency.service.CustomerService;
 import cz.fi.muni.pa165.travelagency.service.ExcursionService;
@@ -50,6 +46,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         administrator.setFirstName(firstname);
         administrator.setLastName(lastname);
         administrator.setPassword(password);
+        administrator.setRole(UserRole.ROLE_ADMIN);
         administratorService.create(administrator);
         return administrator;
     }
@@ -61,6 +58,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         customer.setFirstName(firstname);
         customer.setLastName(lastname);
         customer.setPassword(password);
+        customer.setRole(UserRole.ROLE_USER);
         customerService.create(customer);
         return customer;
     }

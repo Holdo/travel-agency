@@ -4,6 +4,8 @@ import cz.fi.muni.pa165.travelagency.entity.Administrator;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import cz.fi.muni.pa165.travelagency.entity.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -43,6 +45,7 @@ public class AdministratorDaoTest extends AbstractTestNGSpringContextTests{
         administrator.setEmail("administrator@email.com");
         administrator.setFirstName("Admin");
         administrator.setLastName("the Cruel");
+        administrator.setRole(UserRole.ROLE_ADMIN);
         
         administratorDao.create(administrator);
     }

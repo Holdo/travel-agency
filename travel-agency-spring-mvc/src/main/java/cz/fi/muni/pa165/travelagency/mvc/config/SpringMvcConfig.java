@@ -22,7 +22,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @Configuration
 @Import({TravelAgencySampleDataConfiguration.class})
-@ComponentScan(basePackages = "cz.fi.muni.pa165.travelagency.mvc.controllers")
+@ComponentScan(basePackages = "cz.fi.muni.pa165.travelagency.mvc")
 public class SpringMvcConfig extends WebMvcConfigurerAdapter {
     
     @Override

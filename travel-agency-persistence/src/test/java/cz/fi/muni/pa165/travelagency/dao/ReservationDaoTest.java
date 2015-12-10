@@ -9,6 +9,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolationException;
+
+import cz.fi.muni.pa165.travelagency.entity.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -74,6 +76,7 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
         customer.setLastName("Vilko");
         customer.setPassword("password");
         customer.setUsername("dada");
+        customer.setRole(UserRole.ROLE_USER);
         
         customerDao.create(customer);
 

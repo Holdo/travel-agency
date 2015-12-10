@@ -11,6 +11,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import cz.fi.muni.pa165.travelagency.entity.UserRole;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -64,14 +65,16 @@ public class AdministratorServiceTest extends AbstractTransactionalTestNGSpringC
         administrator.setLastName("Policajt");
         administrator.setUsername("EvilAdmin");
         administrator.setPassword("IOwnYou");
-        administrator.setEmail("Evil@Admin.org");       
+        administrator.setEmail("Evil@Admin.org");
+        administrator.setRole(UserRole.ROLE_ADMIN);
         
         administrator2 = new Administrator();
         administrator2.setFirstName("Dobry");
         administrator2.setLastName("Policajt");
         administrator2.setUsername("GoodAdmin");
         administrator2.setPassword("IServeYou");
-        administrator2.setEmail("Good@Admin.org");  
+        administrator2.setEmail("Good@Admin.org");
+        administrator2.setRole(UserRole.ROLE_ADMIN);
         
         
         trip = new Trip();

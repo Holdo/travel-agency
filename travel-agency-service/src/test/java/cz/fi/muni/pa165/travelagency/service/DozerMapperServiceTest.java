@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+
+import cz.fi.muni.pa165.travelagency.entity.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -37,6 +39,7 @@ public class DozerMapperServiceTest extends AbstractTestNGSpringContextTests {
         customer.setId(Long.decode("1"));
         customer.setPassword("password");
         customer.setUsername("Hoff");
+        customer.setRole(UserRole.ROLE_USER);
         
         Reservation reservation = new Reservation();
         reservation.setId(Long.decode("1"));

@@ -1,11 +1,7 @@
 package cz.fi.muni.pa165.travelagency.entity;
 
 import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -31,6 +27,11 @@ public abstract class User {
     @NotNull
     @Column(nullable = false, unique = true)
     private String email;
+
+    @Enumerated
+    @NotNull
+    @Column
+    private UserRole role;
     
     @NotNull
     @Column(nullable = false)
@@ -79,6 +80,14 @@ public abstract class User {
         this.email = email;
     }
 
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
     public String getLastName() {
         return lastName;
     }
@@ -97,7 +106,7 @@ public abstract class User {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", username=" + username + ", email=" + email + ", lastName=" + lastName + ", firstName=" + firstName + '}';
+        return "User{" + "id=" + id + ", username=" + username + ", email=" + email + ", role=" + role + ", lastName=" + lastName + ", firstName=" + firstName + '}';
     }
 
     @Override

@@ -8,10 +8,8 @@ import cz.fi.muni.pa165.travelagency.dao.CustomerDao;
 import cz.fi.muni.pa165.travelagency.dao.ReservationDao;
 import cz.fi.muni.pa165.travelagency.dao.ReservationDaoImpl;
 import cz.fi.muni.pa165.travelagency.dao.TripDao;
-import cz.fi.muni.pa165.travelagency.entity.Customer;
-import cz.fi.muni.pa165.travelagency.entity.Excursion;
-import cz.fi.muni.pa165.travelagency.entity.Reservation;
-import cz.fi.muni.pa165.travelagency.entity.Trip;
+import cz.fi.muni.pa165.travelagency.entity.*;
+
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.Duration;
@@ -74,6 +72,7 @@ public class CustomerServiceTest extends AbstractTransactionalTestNGSpringContex
         customer.setLastName("Hasselhoff");
         customer.setPassword("password");
         customer.setUsername("Hoff");
+        customer.setRole(UserRole.ROLE_USER);
 
         excursion = new Excursion();
         excursion.setDate(Date.valueOf("2015-01-03"));
