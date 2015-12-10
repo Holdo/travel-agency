@@ -29,6 +29,8 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/index").setViewName("index");
+        registry.addViewController("/").setViewName("index");
+        registry.addViewController("/403").setViewName("403");
     }
     
     @Override
@@ -43,7 +45,16 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }
-    
+
+    @Bean
+    public InternalResourceViewResolver internalViewResolver() {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/jsp/");
+        resolver.setSuffix(".jsp");
+        return resolver;
+    }
+
+
     @Bean
     public Validator validator() {
         return new LocalValidatorFactoryBean();

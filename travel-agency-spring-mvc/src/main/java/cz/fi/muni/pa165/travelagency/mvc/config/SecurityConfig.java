@@ -26,22 +26,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery(
-                        "select username, password from Administrator where username=?")
+                        "select username, password, enabled from Administrator where username=?")
                 .authoritiesByUsernameQuery(
                         "select username, role from Administrator where username=?");
         auth.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery(
-                        "select username, password from Customer where username=?")
+                        "select username, password, enabled from Customer where username=?")
                 .authoritiesByUsernameQuery(
                         "select username, role from Customer where username=?");
     }
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        /*http
+        http
             .authorizeRequests()
-                .antMatchers("/resources/**").permitAll()
-                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
@@ -54,17 +52,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login?logout")
                 .permitAll()
                 .and()
-            .csrf();*/
-        http.authorizeRequests()
-                .antMatchers("/admin**").access("hasRole('ROLE_ADMIN')")
+            .exceptionHandling()
+                .accessDeniedPage("/403")
                 .and()
-                .formLogin().loginPage("/login").failureUrl("/login?error")
-                .usernameParameter("username").passwordParameter("password")
-                .and()
-                .logout().logoutSuccessUrl("/login?logout")
-                .and()
-                .exceptionHandling().accessDeniedPage("/403")
-                .and()
-                .csrf();
+            .csrf();
     }
 }
