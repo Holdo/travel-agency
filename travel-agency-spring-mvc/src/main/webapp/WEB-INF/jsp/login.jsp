@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Spring Security Example</title>
+    <title>Login</title>
     <style>
         body.security-app {
             text-align: center;
@@ -15,7 +15,6 @@
             width:100%;
             background:#edecec;
         }
-
 
         .lc-block {
             padding: 35px 55px 35px;
@@ -29,7 +28,7 @@
             animation-duration: 300ms;
             animation-fill-mode: both;
             z-index: 10;
-            margin-top:5%;
+            margin-top:1%;
             vertical-align:middle;
 
         }
@@ -53,13 +52,13 @@
             height: 100%;
         }
 
-        h2 {
-            color: white;
-        }
+        h4 {  color: white;  }
 
-        h1{
-            color:crimson;
-        }
+        h3 {  color: white;  }
+
+        h2 {  color: white;  }
+
+        h1{  color:crimson;  }
 
         input[type="text"], input[type="password"]  {
             display: block;
@@ -123,7 +122,6 @@
             padding: 15px;
             font-size: 16px;
             background-color: #f2dede;
-            border-color: #f2dede;
             color: #f44336;
             margin: 18px;
             border: 1px solid transparent;
@@ -133,10 +131,9 @@
             padding: 15px;
             font-size: 16px;
             margin: 18px;
-            border: 1px solid transparent;
             border-radius: 2px;
             background-color: #d9edf7;
-            border-color: #d9edf7;
+            border: 1px solid #d9edf7;
             color: #2196f3;
         }
     </style>
@@ -147,6 +144,11 @@
     <a href="http://www.programming-free.com/2015/09/spring-security-jdbc-authentication.html" class="button green small">Tutorial</a>
     <a href="https://github.com/priyadb/SpringSecurityJdbcApp/archive/master.zip"
        class="button red small">Download</a>
+</div>
+<div class="details">
+    <br/>
+    <h3>Login details:</h3>
+    <h4>Admin:      admin      admin<br/>Customer:   customer   customer</h4>
 </div>
 
 <form action="login" method="post">

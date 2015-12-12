@@ -11,7 +11,10 @@ import javax.validation.constraints.NotNull;
  */
 @MappedSuperclass
 public abstract class User {
-    
+
+    public User() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,6 +31,10 @@ public abstract class User {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @NotNull
+    @Column(nullable = false)
+    private boolean enabled = true;
+
     @Enumerated
     @NotNull
     @Column
@@ -40,9 +47,6 @@ public abstract class User {
     @NotNull
     @Column(nullable = false)
     private String firstName;
-
-    public User() {
-    }
 
     public User(Long id) {
         this.id = id;
@@ -80,6 +84,14 @@ public abstract class User {
         this.email = email;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public UserRole getRole() {
         return role;
     }
@@ -106,7 +118,7 @@ public abstract class User {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", username=" + username + ", email=" + email + ", role=" + role + ", lastName=" + lastName + ", firstName=" + firstName + '}';
+        return "User{" + "id=" + id + ", username=" + username + ", email=" + email + ", enabled=" + enabled + ", role=" + role + ", lastName=" + lastName + ", firstName=" + firstName + '}';
     }
 
     @Override

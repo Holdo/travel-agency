@@ -23,8 +23,8 @@ public class MainController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String defaultPage(Model model) {
-		model.addAttribute("title", "Spring Security Login Form - Database Authentication");
-		model.addAttribute("message", "This is default page!");
+		//model.addAttribute("title", "Spring Security Login Form - Database Authentication");
+		//model.addAttribute("message", "This is default page!");
 		return "index";
 	}
 

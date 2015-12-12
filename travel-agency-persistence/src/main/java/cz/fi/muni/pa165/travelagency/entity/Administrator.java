@@ -10,5 +10,8 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Administrator extends User implements Serializable {
-    
+
+	public Administrator() {
+		super();
+	}
 }

@@ -15,7 +15,11 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Customer extends User implements Serializable {
-    
+
+    public Customer() {
+        super();
+    }
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
     private Set<Reservation> reservations = new HashSet<>();
     
