@@ -66,7 +66,6 @@ public class AdministratorServiceTest extends AbstractTransactionalTestNGSpringC
         administrator.setUsername("EvilAdmin");
         administrator.setPassword("IOwnYou");
         administrator.setEmail("Evil@Admin.org");
-        administrator.setRole(UserRole.ROLE_ADMIN);
         
         administrator2 = new Administrator();
         administrator2.setFirstName("Dobry");
@@ -74,7 +73,6 @@ public class AdministratorServiceTest extends AbstractTransactionalTestNGSpringC
         administrator2.setUsername("GoodAdmin");
         administrator2.setPassword("IServeYou");
         administrator2.setEmail("Good@Admin.org");
-        administrator2.setRole(UserRole.ROLE_ADMIN);
         
         
         trip = new Trip();

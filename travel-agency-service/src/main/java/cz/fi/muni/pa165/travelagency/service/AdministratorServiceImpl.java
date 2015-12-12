@@ -5,7 +5,10 @@ import cz.fi.muni.pa165.travelagency.entity.Administrator;
 import cz.fi.muni.pa165.travelagency.entity.Trip;
 import java.util.ArrayList;
 import java.util.List;
+
+import cz.fi.muni.pa165.travelagency.entity.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,18 +25,25 @@ public class AdministratorServiceImpl implements AdministratorService {
     private TripService tripService;
     
     @Override
-    public void create(Administrator trip) {
-        administratorDao.create(trip);
+    public void create(Administrator admin) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        admin.setPassword(bCryptPasswordEncoder.encode(admin.getPassword()));
+        admin.setRole(UserRole.ROLE_ADMIN);
+        administratorDao.create(admin);
     }
 
     @Override
-    public void update(Administrator trip) {
-        administratorDao.update(trip);
+    public void update(Administrator admin) {
+        if (!admin.getPassword().equals("") && admin.getPassword() != null) {
+            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+            admin.setPassword(bCryptPasswordEncoder.encode(admin.getPassword()));
+        }
+        administratorDao.update(admin);
     }
 
     @Override
-    public void delete(Administrator trip) {
-        administratorDao.delete(trip);
+    public void delete(Administrator admin) {
+        administratorDao.delete(admin);
     }
 
     @Override

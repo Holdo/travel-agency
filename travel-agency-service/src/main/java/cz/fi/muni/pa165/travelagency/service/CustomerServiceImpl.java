@@ -3,16 +3,14 @@ package cz.fi.muni.pa165.travelagency.service;
 import cz.fi.muni.pa165.travelagency.dao.CustomerDao;
 import cz.fi.muni.pa165.travelagency.dao.ReservationDao;
 import cz.fi.muni.pa165.travelagency.dao.TripDao;
-import cz.fi.muni.pa165.travelagency.entity.Customer;
-import cz.fi.muni.pa165.travelagency.entity.Excursion;
-import cz.fi.muni.pa165.travelagency.entity.Reservation;
+import cz.fi.muni.pa165.travelagency.entity.*;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-import cz.fi.muni.pa165.travelagency.entity.Trip;
 import cz.fi.muni.pa165.travelagency.exceptions.TravelAgencyServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -33,11 +31,18 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public void create(Customer customer) {
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
+		customer.setRole(UserRole.ROLE_USER);
 		customerDao.create(customer);
 	}
 
 	@Override
 	public void update(Customer customer) {
+		if (!customer.getPassword().equals("") && customer.getPassword() != null) {
+			BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+			customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
+		}
 		customerDao.update(customer);
 	}
 
@@ -80,7 +85,7 @@ public class CustomerServiceImpl implements CustomerService {
 		long createdReservationId = reservationDao.create(reservation);
 
 		customer.addReservation(reservation);
-		customerDao.update(customer);
+		update(customer);
 		trip.addReservation(reservation);
 		trip.setNumberOfAvailable(trip.getNumberOfAvailable()-1);
 		tripDao.update(trip);

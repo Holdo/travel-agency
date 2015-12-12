@@ -140,14 +140,14 @@
     </head>
 <body class="security-app">
 <div class="details">
-    <h2>Spring Security - JDBC Authentication</h2>
+    <h2>Spring Security - JDBC BCrypt Authentication</h2>
     <a href="http://www.programming-free.com/2015/09/spring-security-jdbc-authentication.html" class="button green small">Tutorial</a>
     <a href="https://github.com/priyadb/SpringSecurityJdbcApp/archive/master.zip"
        class="button red small">Download</a>
 </div>
 <div class="details">
     <br/>
-    <h3>Login details:</h3>
+    <h3>Login info:</h3>
     <h4>Admin:      admin      admin<br/>Customer:   customer   customer</h4>
 </div>
 

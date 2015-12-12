@@ -39,7 +39,6 @@ public class DozerMapperServiceTest extends AbstractTestNGSpringContextTests {
         customer.setId(Long.decode("1"));
         customer.setPassword("password");
         customer.setUsername("Hoff");
-        customer.setRole(UserRole.ROLE_USER);
         
         Reservation reservation = new Reservation();
         reservation.setId(Long.decode("1"));

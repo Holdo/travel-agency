@@ -86,7 +86,6 @@ public class ReservationServiceTest extends AbstractJUnit4SpringContextTests {
         customer1.setLastName("Pokorny");
         customer1.setPassword("123456");
         customer1.setUsername("vladko");
-        customer1.setRole(UserRole.ROLE_USER);
         
         customer2 = new Customer();
         customer2.setEmail("velky@maly.sk");
@@ -94,7 +93,6 @@ public class ReservationServiceTest extends AbstractJUnit4SpringContextTests {
         customer2.setLastName("Janosik");
         customer2.setPassword("654321");
         customer2.setUsername("bohaty");
-        customer2.setRole(UserRole.ROLE_USER);
         
         
         reservation1 = new Reservation();
