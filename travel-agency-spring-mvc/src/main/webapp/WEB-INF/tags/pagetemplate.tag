@@ -48,36 +48,15 @@
                         <li><my:a href="/trip/list">Manage trips</my:a></li>
                     </ul>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-header">Javadocs</li>
-                        <li><a href="http://docs.oracle.com/javase/8/docs/api/">JDK 8 API</a></li>
-                        <li><a href="http://docs.oracle.com/javaee/6/api/">Java EE 6 API</a></li>
-                        <li><a href="http://docs.spring.io/spring/docs/current/javadoc-api/">Spring API</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Other</li>
-                        <li><a href="http://getbootstrap.com/css/">Bootstrap CSS</a></li>
-                        <li><a href="http://getbootstrap.com/components/">Bootstrap components</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">About<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="https://is.muni.cz/predmet/fi/podzim2015/PA165">PA165</a></li>
-                        <li>
-                            <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html">SpringMVC</a>
-                        </li>
-                        <li><a href="http://getbootstrap.com/">Bootstrap</a></li>
-                        <li><a href="https://maven.apache.org/">Maven</a></li>
-                    </ul>
-                </li>
             </ul>
             <div align="right" style="margin: 1rem;">
-                <form action="logout" method="post">
-                    <input type="submit" value="Sign Out"/> <input
-                        type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                </form>
+                <div style="display: inline-flex">
+                    <p style="color: white; padding-right: 1rem; margin: auto">${username}</p>
+                    <form action="logout" method="post">
+                        <input type="submit" value="Sign Out"/> <input
+                            type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -124,10 +103,11 @@
 
     <!-- page body -->
     <jsp:invoke fragment="body"/>
+    <br>
 
     <!-- footer -->
     <footer class="footer">
-        <p>&copy;&nbsp;<%=java.time.Year.now().toString()%>&nbsp;Masaryk University</p>
+        <p align="right">&copy;&nbsp;<%=java.time.Year.now().toString()%>&nbsp;M. Holič, D. Vilkoláková, J. Staššík, B. Bohumel - Masaryk University</p>
     </footer>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

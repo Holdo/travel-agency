@@ -1,5 +1,7 @@
 package cz.fi.muni.pa165.travelagency.dto;
 
+import java.util.Objects;
+
 /**
  *
  * @author Michal Holic
@@ -73,22 +75,21 @@ public abstract class UserDTO {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof UserDTO)) {
-            return false;
-        }
-
-        UserDTO userDTO = (UserDTO) o;
-
-        return getEmail().equals(userDTO.getEmail());
-
+    public int hashCode() {
+        int hash = 3;
+        hash = 67 * hash + Objects.hashCode(this.username);
+        hash = 67 * hash + Objects.hashCode(this.email);
+        return hash;
     }
 
     @Override
-    public int hashCode() {
-        return getEmail().hashCode();
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (!(obj instanceof UserDTO)) return false;
+        final UserDTO other = (UserDTO) obj;
+        if (!Objects.equals(this.username, other.getUsername())) return false;
+        if (!Objects.equals(this.email, other.getEmail())) return false;
+        return true;
     }
 }
