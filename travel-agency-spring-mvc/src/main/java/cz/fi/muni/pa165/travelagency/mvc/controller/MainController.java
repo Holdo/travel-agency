@@ -23,8 +23,6 @@ public class MainController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String defaultPage(Model model) {
-		//model.addAttribute("title", "Spring Security Login Form - Database Authentication");
-		//model.addAttribute("message", "This is default page!");
 		return "index";
 	}
 
@@ -41,13 +39,10 @@ public class MainController {
 	public String loginPost(@RequestParam(value = "username", required = true) String username,
 						   @RequestParam(value = "password", required = true) String password,
 						   Model model) {
-		log.error("I was here");
-		log.error(username);
-		log.error(password);
 		return "login";
 	}
 
-	//for 403 access denied page
+	//for 403 access denied page if user is disabled
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
 	public String accesssDenied(Model model) {
 		//check if user is login

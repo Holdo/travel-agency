@@ -35,8 +35,8 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     
     @Override
     public void loadData() throws IOException {
-        administrator("admin", "admin@admin.com", "Adminislav", "Adminovič", "$2a$04$rotbNApV5YhP5R/ziPJdgO2zp25lWfm93XVTKSuoppn1/IodxIEcC");
-        customer("customer", "customer@customer.com", "Nákuposlav", "Nákupník", "$2a$04$kkgXePevBjclCnhbzcrQrOorQfwVPiGZH9mS7WYylADBdx/uggBsK");
+        administrator("admin", "admin@admin.com", "Adminislav", "Adminovič", "admin");
+        customer("customer", "customer@customer.com", "Nákuposlav", "Nákupník", "customer");
     }
     
     protected Administrator administrator(String username, String email, String firstname, String lastname, String password) {

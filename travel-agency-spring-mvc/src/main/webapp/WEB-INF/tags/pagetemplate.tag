@@ -42,10 +42,10 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><my:a href="/order/list/all">One</my:a></li>
-                        <li><my:a href="/user/list">Two</my:a></li>
-                        <li><my:a href="/product/list">Three</my:a></li>
-                        <li><my:a href="/category/list">Four</my:a></li>
+                        <li><my:a href="/customer/list">List customers</my:a></li>
+                        <li><my:a href="/reservation/list">List reservations</my:a></li>
+                        <li><my:a href="/excursion/list">Manage excursions</my:a></li>
+                        <li><my:a href="/trip/list">Manage trips</my:a></li>
                     </ul>
                 </li>
                 <li class="dropdown">

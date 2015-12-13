@@ -7,6 +7,6 @@
 
 <my:pagetemplate title="Travel Agency">
     <jsp:attribute name="body">
-        </br>
+        <br>
 </jsp:attribute>
 </my:pagetemplate>
