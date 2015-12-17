@@ -72,7 +72,7 @@ public class CustomerServiceTest extends AbstractTransactionalTestNGSpringContex
         customer.setLastName("Hasselhoff");
         customer.setPassword("password");
         customer.setUsername("Hoff");
-        customer.setRole(UserRole.ROLE_USER);
+        customer.setRole(UserRole.ROLE_USER.toString());
 
         excursion = new Excursion();
         excursion.setDate(Date.valueOf("2015-01-03"));

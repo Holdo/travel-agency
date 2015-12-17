@@ -8,7 +8,7 @@ package cz.fi.muni.pa165.travelagency.entity;
 public enum UserRole {
 	ROLE_ADMIN("ROLE_ADMIN"), ROLE_USER("ROLE_USER");
 
-	private final String role;
+	private String role;
 
 	UserRole(String role) {
 		this.role = role;
@@ -16,5 +16,10 @@ public enum UserRole {
 
 	public String getRole() {
 		return this.role;
+	}
+
+	@Override
+	public String toString() {
+		return getRole();
 	}
 }

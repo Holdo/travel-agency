@@ -33,7 +33,7 @@ public class CustomerServiceImpl implements CustomerService {
 	public void create(Customer customer) {
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
-		customer.setRole(UserRole.ROLE_USER);
+		customer.setRole(UserRole.ROLE_USER.toString());
 		customerDao.create(customer);
 	}
 

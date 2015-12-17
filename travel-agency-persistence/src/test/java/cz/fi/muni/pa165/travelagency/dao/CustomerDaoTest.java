@@ -51,7 +51,7 @@ public class CustomerDaoTest extends AbstractTestNGSpringContextTests{
         customer.setEmail("happycustomer@gmail.com");
         customer.setFirstName("Happy");
         customer.setLastName("Customer");
-        customer.setRole(UserRole.ROLE_USER);
+        customer.setRole(UserRole.ROLE_USER.toString());
         
         customerDao.create(customer);
         
