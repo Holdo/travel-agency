@@ -116,22 +116,4 @@ public class TripDaoTest extends AbstractTestNGSpringContextTests {
 		tripDao.create(trip3);
 				
 	}
-	
-	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void removeNonExistEntity(){
-		Trip trip4 = new Trip();
-		
-		String dateFrom5 = "2015-09-11"; 
-		String dateTo6 = "2015-12-12";  
-		
-		trip4.setDateFrom(Date.valueOf(dateFrom5));
-		trip4.setDateTo(Date.valueOf(dateTo6));		
-		trip4.setDestination("Krivan");		
-		trip4.setNumberOfAvailable(5);
-		trip4.setPrice(new BigDecimal("500"));
-		
-		tripDao.delete(trip4);
-		
-	}
-	
 }

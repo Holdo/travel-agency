@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 /**
- *
  * @author Michal Holic
  */
 @RestController
@@ -30,7 +29,7 @@ public class TripsController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public final TripDTO getTrip(@PathVariable("id") long id) throws Exception {
 		TripDTO tripDTO = tripFacade.getById(id);
-		if (tripDTO == null){
+		if (tripDTO == null) {
 			throw new ResourceNotFoundException();
 		}
 		return tripDTO;
@@ -38,7 +37,7 @@ public class TripsController {
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public final void createProduct(@RequestBody TripDTO trip) throws Exception {
+	public final void createTrip(@RequestBody TripDTO trip) throws Exception {
 		try {
 			tripFacade.create(trip);
 		} catch (Exception ex) {
@@ -46,8 +45,15 @@ public class TripsController {
 		}
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public final void deleteProduct(@PathVariable("id") long id) throws Exception {
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public final TripDTO updateTrip(@PathVariable("id") long id, @RequestBody TripDTO tripDTO) throws Exception {
+		tripFacade.update(tripDTO);
+		return tripFacade.getById(id);
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public final void deleteTrip(@PathVariable("id") long id) throws Exception {
 		try {
 			tripFacade.delete(id);
 		} catch (Exception ex) {
