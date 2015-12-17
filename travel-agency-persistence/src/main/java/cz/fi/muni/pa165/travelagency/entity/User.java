@@ -35,10 +35,9 @@ public abstract class User {
     @Column(nullable = false)
     private boolean enabled = true;
 
-    @Enumerated
     @NotNull
     @Column
-    private UserRole role;
+    private String role;
     
     @NotNull
     @Column(nullable = false)
@@ -92,11 +91,11 @@ public abstract class User {
         this.enabled = enabled;
     }
 
-    public UserRole getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(UserRole role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

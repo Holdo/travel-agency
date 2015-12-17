@@ -45,7 +45,7 @@ public class AdministratorDaoTest extends AbstractTestNGSpringContextTests{
         administrator.setEmail("administrator@email.com");
         administrator.setFirstName("Admin");
         administrator.setLastName("the Cruel");
-        administrator.setRole(UserRole.ROLE_ADMIN);
+        administrator.setRole(UserRole.ROLE_ADMIN.toString());
         
         administratorDao.create(administrator);
     }

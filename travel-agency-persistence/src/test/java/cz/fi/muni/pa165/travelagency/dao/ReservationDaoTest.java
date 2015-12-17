@@ -76,7 +76,7 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
         customer.setLastName("Vilko");
         customer.setPassword("password");
         customer.setUsername("dada");
-        customer.setRole(UserRole.ROLE_USER);
+        customer.setRole(UserRole.ROLE_USER.toString());
         
         customerDao.create(customer);
 

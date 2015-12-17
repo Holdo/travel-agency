@@ -6,9 +6,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <my:pagetemplate title="Welcome! List of Trips:">
 <jsp:attribute name="body">
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
+        <h2>Admin mode initiated</h2>
+    </sec:authorize>
+
 
     <c:forEach items="${trips}" var="trip" varStatus="ic">
         <%--<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">--%>

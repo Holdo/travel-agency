@@ -28,7 +28,7 @@ public class AdministratorServiceImpl implements AdministratorService {
     public void create(Administrator admin) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         admin.setPassword(bCryptPasswordEncoder.encode(admin.getPassword()));
-        admin.setRole(UserRole.ROLE_ADMIN);
+        admin.setRole(UserRole.ROLE_ADMIN.toString());
         administratorDao.create(admin);
     }
 
