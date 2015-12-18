@@ -53,7 +53,7 @@
             <div align="right" style="margin: 1rem;">
                 <div style="display: inline-flex">
                     <p style="color: white; padding-right: 1rem; margin: auto"><c:out value="${username}"/></p>
-                    <form action="logout" method="post">
+                    <form action="/pa165/logout" method="post">
                         <input type="submit" value="Sign Out"/> <input
                             type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     </form>
