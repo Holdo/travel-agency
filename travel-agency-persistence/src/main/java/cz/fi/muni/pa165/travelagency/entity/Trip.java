@@ -1,5 +1,7 @@
 package cz.fi.muni.pa165.travelagency.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -7,13 +9,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -29,9 +25,13 @@ public class Trip implements Serializable {
     private Long id;
     
     @NotNull
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @Column(nullable = false)
     private Date dateFrom;
     
     @NotNull
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @Column(nullable = false)
     private Date dateTo;
     
     @NotNull

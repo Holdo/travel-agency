@@ -36,7 +36,8 @@ public class CustomerDaoImpl implements CustomerDao {
     @Override
     public Customer getById(Long id) {
         return em.find(Customer.class, id);
-    }
+    }        
+    
     
     @Override
     public Customer getByEmail(String email) {
@@ -55,5 +56,19 @@ public class CustomerDaoImpl implements CustomerDao {
     @Override
     public List<Customer> getAll() {
         return em.createQuery("SELECT c FROM Customer c", Customer.class).getResultList();
+    }
+
+    @Override
+    public Customer getByUsername(String username){
+        if (username == null || username.isEmpty()) {
+            throw new IllegalArgumentException("Cannot search Customer for a null username");
+        }
+
+        try {
+            return em.createQuery("SELECT c FROM Customer c where username=:username",
+                    Customer.class).setParameter("username", username).getSingleResult();
+        } catch (NoResultException nre) {
+            return null;
+        }
     }
 }

@@ -12,14 +12,15 @@
 <jsp:attribute name="body">
     <sec:authorize access="hasRole('ROLE_ADMIN')">
         <h2>Admin mode initiated</h2>
+        <my:a href="/trip/new" class="btn btn-primary">Create new trip</my:a>
     </sec:authorize>
 
 
     <c:forEach items="${trips}" var="trip" varStatus="ic">
         <%--<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">--%>
         <div class="thumbnail">
-            <a href="${pageContext.request.contextPath}/trip/${trip.id}"><h2 style="margin-top: 10px">${ic.count}.
-                <c:out value="${trip.destination}"/></h2></a>
+            <a href="${pageContext.request.contextPath}/trip/${trip.id}"><h2 style="margin-top: 10px"><c:out value="${ic.count}.
+                ${trip.destination}"/></h2></a>
             <div class="caption">
                 <span style="font-weight: bold;">Dates: </span>from <fmt:formatDate value="${trip.dateFrom}" pattern="dd-MM-yyyy"/> to <fmt:formatDate value="${trip.dateTo}" pattern="dd-MM-yyyy"/><br>
                 <span style="font-weight: bold;">Price: </span><span style="color: green; font-weight: bold;"><c:out value="${trip.price} CZK"/></span><br>
@@ -43,6 +44,16 @@
                     </c:otherwise>
                 </c:choose>
             </div>
+                <my:a href="/reservation/create/${trip.id}" class="btn btn-primary">Reserve</my:a><br>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <div style="display: inline-flex">
+                        <my:a href="/trip/edit/${trip.id}" class="btn btn-primary">Edit</my:a>
+                        <form method="post" action="${pageContext.request.contextPath}/trip/delete/${trip.id}">
+                            <button type="submit" class="btn btn-primary">Delete</button>
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        </form>
+                    </div>
+                </sec:authorize>
             </div>
         </div>
         <%--</div>--%>
