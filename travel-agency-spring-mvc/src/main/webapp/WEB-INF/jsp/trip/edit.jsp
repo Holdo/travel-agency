@@ -50,7 +50,7 @@
         <div class="form-group ${price_error?'has-error':''}">
             <form:label path="price" cssClass="col-sm-2 control-label">Price</form:label>
             <div class="col-sm-10">
-                <form:input path="price" cssClass="form-control" placeholder="double" value="${price}" />
+                <form:input path="price" cssClass="form-control" placeholder="double (CZK)" value="${price}" />
                 <form:errors path="price" cssClass="help-block"/>
             </div>
         </div>

@@ -44,13 +44,17 @@
                     </c:otherwise>
                 </c:choose>
             </div>
+                <sec:authorize access="hasRole('ROLE_USER')">
                 <form method="post" action="${pageContext.request.contextPath}/reservation/create/${trip.id}">
+                    <br>
                     <button type="submit" class="btn btn-primary">
                         Reserve
                     </button>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                </form><br>
+                </form>
+                </sec:authorize>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <br>
                     <div style="display: inline-flex">
                         <my:a href="/trip/edit/${trip.id}" class="btn btn-primary">Edit</my:a>
                         <form method="post" action="${pageContext.request.contextPath}/trip/delete/${trip.id}">

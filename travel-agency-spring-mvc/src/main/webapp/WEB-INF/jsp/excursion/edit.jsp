@@ -45,7 +45,7 @@
     
     <c:choose>
     <c:when test="${excursion != null}">
-        <form:form method="post" action="${pageContext.request.contextPath}/excursion/update"
+        <form:form method="post" action="${pageContext.request.contextPath}/excursion/update/${id}"
                    modelAttribute="excursion" cssClass="form-horizontal">
             <div class="form-group ${destination_error?'has-error':''}">
                 <form:label path="destination" cssClass="col-sm-2 control-label">Destination: </form:label>
@@ -76,7 +76,7 @@
                 </div>
             </div>
 
-            <button class="btn btn-primary" type="submit">Save</button>
+            <button class="btn btn-primary" type="submit">Update</button>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form:form>
         <form method="post" action="${pageContext.request.contextPath}/excursion/delete/${excursion.id}">
@@ -105,14 +105,14 @@
         <div class="form-group ${duration_error?'has-error':''}">
             <form:label path="duration" cssClass="col-sm-2 control-label">Duration: </form:label>
             <div class="col-sm-10">
-                <form:input path="duration" cssClass="form-control" placeholder="integer"/>
+                <form:input path="duration" cssClass="form-control" placeholder="integer (hours)"/>
                 <form:errors path="duration" cssClass="help-block"/>
             </div>
         </div>
         <div class="form-group ${price_error?'has-error':''}">
             <form:label path="price" cssClass="col-sm-2 control-label">Price: </form:label>
             <div class="col-sm-10">
-                <form:input path="price" cssClass="form-control" placeholder="double"/>
+                <form:input path="price" cssClass="form-control" placeholder="double (CZK)"/>
                 <form:errors path="price" cssClass="help-block"/>
             </div>
         </div>

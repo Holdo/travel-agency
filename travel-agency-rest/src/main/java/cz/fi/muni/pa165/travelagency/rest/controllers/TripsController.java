@@ -4,9 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import cz.fi.muni.pa165.travelagency.dto.TripDTO;
 import cz.fi.muni.pa165.travelagency.facade.TripFacade;
 import cz.fi.muni.pa165.travelagency.rest.exceptions.ResourceAlreadyExistingException;
+import cz.fi.muni.pa165.travelagency.rest.exceptions.ResourceHasConstraintsException;
 import cz.fi.muni.pa165.travelagency.rest.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -48,7 +50,14 @@ public class TripsController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public final TripDTO updateTrip(@PathVariable("id") long id, @RequestBody TripDTO tripDTO) throws Exception {
-		tripFacade.update(tripDTO);
+		tripDTO.setId(id);
+		try {
+			tripFacade.update(tripDTO);
+		} catch (JpaSystemException e) {
+			throw new ResourceHasConstraintsException();
+		} catch (Exception ex) {
+			throw new ResourceNotFoundException();
+		}
 		return tripFacade.getById(id);
 	}
 
@@ -56,6 +65,8 @@ public class TripsController {
 	public final void deleteTrip(@PathVariable("id") long id) throws Exception {
 		try {
 			tripFacade.delete(id);
+		} catch (JpaSystemException e) {
+			throw new ResourceHasConstraintsException();
 		} catch (Exception ex) {
 			throw new ResourceNotFoundException();
 		}

@@ -31,10 +31,10 @@ public class TripDTOValidator implements Validator {
 			errors.rejectValue("destination", null, "Destination can not be empty.");
 		}
 		if (tripDTO.getDateFrom().compareTo(currentDate) < 0) {
-			errors.rejectValue("dateFrom", null, "It is impossible to add trip with a past date.");
+			errors.rejectValue("dateFrom", null, "It is not possible to add trip with a past date.");
 		}
 		if (tripDTO.getDateTo().compareTo(currentDate) < 0) {
-			errors.rejectValue("dateTo", null, "It is impossible to add trip with a past date.");
+			errors.rejectValue("dateTo", null, "It is not possible to add trip with a past date.");
 		}
 	}
 }

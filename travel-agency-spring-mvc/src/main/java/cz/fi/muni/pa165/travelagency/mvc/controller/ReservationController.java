@@ -78,8 +78,8 @@ public class ReservationController {
         
         CustomerDTO customerDTO = customerFacade.findCustomerByUsername(name);
         TripDTO tripDTO = tripFacade.getById(id);
-          
-        long id2 = -1l;
+
+        long id2 = -1L;
         try{
         id2 = customerFacade.makeReservation(customerDTO, tripDTO);
         } catch(Exception e){
@@ -87,7 +87,7 @@ public class ReservationController {
             return "redirect:" + uriBuilder.path("/index").toUriString();
         }
         
-        redirectAttributes.addFlashAttribute("alert_success", "Reservation with id " + id + " was created!");       
+        redirectAttributes.addFlashAttribute("alert_success", "Reservation with id " + id2 + " was created!");
         return "redirect:" + uriBuilder.path("/reservation/view/{id}").buildAndExpand(id = id2).encode().toUriString();
     }
     

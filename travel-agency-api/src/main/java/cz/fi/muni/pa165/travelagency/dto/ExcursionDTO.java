@@ -1,5 +1,7 @@
 package cz.fi.muni.pa165.travelagency.dto;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.Duration;
@@ -12,9 +14,18 @@ import java.util.Objects;
 public class ExcursionDTO {
     
     private Long id;
+
+    @NotNull
     private Date date;
+
+    @NotNull
     private Duration duration;
+
+    @NotNull
     private String destination;
+
+    @NotNull
+    @Min(0)
     private BigDecimal price;
 
     public Long getId() {

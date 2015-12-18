@@ -49,7 +49,9 @@
                 <span style="font-weight: bold;">Duration: </span><span style="color: black; font-weight: bold;"><c:out value="${excursion.duration.getSeconds()/3600}"/> hours</span><br>
                 <span style="font-weight: bold;">Price: </span><span style="color: green; font-weight: bold;"><c:out value="${excursion.price} CZK"/></span><br>
             </div>
+
             <form method="post" action="${pageContext.request.contextPath}/excursion/delete/${excursion.id}">
+                <my:a href="/excursion/edit/${excursion.id}" class="button blue">Edit</my:a>
                 <button type="submit" class="button darkred"> Delete
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </button>
