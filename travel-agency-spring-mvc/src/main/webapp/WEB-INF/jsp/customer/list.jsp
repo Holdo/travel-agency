@@ -28,7 +28,7 @@
         <tbody>
         <c:forEach items="${customers}" var="customer">
             <tr>
-                <td>${customer.id}</td>
+                <td><c:out value="${customer.id}"/></td>
                 <td><c:out value="${customer.username}"/></td>
                 <td><c:out value="${customer.email}"/></td>
                 <td><c:out value="${customer.firstName}"/></td>

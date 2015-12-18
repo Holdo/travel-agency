@@ -149,7 +149,7 @@
     <div class="alert-danger">
         <h3>You do not have permission to access this page!</h3>
     </div>
-    <form action="/logout" method="post">
+    <form action="/pa165/logout" method="post">
         <input type="submit" class="button red big" value="Sign in as different user" /> <input
             type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     </form>
