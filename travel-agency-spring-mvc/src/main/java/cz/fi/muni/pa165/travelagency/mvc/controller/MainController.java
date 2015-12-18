@@ -39,7 +39,7 @@ public class MainController {
 
 	final static Logger log = LoggerFactory.getLogger(MainController.class);
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
 	public String defaultPage(Model model) {
 		//get all trips
 		List<TripDTO> allTrips = tripFacade.getAll();
@@ -65,11 +65,6 @@ public class MainController {
 		return "index";
 	}
 
-	@RequestMapping("/excursionImage/{id}")
-	public void productImage(@PathVariable long id, HttpServletRequest request, HttpServletResponse response) throws IOException {
-		response.sendRedirect(request.getContextPath()+"/no-image.png");
-	}
-
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGet(@RequestParam(value = "error", required = false) String error,
 						@RequestParam(value = "logout", required = false) String logout,
@@ -87,7 +82,7 @@ public class MainController {
 	}
 
 	//for 403 access denied page if user is disabled
-	@RequestMapping(value = "/403", method = RequestMethod.GET)
+	@RequestMapping(value = "/403", method = {RequestMethod.GET, RequestMethod.POST})
 	public String accesssDenied(Model model) {
 		//check if user is login
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

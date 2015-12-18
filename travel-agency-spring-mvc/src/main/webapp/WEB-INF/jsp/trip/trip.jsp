@@ -17,10 +17,11 @@
     <div class="row">
         <div class="col-xs-6">
             <h3><c:out value="${trip.destination}"/></h3>
-            Current price: <span style="color: red; font-weight: bold;">${trip.price}&nbsp;
-            Start date: <span style="color: black; font-weight: bold;"><fmt:formatDate value="${trip.dateFrom}" pattern="yyyy-MM-dd"/>&nbsp;
-            End date: <span style="color: black; font-weight: bold;"><fmt:formatDate value="${trip.dateTo}" pattern="yyyy-MM-dd"/>&nbsp;
-            Current number of available: <span style="color: red; font-weight: bold;"><c:out value="${trip.numberOfAvailable}"/>&nbsp;</span>
+            Current price: <span style="color: red; font-weight: bold;">${trip.price}</span><br>
+            Start date: <span style="color: black; font-weight: bold;"><fmt:formatDate value="${trip.dateFrom}" pattern="yyyy-MM-dd"/>;<br>
+            End date: <span style="color: black; font-weight: bold;"><fmt:formatDate value="${trip.dateTo}" pattern="yyyy-MM-dd"/>;<br>
+            Current number of available: <span style="color: red; font-weight: bold;"><c:out value="${trip.numberOfAvailable}"/>;</span><br>
         </div>
+    </div>
 </jsp:attribute>
 </my:pagetemplate>

@@ -1,3 +1,5 @@
+<%--Author: Michal Holic--%>
+
 <%@ tag pageEncoding="utf-8" dynamic-attributes="dynattrs" trimDirectiveWhitespaces="true" %>
 <%@ attribute name="title" required="false" %>
 <%@ attribute name="head" fragment="true" %>
@@ -45,13 +47,12 @@
                         <li><my:a href="/customer/list">List customers</my:a></li>
                         <li><my:a href="/reservation/list">List reservations</my:a></li>
                         <li><my:a href="/excursion/list">Manage excursions</my:a></li>
-                        <li><my:a href="/trip/list">Manage trips</my:a></li>
                     </ul>
                 </li>
             </ul>
             <div align="right" style="margin: 1rem;">
                 <div style="display: inline-flex">
-                    <p style="color: white; padding-right: 1rem; margin: auto">${username}</p>
+                    <p style="color: white; padding-right: 1rem; margin: auto"><c:out value="${username}"/></p>
                     <form action="logout" method="post">
                         <input type="submit" value="Sign Out"/> <input
                             type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
