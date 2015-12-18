@@ -55,6 +55,8 @@ public interface CustomerFacade extends UserFacade {
      */
     CustomerDTO findCustomerByEmail(String email);
     
+    CustomerDTO findCustomerByUsername(String username);
+    
     /**
      * Finds all Customers in the database
      * 

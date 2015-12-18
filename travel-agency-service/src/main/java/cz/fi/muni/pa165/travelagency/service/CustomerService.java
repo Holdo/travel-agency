@@ -17,5 +17,6 @@ public interface CustomerService {
 	List<Customer> getAll();
 	Customer getById(Long id);
         Customer getByEmail(String email);
+        Customer getByUsername(String username);
 	long makeReservation(Customer customer, Trip trip);
 }

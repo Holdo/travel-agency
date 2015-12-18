@@ -54,4 +54,6 @@ public interface CustomerDao {
      *         List is empty if the are no customers in the database
      */
     List<Customer> getAll();
+    
+    Customer getByUsername(String username);
 }
