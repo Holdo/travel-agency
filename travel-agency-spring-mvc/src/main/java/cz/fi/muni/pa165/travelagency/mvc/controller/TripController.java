@@ -1,11 +1,14 @@
 package cz.fi.muni.pa165.travelagency.mvc.controller;
 
+import cz.fi.muni.pa165.travelagency.dto.ExcursionDTO;
 import cz.fi.muni.pa165.travelagency.dto.TripDTO;
+import cz.fi.muni.pa165.travelagency.facade.ExcursionFacade;
 import cz.fi.muni.pa165.travelagency.facade.TripFacade;
 import cz.fi.muni.pa165.travelagency.mvc.forms.TripDTOValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +25,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.validation.Valid;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -30,6 +36,9 @@ import java.text.SimpleDateFormat;
 @Controller
 @RequestMapping("/trip")
 public class TripController {
+
+	@Autowired
+	private ExcursionFacade excursionFacade;
 
 	@Autowired
 	private TripFacade tripFacade;
@@ -41,6 +50,24 @@ public class TripController {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+
+		binder.registerCustomEditor(Set.class, new CustomCollectionEditor(Set.class) {
+			@Override
+			protected Object convertElement(Object element) {
+				if (element == null) return null;
+				Set<ExcursionDTO> excursions = new HashSet<>();
+				if (element instanceof String) {
+					String id = (String) element;
+					excursions.add(excursionFacade.getById(Long.decode(id)));
+				} else {
+					String[] excursionsArray = (String[]) element;
+					for (String id : excursionsArray) {
+						excursions.add(excursionFacade.getById(Long.decode(id)));
+					}
+				}
+				return excursions;
+			}
+		});
 		if (binder.getTarget() instanceof TripDTO) {
 			binder.addValidators(new TripDTOValidator());
 		}
@@ -134,5 +161,10 @@ public class TripController {
 			redirectAttributes.addFlashAttribute("alert_warning", e.getMessage());
 		}
 		return "redirect:" + uriBuilder.path("/index").toUriString();
+	}
+
+	@ModelAttribute("excursions")
+	public List<ExcursionDTO> excursions() {
+		return excursionFacade.getAll();
 	}
 }
