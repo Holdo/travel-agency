@@ -65,6 +65,11 @@ public class CustomerServiceImpl implements CustomerService {
 	public Customer getByEmail(String email) {
             return customerDao.getByEmail(email);
         }
+        
+        @Override
+	public Customer getByUsername(String username) {
+            return customerDao.getByUsername(username);
+        }
 
 	@Override
 	public long makeReservation(Customer customer, Trip trip) {
