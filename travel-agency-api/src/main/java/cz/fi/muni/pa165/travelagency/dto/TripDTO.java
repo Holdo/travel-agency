@@ -1,5 +1,7 @@
 package cz.fi.muni.pa165.travelagency.dto;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.HashSet;
@@ -14,14 +16,21 @@ public class TripDTO {
 
 	private Long id;
 
+	@NotNull
 	private Date dateFrom;
 
+	@NotNull
 	private Date dateTo;
 
+	@NotNull
 	private String destination;
 
+	@NotNull
+	@Min(0)
 	private Integer numberOfAvailable;
 
+	@NotNull
+	@Min(0)
 	private BigDecimal price;
 
 	private Set<ExcursionDTO> excursions = new HashSet<>();

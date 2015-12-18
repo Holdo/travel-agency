@@ -44,7 +44,12 @@
                     </c:otherwise>
                 </c:choose>
             </div>
-                <my:a href="/reservation/create/${trip.id}" class="btn btn-primary">Reserve</my:a><br>
+                <form method="post" action="${pageContext.request.contextPath}/reservation/create/${trip.id}">
+                    <button type="submit" class="btn btn-primary">
+                        Reserve
+                    </button>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form><br>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <div style="display: inline-flex">
                         <my:a href="/trip/edit/${trip.id}" class="btn btn-primary">Edit</my:a>

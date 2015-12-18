@@ -74,7 +74,7 @@ public class ReservationController {
         UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes){
         
         User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-          String name = user.getUsername();
+        String name = user.getUsername();
         
         CustomerDTO customerDTO = customerFacade.findCustomerByUsername(name);
         TripDTO tripDTO = tripFacade.getById(id);
