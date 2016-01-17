@@ -8,7 +8,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<!DOCTYPE html>
 <my:pagetemplate title="List of Reservations:">
     <jsp:attribute name="body">
         
@@ -34,7 +33,7 @@
                         <td><c:out value="${res.price}"/>&nbsp;CZK</td>
                         <td>
                             <form method="post" action="${pageContext.request.contextPath}/reservation/delete/${res.id}">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-danger">
                                     <span style="color: white;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                 </button>

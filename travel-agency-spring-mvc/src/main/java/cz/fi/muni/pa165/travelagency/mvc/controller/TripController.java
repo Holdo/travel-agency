@@ -4,6 +4,7 @@ import cz.fi.muni.pa165.travelagency.dto.ExcursionDTO;
 import cz.fi.muni.pa165.travelagency.dto.TripDTO;
 import cz.fi.muni.pa165.travelagency.facade.ExcursionFacade;
 import cz.fi.muni.pa165.travelagency.facade.TripFacade;
+import cz.fi.muni.pa165.travelagency.mvc.exceptions.NotFoundException;
 import cz.fi.muni.pa165.travelagency.mvc.forms.TripDTOValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,7 +76,9 @@ public class TripController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String trip(@PathVariable long id, Model model) {
-		model.addAttribute("trip", tripFacade.getById(id));
+		TripDTO tripDTO = tripFacade.getById(id);
+		if (tripDTO == null) throw new NotFoundException();
+		model.addAttribute("trip", tripDTO);
 		return "trip/trip";
 	}
 
@@ -111,22 +114,36 @@ public class TripController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String editTripForm(@PathVariable long id, Model model) {
-		TripDTO tripDTO = tripFacade.getById(id);
-		model.addAttribute("tripEdit", tripDTO);
-		model.addAttribute("id", id);
-		model.addAttribute("destination", tripDTO.getDestination());
-		model.addAttribute("dateFrom", tripDTO.getDateFrom());
-		model.addAttribute("dateTo", tripDTO.getDateTo());
-		model.addAttribute("numberOfAvailable", tripDTO.getNumberOfAvailable());
-		model.addAttribute("price", tripDTO.getPrice());
+		if (!model.containsAttribute("tripEdit")) {
+			TripDTO tripDTO = tripFacade.getById(id);
+			if (tripDTO == null) throw new NotFoundException();
+			model.addAttribute("tripEdit", tripDTO);
+			model.addAttribute("id", id);
+			model.addAttribute("destination", tripDTO.getDestination());
+			model.addAttribute("dateFrom", tripDTO.getDateFrom());
+			model.addAttribute("dateTo", tripDTO.getDateTo());
+			model.addAttribute("numberOfAvailable", tripDTO.getNumberOfAvailable());
+			model.addAttribute("price", tripDTO.getPrice());
+		}
 		return "trip/edit";
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-	public String updateTrip(@PathVariable long id, @Valid @ModelAttribute("tripEdit") TripDTO formBean,
-							 UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+	public String updateTrip(@PathVariable long id, @Valid @ModelAttribute("tripEdit") TripDTO formBean, BindingResult bindingResult,
+							 Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+		if (bindingResult.hasErrors()) {
+			for (ObjectError ge : bindingResult.getGlobalErrors()) {
+				log.trace("ObjectError: {}", ge);
+			}
+			for (FieldError fe : bindingResult.getFieldErrors()) {
+				model.addAttribute(fe.getField() + "_error", true);
+				log.trace("FieldError: {}", fe);
+			}
+			return editTripForm(id, model);
+		}
 		TripDTO tripDTO = tripFacade.getById(id);
+		if (tripDTO == null) throw new NotFoundException();
 		if (formBean.getDateFrom() != null) tripDTO.setDateFrom(formBean.getDateFrom());
 		if (formBean.getDateTo() != null) tripDTO.setDateTo(formBean.getDateTo());
 		if (formBean.getPrice() != null) tripDTO.setPrice(formBean.getPrice());
@@ -146,6 +163,7 @@ public class TripController {
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
 	public String deleteTrip(@PathVariable long id, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
 		TripDTO tripDTO = tripFacade.getById(id);
+		if (tripDTO == null) throw new NotFoundException();
 		if (tripDTO.getReservations().size() != 0) {
 			redirectAttributes.addFlashAttribute("alert_warning", "Trip id " + id + " was not deleted because there is a reservation to it.");
 			return "redirect:" + uriBuilder.path("/index").toUriString();

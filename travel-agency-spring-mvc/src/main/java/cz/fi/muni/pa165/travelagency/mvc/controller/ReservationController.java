@@ -6,6 +6,7 @@ import cz.fi.muni.pa165.travelagency.dto.TripDTO;
 import cz.fi.muni.pa165.travelagency.facade.CustomerFacade;
 import cz.fi.muni.pa165.travelagency.facade.ReservationFacade;
 import cz.fi.muni.pa165.travelagency.facade.TripFacade;
+import cz.fi.muni.pa165.travelagency.mvc.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,9 +39,8 @@ public class ReservationController {
     
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable long id, UriComponentsBuilder uriBuilder, 
-                                        RedirectAttributes redirectAttributes){
-                
+    public String delete(@PathVariable long id, UriComponentsBuilder uriBuilder,
+                         RedirectAttributes redirectAttributes){
         ReservationDTO reservationDTO;
         try{
             reservationDTO = reservationFacade.getById(id);
@@ -68,7 +68,8 @@ public class ReservationController {
         model.addAttribute("reservations", reservationFacade.getAll());        
         return "reservation/list";
     }
-    
+
+    @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/create/{id}", method = RequestMethod.POST)
     public String create(@PathVariable long id, 
         UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes){
@@ -78,6 +79,8 @@ public class ReservationController {
         
         CustomerDTO customerDTO = customerFacade.findCustomerByUsername(name);
         TripDTO tripDTO = tripFacade.getById(id);
+
+        if (customerDTO == null || tripDTO == null) throw new NotFoundException();
 
         long id2 = -1L;
         try{
@@ -92,8 +95,10 @@ public class ReservationController {
     }
     
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
-    public String view(@PathVariable long id, Model model){                        
-        model.addAttribute("reservation", reservationFacade.getById(id));
+    public String view(@PathVariable long id, Model model){
+        ReservationDTO reservationDTO = reservationFacade.getById(id);
+        if (reservationDTO == null) throw new NotFoundException();
+        model.addAttribute("reservation", reservationDTO);
         return "reservation/view";
     }
     

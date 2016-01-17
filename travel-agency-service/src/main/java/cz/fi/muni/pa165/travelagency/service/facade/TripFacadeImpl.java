@@ -1,11 +1,14 @@
 package cz.fi.muni.pa165.travelagency.service.facade;
 
 import cz.fi.muni.pa165.travelagency.dto.TripDTO;
+import cz.fi.muni.pa165.travelagency.entity.Excursion;
 import cz.fi.muni.pa165.travelagency.entity.Trip;
 import cz.fi.muni.pa165.travelagency.facade.TripFacade;
 import cz.fi.muni.pa165.travelagency.service.DozerMapperService;
 import cz.fi.muni.pa165.travelagency.service.TripService;
 import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,7 +43,9 @@ public class TripFacadeImpl implements TripFacade {
 
     @Override
     public TripDTO getById(Long id) {
-        return dozerMapperService.mapTo(tripService.getById(id), TripDTO.class);
+        Trip trip = tripService.getById(id);
+        if (trip == null) return null;
+        return dozerMapperService.mapTo(trip, TripDTO.class);
     }
 
     @Override

@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -58,5 +59,12 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
     @Bean
     public Validator validator() {
         return new LocalValidatorFactoryBean();
+    }
+
+    @Bean
+    public ResourceBundleMessageSource messageSource() {
+        ResourceBundleMessageSource resource = new ResourceBundleMessageSource();
+        resource.setBasename("messages");
+        return resource;
     }
 }

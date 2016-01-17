@@ -2,6 +2,7 @@ package cz.fi.muni.pa165.travelagency.mvc.controller;
 
 import cz.fi.muni.pa165.travelagency.dto.ExcursionDTO;
 import cz.fi.muni.pa165.travelagency.facade.ExcursionFacade;
+import cz.fi.muni.pa165.travelagency.mvc.exceptions.NotFoundException;
 import cz.fi.muni.pa165.travelagency.mvc.forms.ExcursionDTOValidator;
 import cz.fi.muni.pa165.travelagency.mvc.util.CustomDurationEditor;
 import org.slf4j.Logger;
@@ -61,34 +62,37 @@ public class ExcursionController {
 	@RequestMapping(value = "excursion/{id}", method = RequestMethod.GET)
 	public String excursionViewPage(Model model, @PathVariable("id") int id) {
 		//get the excursion
-		ExcursionDTO excursion;
-		if (id > excursionFacade.getAll().size()) {
-			return "excursion/view";
-		}
-		excursion = excursionFacade.getById(Long.valueOf(id));
-		model.addAttribute("excursion", excursion);
+		ExcursionDTO excursionDTO = excursionFacade.getById((long) id);
+		if (excursionDTO == null) throw new NotFoundException();
+		model.addAttribute("excursion", excursionDTO);
 		return "excursion/view";
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "excursion/edit/{id}", method = RequestMethod.GET)
 	public String excursionEditPage(Model model, @PathVariable("id") long id) {
 		//get the excursion
-		ExcursionDTO excursion;
-		if (id == 0) {
+		ExcursionDTO excursionDTO;
+		if (id == 0 && !model.containsAttribute("excursionEdit")) {
 			model.addAttribute("excursionCreate", new ExcursionDTO());
 			return "excursion/edit";
 		}
-		excursion = excursionFacade.getById(id);
-		model.addAttribute("id", id);
-		model.addAttribute("excursion", excursion);
+		if (!model.containsAttribute("excursionEdit")) {
+			excursionDTO = excursionFacade.getById(id);
+			if (excursionDTO == null) throw new NotFoundException();
+			model.addAttribute("id", id);
+			model.addAttribute("excursionEdit", excursionDTO);
+		}
 		return "excursion/edit";
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "excursion/delete/{id}", method = RequestMethod.POST)
 	public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
-		ExcursionDTO excursion = excursionFacade.getById(id);
+		ExcursionDTO excursionDTO = excursionFacade.getById(id);
+		if (excursionDTO == null) throw new NotFoundException();
 		excursionFacade.delete(id);
-		redirectAttributes.addFlashAttribute("alert_success", "Excursion \"" + excursion.getDestination() + "\" was deleted.");
+		redirectAttributes.addFlashAttribute("alert_success", "Excursion \"" + excursionDTO.getDestination() + "\" was deleted.");
 		return "redirect:" + uriBuilder.path("/excursion/list").toUriString();
 	}
 
@@ -119,7 +123,7 @@ public class ExcursionController {
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "excursion/update/{id}", method = RequestMethod.POST)
-	public String excursionUpdate(@Valid @ModelAttribute("excursionCreate") ExcursionDTO formBean, BindingResult bindingResult,
+	public String excursionUpdate(@Valid @ModelAttribute("excursionEdit") ExcursionDTO formBean, BindingResult bindingResult,
 								  @PathVariable("id") long id, Model model, RedirectAttributes redirectAttributes,
 								   UriComponentsBuilder uriBuilder) {
 		if (bindingResult.hasErrors()) {
@@ -130,9 +134,10 @@ public class ExcursionController {
 				model.addAttribute(fe.getField() + "_error", true);
 				log.trace("FieldError: {}", fe);
 			}
-			return "excursion/edit";
+			return excursionEditPage(model, id);
 		}
 		ExcursionDTO excursionDTO = excursionFacade.getById(id);
+		if (excursionDTO == null) throw new NotFoundException();
 		if (formBean.getDestination() != null) excursionDTO.setDestination(formBean.getDestination());
 		if (formBean.getPrice() != null) excursionDTO.setPrice(formBean.getPrice());
 		if (formBean.getDate() != null) excursionDTO.setDate(formBean.getDate());

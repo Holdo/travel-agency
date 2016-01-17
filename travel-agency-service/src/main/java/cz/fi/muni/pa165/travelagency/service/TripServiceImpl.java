@@ -48,7 +48,7 @@ public class TripServiceImpl implements TripService {
     @Override
     public Trip getById(Long id){
         
-        if (id == null || id < 0) throw new IllegalArgumentException("param id is null or < 0");
+        if (id == null || id < 0) return null;
         
         return tripDao.getById(id);
         

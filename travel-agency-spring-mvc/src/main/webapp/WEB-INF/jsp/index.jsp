@@ -58,7 +58,7 @@
                     <div style="display: inline-flex">
                         <my:a href="/trip/edit/${trip.id}" class="btn btn-primary">Edit</my:a>
                         <form method="post" action="${pageContext.request.contextPath}/trip/delete/${trip.id}">
-                            <button type="submit" class="btn btn-primary">Delete</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         </form>
                     </div>

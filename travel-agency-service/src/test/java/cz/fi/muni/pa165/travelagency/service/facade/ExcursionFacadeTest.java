@@ -56,13 +56,6 @@ public class ExcursionFacadeTest extends AbstractTransactionalTestNGSpringContex
 		Assert.assertEquals(excursionDTOs.size(), 1);
 		Assert.assertEquals(excursionDTOs.get(0).getDestination(), excursion.getDestination());
 		excursionFacade.delete(excursionId);
-		boolean deleted = false;
-		try {
-			excursionFacade.getById(excursionId);
-		} catch (IllegalArgumentException e) {
-			if (e.getMessage().equals("desired excursion does not exist"))
-				deleted = true;
-		}
-		Assert.assertTrue(deleted);
+		Assert.assertNull(excursionFacade.getById(excursionId));
 	}
 }

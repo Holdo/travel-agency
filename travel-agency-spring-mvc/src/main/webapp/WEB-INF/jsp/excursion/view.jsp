@@ -9,27 +9,6 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<style>
-    .button{
-        display:inline-block;
-        text-transform:uppercase;
-        padding:1em 1.5em 0.75em;
-        border-radius:2px;
-        font-weight:bold;
-        border:none;color:#fff !important;
-        text-decoration:none;
-        font-family:'Open Sans Condensed',sans-serif;
-        font-size:11px;
-        line-height:1;
-        cursor:pointer;
-        margin-right:10px;
-        margin-top:20px;
-        background-color:#6666ff;
-        box-shadow:0 0 5px #8080ff inset, 0 1px 1px #eee  
-    }
-    .button:hover{opacity:0.9}
-</style>
-
 <my:pagetemplate title="Excursion:">
 <jsp:attribute name="body">
 
@@ -43,7 +22,7 @@
             </div>
         
         </div>
-        <a href="/pa165/"class="button blue">Back</a>
+        <a href="/pa165/"class="btn btn-primary">Back</a>
 
 </jsp:attribute>
 </my:pagetemplate>

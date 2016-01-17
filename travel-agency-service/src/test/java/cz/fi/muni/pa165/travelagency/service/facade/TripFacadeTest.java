@@ -52,13 +52,6 @@ public class TripFacadeTest extends AbstractTransactionalTestNGSpringContextTest
 		Assert.assertEquals(tripDTOs.size(), 1);
 		Assert.assertEquals(tripDTOs.get(0).getDestination(), trip.getDestination());
 		tripFacade.delete(tripId);
-		boolean deleted = false;
-		try {
-			tripFacade.getById(tripId);
-		} catch (MappingException e) {
-			//returned object does not exist so null is returned to dozer mapping
-			deleted = true;
-		}
-		Assert.assertTrue(deleted);
+		Assert.assertNull(tripFacade.getById(tripId));
 	}
 }

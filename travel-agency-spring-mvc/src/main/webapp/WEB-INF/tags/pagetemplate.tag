@@ -7,6 +7,7 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html>
@@ -22,7 +23,6 @@
           crossorigin="anonymous">
     <jsp:invoke fragment="head"/>
 </head>
-<body>
 <body>
 <!-- nav bar -->
 <nav class="navbar navbar-inverse navbar-static-top">
@@ -41,22 +41,37 @@
             <ul class="nav navbar-nav">
                 <li><my:a href="https://github.com/Holdo/travel-agency">GitHub</my:a></li>
                 <li><my:a href="https://github.com/fi-muni/PA165">GitHub PA165</my:a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><my:a href="/customer/list">List customers</my:a></li>
-                        <li><my:a href="/reservation/list">List reservations</my:a></li>
-                        <li><my:a href="/excursion/list">Manage excursions</my:a></li>
-                    </ul>
-                </li>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration<b
+                                class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><my:a href="/reservation/list">List reservations</my:a></li>
+                            <li><my:a href="/customer/list">Manage customers</my:a></li>
+                            <li><my:a href="/excursion/list">Manage excursions</my:a></li>
+                        </ul>
+                    </li>
+                </sec:authorize>
+                <sec:authorize access="hasRole('ROLE_USER')">
+                    <li><my:a href="/reservation/list/${username}">My reservations</my:a></li>
+                </sec:authorize>
             </ul>
             <div align="right" style="margin: 1rem;">
                 <div style="display: inline-flex">
                     <p style="color: white; padding-right: 1rem; margin: auto"><c:out value="${username}"/></p>
-                    <form action="/pa165/logout" method="post">
-                        <input type="submit" value="Sign Out"/> <input
-                            type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    </form>
+                    <c:choose>
+                        <c:when test="${username == 'anonymousUser'}">
+                            <form action="/pa165/login" method="get">
+                                <input type="submit" value="Sign In"/>
+                            </form>
+                        </c:when>
+                        <c:otherwise>
+                            <form action="/pa165/logout" method="post">
+                                <input type="submit" value="Sign Out"/> <input
+                                    type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            </form>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </div>
@@ -69,20 +84,6 @@
     <c:if test="${not empty title}">
         <div class="page-header">
             <h1><c:out value="${title}"/></h1>
-        </div>
-    </c:if>
-
-    <!-- authenticated user info -->
-    <c:if test="${not empty authenticatedUser}">
-        <div class="row">
-            <div class="col-xs-6 col-sm-8 col-md-9 col-lg-10"></div>
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <c:out value="${authenticatedUser.givenName} ${authenticatedUser.surname}"/>
-                    </div>
-                </div>
-            </div>
         </div>
     </c:if>
 
@@ -108,7 +109,8 @@
 
     <!-- footer -->
     <footer class="footer">
-        <p align="right">&copy;&nbsp;<%=java.time.Year.now().toString()%>&nbsp;M. Holič, D. Vilkoláková, J. Staššík, B. Bohumel - Masaryk University</p>
+        <p align="right">&copy;&nbsp;<%=java.time.Year.now().toString()%>&nbsp;M. Holič, D. Vilkoláková, J. Staššík, B.
+            Bohumel - Masaryk University</p>
     </footer>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

@@ -15,8 +15,6 @@ import java.util.Calendar;
  */
 public class TripDTOValidator implements Validator {
 
-	final static Logger log = LoggerFactory.getLogger(TripDTOValidator.class);
-
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return TripDTO.class.isAssignableFrom(clazz);
@@ -30,11 +28,15 @@ public class TripDTOValidator implements Validator {
 		if (tripDTO.getDestination().equals("")) {
 			errors.rejectValue("destination", null, "Destination can not be empty.");
 		}
-		if (tripDTO.getDateFrom().compareTo(currentDate) < 0) {
-			errors.rejectValue("dateFrom", null, "It is not possible to add trip with a past date.");
+		if (tripDTO.getDateFrom().compareTo(currentDate) <= 0) {
+			errors.rejectValue("dateFrom", null, "It is not possible to add trip with a date from past.");
 		}
-		if (tripDTO.getDateTo().compareTo(currentDate) < 0) {
-			errors.rejectValue("dateTo", null, "It is not possible to add trip with a past date.");
+		if (tripDTO.getDateTo().compareTo(currentDate) <= 0) {
+			errors.rejectValue("dateTo", null, "It is not possible to add trip with a date from past.");
+		}
+		if (tripDTO.getDateFrom().compareTo(tripDTO.getDateTo()) >= 0) {
+			errors.rejectValue("dateFrom", null, "Date from must be before date to.");
+			errors.rejectValue("dateTo", null, "Date to must be after date from.");
 		}
 	}
 }

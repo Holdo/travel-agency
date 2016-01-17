@@ -16,7 +16,7 @@
     </appender>
 
     <!-- default logging level -->
-    <root level="info">
+    <root level="INFO">
         <!-- reference to the used appender -->
         <appender-ref ref="APP"/>
     </root>
