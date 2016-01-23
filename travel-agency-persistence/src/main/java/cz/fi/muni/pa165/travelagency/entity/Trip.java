@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.travelagency.entity;
 
+import cz.fi.muni.pa165.travelagency.entity.jaxb.JavaSqlDateAdapter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -11,6 +12,10 @@ import java.util.Objects;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * This class represents a trip which customer can reserve.
@@ -18,17 +23,21 @@ import javax.validation.constraints.NotNull;
  * @author Michal Holic
  */
 @Entity
+@XmlType(namespace = "http://muni.fi.cz/pa165/ws/entities/trips")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Trip implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
+    @XmlJavaTypeAdapter(JavaSqlDateAdapter.class)
     @NotNull
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(nullable = false)
     private Date dateFrom;
-    
+
+    @XmlJavaTypeAdapter(JavaSqlDateAdapter.class)
     @NotNull
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(nullable = false)

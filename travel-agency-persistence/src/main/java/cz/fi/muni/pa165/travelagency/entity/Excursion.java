@@ -1,5 +1,8 @@
 package cz.fi.muni.pa165.travelagency.entity;
 
+import cz.fi.muni.pa165.travelagency.entity.jaxb.JavaDurationAdapter;
+import cz.fi.muni.pa165.travelagency.entity.jaxb.JavaSqlDateAdapter;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -7,6 +10,9 @@ import java.time.Duration;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * Entity Excursion
@@ -14,6 +20,7 @@ import javax.validation.constraints.NotNull;
  * @author Diana Vilkolakova
  */
 @Entity
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Excursion implements Serializable {
 
     @Id
@@ -23,10 +30,12 @@ public class Excursion implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Trip trip;
 
+    @XmlJavaTypeAdapter(JavaSqlDateAdapter.class)
     @NotNull
     @Column(nullable = false)
     private Date date;
 
+    @XmlJavaTypeAdapter(JavaDurationAdapter.class)
     @NotNull
     @Column(nullable = false)
     private Duration duration;
