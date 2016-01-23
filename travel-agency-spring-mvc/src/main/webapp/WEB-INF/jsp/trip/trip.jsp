@@ -22,6 +22,25 @@
             End date: <span style="color: black; font-weight: bold;"><fmt:formatDate value="${trip.dateTo}" pattern="yyyy-MM-dd"/>;<br>
             Current number of available: <span style="color: red; font-weight: bold;"><c:out value="${trip.numberOfAvailable}"/>;</span><br>
         </div>
+        <div class="row">
+            <c:choose>
+                <c:when test="${empty trip.excursions}">
+                    <div class="col-xs-12">
+                        This trip has no excursions.
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <c:forEach items="${trip.excursions}" var="excursion">
+                        <span class="col-xs-12">Possible excursion:
+                            <a href="${pageContext.request.contextPath}/excursion/${excursion.id}">
+                                <c:out value="${excursion.destination} "/>
+                            </a>
+                            <%--<span style="color: red; font-weight: bold;"><c:out value="${excursion.price} CZK"/></span>--%>
+                        </span>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
+        </div>
     </div>
     <a href="/pa165/"class="btn btn-primary">Back</a>
 </jsp:attribute>

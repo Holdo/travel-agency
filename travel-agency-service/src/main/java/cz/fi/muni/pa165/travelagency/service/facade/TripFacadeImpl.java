@@ -7,7 +7,6 @@ import cz.fi.muni.pa165.travelagency.facade.TripFacade;
 import cz.fi.muni.pa165.travelagency.service.DozerMapperService;
 import cz.fi.muni.pa165.travelagency.service.TripService;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +26,8 @@ public class TripFacadeImpl implements TripFacade {
     private DozerMapperService dozerMapperService;
     
     @Override
-    public void create(TripDTO trip) {    
-        tripService.create(dozerMapperService.mapTo(trip, Trip.class));
+    public void create(TripDTO tripDTO) {
+        tripService.create(dozerMapperService.mapTo(tripDTO, Trip.class));
     }
 
     @Override
@@ -37,8 +36,13 @@ public class TripFacadeImpl implements TripFacade {
     }
 
     @Override
-    public void update(TripDTO trip) {
-        tripService.update(dozerMapperService.mapTo(trip, Trip.class));
+    public void update(TripDTO tripDTO) {
+        Trip trip = dozerMapperService.mapTo(tripDTO, Trip.class);
+        if (tripDTO.getExcursions().size() != 0) {
+            List<Excursion> excursions = dozerMapperService.mapTo(tripDTO.getExcursions(), Excursion.class);
+            excursions.forEach(trip::addExcursion);
+        }
+        tripService.update(trip);
     }
 
     @Override

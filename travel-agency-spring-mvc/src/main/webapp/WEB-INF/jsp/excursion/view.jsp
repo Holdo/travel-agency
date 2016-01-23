@@ -20,7 +20,22 @@
                 <span style="font-weight: bold;">Duration: </span><span style="color: black; font-weight: bold;"><c:out value="${excursion.duration.getSeconds()/3600}"/> hours</span><br>
                 <span style="font-weight: bold;">Price: </span><span style="color: green; font-weight: bold;"><c:out value="${excursion.price} CZK"/></span><br>
             </div>
-        
+           <div class="row">
+               <c:choose>
+                   <c:when test="${empty excursion.trip}">
+                       <div class="col-xs-12">
+                           This excursion does not belong to any trip.
+                       </div>
+                   </c:when>
+                   <c:otherwise>
+                        <span class="col-xs-12">This excursion belongs to trip:
+                            <a href="${pageContext.request.contextPath}/trip/${excursion.trip.id}">
+                                <c:out value="${excursion.trip.destination} "/>
+                            </a>
+                        </span>
+                   </c:otherwise>
+               </c:choose>
+           </div>
         </div>
         <a href="/pa165/"class="btn btn-primary">Back</a>
 
