@@ -12,17 +12,18 @@
 
     <form:form method="post" action="${pageContext.request.contextPath}/trip/create"
                modelAttribute="tripCreate" cssClass="form-horizontal">
-        <div class="form-group">
-            <form:label path="excursions" cssClass="col-sm-2 control-label">Excursions</form:label>
-            <div class="col-sm-10">
-                <form:select path="excursions" cssClass="form-control">
-                    <c:forEach items="${excursions}" var="e">
-                        <form:option value="${e.id}">${e.destination}</form:option>
-                    </c:forEach>
-                </form:select>
-                <p class="help-block"><form:errors path="excursions" cssClass="error"/></p>
-            </div>
-        </div>
+        <%--Do not use this, you cannot assign existing excursions to a new trip, you must create new excursions--%>
+        <%--<div class="form-group">--%>
+            <%--<form:label path="excursions" cssClass="col-sm-2 control-label">Excursions</form:label>--%>
+            <%--<div class="col-sm-10">--%>
+                <%--<form:select path="excursions" cssClass="form-control">--%>
+                    <%--<c:forEach items="${excursions}" var="e">--%>
+                        <%--<form:option value="${e.id}">${e.destination}</form:option>--%>
+                    <%--</c:forEach>--%>
+                <%--</form:select>--%>
+                <%--<p class="help-block"><form:errors path="excursions" cssClass="error"/></p>--%>
+            <%--</div>--%>
+        <%--</div>--%>
         <div class="form-group ${destination_error?'has-error':''}">
             <form:label path="destination" cssClass="col-sm-2 control-label">Destination</form:label>
             <div class="col-sm-10">

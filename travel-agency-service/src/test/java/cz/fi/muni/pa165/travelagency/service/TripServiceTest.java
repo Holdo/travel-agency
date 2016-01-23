@@ -1,6 +1,5 @@
 package cz.fi.muni.pa165.travelagency.service;
 
-import cz.fi.muni.pa165.travelagency.dao.TripDao;
 import cz.fi.muni.pa165.travelagency.entity.Excursion;
 import cz.fi.muni.pa165.travelagency.entity.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ import java.time.Duration;
 public class TripServiceTest extends AbstractTransactionalTestNGSpringContextTests {
 
 	@Autowired
-	private TripDao tripDao;
+	private TripService tripService;
 
 	private Excursion excursion;
 	private Trip trip;
@@ -48,8 +47,8 @@ public class TripServiceTest extends AbstractTransactionalTestNGSpringContextTes
 
 	@Test
 	public void create() {
-		tripDao.create(trip);
-		Trip tripFromDB = tripDao.getById(trip.getId());
+		tripService.create(trip);
+		Trip tripFromDB = tripService.getById(trip.getId());
 		Assert.assertEquals(tripFromDB.getExcursions().size(), 1);
 	}
 }

@@ -5,7 +5,6 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.Duration;
-import java.util.Objects;
 
 /**
  *
@@ -14,6 +13,8 @@ import java.util.Objects;
 public class ExcursionDTO {
     
     private Long id;
+
+    private TripDTO trip;
 
     @NotNull
     private Date date;
@@ -34,6 +35,14 @@ public class ExcursionDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public TripDTO getTrip() {
+        return trip;
+    }
+
+    public void setTrip(TripDTO trip) {
+        this.trip = trip;
     }
 
     public Date getDate() {
@@ -72,6 +81,7 @@ public class ExcursionDTO {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((trip == null) ? 0 : this.getTrip().hashCode());
         result = prime * result + ((date == null) ? 0 : this.getDate().hashCode());
         result = prime * result + ((destination == null) ? 0 : this.getDestination().hashCode());
         result = prime * result + ((duration == null) ? 0 : this.getDuration().hashCode());
@@ -91,6 +101,13 @@ public class ExcursionDTO {
             return false;
         }
         final ExcursionDTO other = (ExcursionDTO) obj;
+        if (trip == null) {
+            if (other.getTrip() != null) {
+                return false;
+            }
+        } else if (!trip.equals(other.getTrip())) {
+            return false;
+        }
         if (date == null) {
             if (other.getDate() != null) {
                 return false;
