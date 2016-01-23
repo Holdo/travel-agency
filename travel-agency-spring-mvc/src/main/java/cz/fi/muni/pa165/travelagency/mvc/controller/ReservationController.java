@@ -3,11 +3,13 @@ package cz.fi.muni.pa165.travelagency.mvc.controller;
 import cz.fi.muni.pa165.travelagency.dto.CustomerDTO;
 import cz.fi.muni.pa165.travelagency.dto.ReservationDTO;
 import cz.fi.muni.pa165.travelagency.dto.TripDTO;
+import cz.fi.muni.pa165.travelagency.exceptions.TravelAgencyServiceException;
 import cz.fi.muni.pa165.travelagency.facade.CustomerFacade;
 import cz.fi.muni.pa165.travelagency.facade.ReservationFacade;
 import cz.fi.muni.pa165.travelagency.facade.TripFacade;
 import cz.fi.muni.pa165.travelagency.mvc.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -45,20 +47,17 @@ public class ReservationController {
         try{
             reservationDTO = reservationFacade.getById(id);
          
-            if(reservationDTO == null){
-                redirectAttributes.addFlashAttribute("alert_danger", "Reservation with id "
-                        + id + " does not exist!");
-                return "redirect:" + uriBuilder.path("/reservation/list").toUriString();
-            }
-        } catch (Exception e){
-            redirectAttributes.addFlashAttribute("alert_danger", "Reservation with id "
-                       + id + " does not exist!");
-            return "redirect:" + uriBuilder.path("/reservation/list").toUriString();
-        }
+            if(reservationDTO == null) throw new NotFoundException();
         
-        reservationFacade.delete(id);
-        redirectAttributes.addFlashAttribute("alert_success", "Reservation with "
-                    + id + " was deleted!");
+            reservationFacade.delete(id);
+            TripDTO tripDTO = reservationDTO.getTrip();
+            tripDTO.setNumberOfAvailable(tripDTO.getNumberOfAvailable() + 1);
+            tripFacade.update(tripDTO);
+            redirectAttributes.addFlashAttribute("alert_success", "Reservation with "
+                        + id + " was deleted!");
+        } catch (DataAccessException dae){
+            redirectAttributes.addFlashAttribute("alert_warning", dae.getMessage());
+        }
         return "redirect:" + uriBuilder.path("/reservation/list").toUriString();
     }
         
@@ -79,15 +78,17 @@ public class ReservationController {
         
         CustomerDTO customerDTO = customerFacade.findCustomerByUsername(name);
         TripDTO tripDTO = tripFacade.getById(id);
-
-        if (customerDTO == null || tripDTO == null) throw new NotFoundException();
+        
+        if (customerDTO == null || tripDTO == null) throw new NotFoundException();        
 
         long id2 = -1L;
         try{
         id2 = customerFacade.makeReservation(customerDTO, tripDTO);
-        } catch(Exception e){
+        } catch(TravelAgencyServiceException e){
             redirectAttributes.addFlashAttribute("alert_danger", "Soryy this trip is full. Please choose anotherone. ");
             return "redirect:" + uriBuilder.path("/index").toUriString();
+        } catch (DataAccessException dae){
+            redirectAttributes.addFlashAttribute("alert_warning", dae.getMessage());
         }
         
         redirectAttributes.addFlashAttribute("alert_success", "Reservation with id " + id2 + " was created!");
