@@ -96,5 +96,5 @@ public class CustomerServiceImpl implements CustomerService {
 		tripDao.update(trip);
 
 		return createdReservationId;
-	}
+	}        
 }

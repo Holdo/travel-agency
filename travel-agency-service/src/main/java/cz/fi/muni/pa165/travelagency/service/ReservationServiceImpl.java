@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.travelagency.service;
 
 import cz.fi.muni.pa165.travelagency.dao.ReservationDao;
+import cz.fi.muni.pa165.travelagency.entity.Customer;
 import cz.fi.muni.pa165.travelagency.entity.Reservation;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,10 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public List<Reservation> getAll() {
         return reservationDao.getAll();
+    }
+    
+    @Override
+    public List<Reservation> getReservations(Customer customer) {
+        return reservationDao.getReservations(customer);
     }
 }

@@ -103,6 +103,12 @@ public class ReservationController {
         return "reservation/view";
     }
     
-    
+    @RequestMapping(value = "/list/{username}", method = RequestMethod.GET)
+    public String listOfCustomerReservations(Model model, @PathVariable("username") String username) {
+        CustomerDTO customerDTO = customerFacade.findCustomerByUsername(username);
+        model.addAttribute("reservations", reservationFacade.getReservations(customerDTO));
+        model.addAttribute("username", username);
+        return "reservation/listCustomersReservations";
+    }
     
 }

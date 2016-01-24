@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.travelagency.service.facade;
 
+import cz.fi.muni.pa165.travelagency.dto.CustomerDTO;
 import cz.fi.muni.pa165.travelagency.dto.ReservationDTO;
 import cz.fi.muni.pa165.travelagency.entity.Reservation;
 import cz.fi.muni.pa165.travelagency.facade.ReservationFacade;
@@ -50,4 +51,10 @@ public class ReservationFacadeImpl implements ReservationFacade{
         return dozerMapperService.mapTo(reservationService.getAll(), ReservationDTO.class);
     }
     
+    
+    @Override
+    public List<ReservationDTO> getReservations(CustomerDTO customerDTO) {
+        return (customerDTO == null) ? null : 
+                dozerMapperService.mapTo(reservationService.getReservations(customerService.getById(customerDTO.getId())), ReservationDTO.class);
+    }
 }

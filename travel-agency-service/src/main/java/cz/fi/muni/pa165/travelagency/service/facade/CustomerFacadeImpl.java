@@ -7,9 +7,9 @@ import cz.fi.muni.pa165.travelagency.entity.Trip;
 import cz.fi.muni.pa165.travelagency.facade.CustomerFacade;
 import cz.fi.muni.pa165.travelagency.service.CustomerService;
 import cz.fi.muni.pa165.travelagency.service.DozerMapperService;
-import java.util.Collection;
-
+import cz.fi.muni.pa165.travelagency.service.ReservationService;
 import cz.fi.muni.pa165.travelagency.service.TripService;
+import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +24,9 @@ public class CustomerFacadeImpl extends UserFacadeImpl implements CustomerFacade
     
     @Autowired
     private CustomerService customerService;
+    
+    @Autowired
+    private ReservationService reservationService;
 
     @Autowired
     private TripService tripService;

@@ -2,12 +2,10 @@ package cz.fi.muni.pa165.travelagency.dao;
 
 import cz.fi.muni.pa165.travelagency.entity.Customer;
 import cz.fi.muni.pa165.travelagency.entity.Reservation;
+import cz.fi.muni.pa165.travelagency.entity.UserRole;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import cz.fi.muni.pa165.travelagency.entity.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -96,8 +94,7 @@ public class CustomerDaoTest extends AbstractTestNGSpringContextTests{
     
     @Test
     public void reservationsTest() {                
-        Set<Reservation> reservations = customer.getReservations();
+        List<Reservation> reservations = customer.getReservations();
 	Assert.assertEquals(reservations.size(), 1, "There's an incorrect amount of reservations in the customer data!");      
     }
-    
 }
