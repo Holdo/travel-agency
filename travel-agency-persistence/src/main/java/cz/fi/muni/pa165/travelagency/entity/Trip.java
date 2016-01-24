@@ -2,12 +2,13 @@ package cz.fi.muni.pa165.travelagency.entity;
 
 import cz.fi.muni.pa165.travelagency.entity.jaxb.JavaSqlDateAdapter;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.*;
@@ -16,6 +17,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * This class represents a trip which customer can reserve.
@@ -59,7 +61,7 @@ public class Trip implements Serializable {
     private Set<Excursion> excursions = new HashSet<>();
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "trip")
-    private Set<Reservation> reservations = new HashSet<>();
+    private List<Reservation> reservations = new ArrayList<>();
 
     public Trip() {
     }
@@ -84,8 +86,8 @@ public class Trip implements Serializable {
         this.reservations.add(reservation);
     }
 
-    public Set<Reservation> getReservations() {
-        return Collections.unmodifiableSet(this.reservations);
+    public List<Reservation> getReservations() {
+        return Collections.unmodifiableList(this.reservations);
     }
     
     public void removeReservation(Reservation reservation) {

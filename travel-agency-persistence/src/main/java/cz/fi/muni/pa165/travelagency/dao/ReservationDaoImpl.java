@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.travelagency.dao;
 
+import cz.fi.muni.pa165.travelagency.entity.Customer;
 import cz.fi.muni.pa165.travelagency.entity.Reservation;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -40,5 +41,11 @@ public class ReservationDaoImpl implements ReservationDao {
     @Override
     public List<Reservation> getAll() {
         return em.createQuery("SELECT r FROM Reservation r", Reservation.class).getResultList();
+    }
+    
+    @Override
+    public List<Reservation> getReservations(Customer customer) {
+        return em.createQuery("SELECT r FROM Reservation r WHERE customer_id=:customer_id", Reservation.class).
+                setParameter("customer_id", customer.getId()).getResultList();
     }
 }

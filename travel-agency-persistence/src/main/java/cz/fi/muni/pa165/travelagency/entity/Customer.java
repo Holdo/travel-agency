@@ -1,9 +1,9 @@
 package cz.fi.muni.pa165.travelagency.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -21,14 +21,14 @@ public class Customer extends User implements Serializable {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
-    private Set<Reservation> reservations = new HashSet<>();
+    private List<Reservation> reservations = new ArrayList<>();
     
     public void addReservation(Reservation reservation) {
         this.reservations.add(reservation);
     }
 
-    public Set<Reservation> getReservations() {
-        return Collections.unmodifiableSet(this.reservations);
+    public List<Reservation> getReservations() {
+        return Collections.unmodifiableList(this.reservations);
     }
     
     public void removeReservation(Reservation reservation) {

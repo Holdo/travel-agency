@@ -1,6 +1,8 @@
 package cz.fi.muni.pa165.travelagency.facade;
 
+import cz.fi.muni.pa165.travelagency.dto.CustomerDTO;
 import cz.fi.muni.pa165.travelagency.dto.ReservationDTO;
+import cz.fi.muni.pa165.travelagency.entity.Customer;
 import java.util.List;
 
 /**
@@ -38,4 +40,6 @@ public interface ReservationFacade {
      * @return list of all reservations
      */
     List<ReservationDTO> getAll();
+    
+    List<ReservationDTO> getReservations(CustomerDTO customerDTO);
 }

@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.travelagency.dao;
 
+import cz.fi.muni.pa165.travelagency.entity.Customer;
 import cz.fi.muni.pa165.travelagency.entity.Reservation;
 import java.util.List;
 
@@ -47,4 +48,6 @@ public interface ReservationDao {
      *         List is empty if the are no reservations in the database
      */
     List<Reservation> getAll();
+
+    List<Reservation> getReservations(Customer customer);
 }
