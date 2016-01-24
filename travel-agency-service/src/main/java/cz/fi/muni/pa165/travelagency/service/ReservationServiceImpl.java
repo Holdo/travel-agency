@@ -52,7 +52,7 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationDao.getReservations(customer);
     }
     
-    public void cancelReservation(Reservation reservation){
+    protected void cancelReservation(Reservation reservation){
         Trip trip = reservation.getTrip();
         trip.setNumberOfAvailable(trip.getNumberOfAvailable() + 1);
         tripDao.update(trip);
