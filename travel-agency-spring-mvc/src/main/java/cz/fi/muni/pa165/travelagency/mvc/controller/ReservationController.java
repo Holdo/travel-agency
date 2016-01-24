@@ -49,10 +49,7 @@ public class ReservationController {
          
             if(reservationDTO == null) throw new NotFoundException();
         
-            reservationFacade.delete(id);
-            TripDTO tripDTO = reservationDTO.getTrip();
-            tripDTO.setNumberOfAvailable(tripDTO.getNumberOfAvailable() + 1);
-            tripFacade.update(tripDTO);
+            reservationFacade.delete(id);            
             redirectAttributes.addFlashAttribute("alert_success", "Reservation with "
                         + id + " was deleted!");
         } catch (DataAccessException dae){
