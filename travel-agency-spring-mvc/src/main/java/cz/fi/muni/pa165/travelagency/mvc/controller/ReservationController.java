@@ -11,6 +11,7 @@ import cz.fi.muni.pa165.travelagency.mvc.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -102,10 +103,14 @@ public class ReservationController {
     
     @RequestMapping(value = "/list/{username}", method = RequestMethod.GET)
     public String listOfCustomerReservations(Model model, @PathVariable("username") String username) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getName() == null ? username != null : !auth.getName().equals(username)) {
+            return "/403";
+        } else {
         CustomerDTO customerDTO = customerFacade.findCustomerByUsername(username);
         model.addAttribute("reservations", reservationFacade.getReservations(customerDTO));
         model.addAttribute("username", username);
         return "reservation/listCustomersReservations";
+        }
     }
-    
 }
