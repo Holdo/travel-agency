@@ -22,9 +22,25 @@
 
     <dependencies>
         <dependency>
+            <groupId>cz.fi.muni.pa165.travelagency</groupId>
+            <artifactId>travel-agency-persistence</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-ws</artifactId>
             <version>1.3.2.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>4.2.4.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>4.2.4.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.ws</groupId>
@@ -82,7 +98,7 @@
                 </configuration>
             </plugin>
 
-            <!-- generation of sources from XSD schemas -->
+            <!-- generation of Java sources from XSD schemas -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>
@@ -98,6 +114,7 @@
                 <configuration>
                     <schemaDirectory>${project.basedir}/src/main/resources/</schemaDirectory>
                     <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
+                    <packageName>cz.fi.muni.pa165.travelagency.ws.generated</packageName>
                     <clearOutputDir>false</clearOutputDir>
                 </configuration>
             </plugin>

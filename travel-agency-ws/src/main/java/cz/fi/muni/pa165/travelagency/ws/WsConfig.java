@@ -46,7 +46,7 @@ public class WsConfig extends WsConfigurerAdapter {
 
 	@Bean
 	public XsdSchema tripsSchema() {
-		return new SimpleXsdSchema(new ClassPathResource("trips.xsd"));
+		return new SimpleXsdSchema(new ClassPathResource("Trip.xsd"));
 	}
 
 	@Override

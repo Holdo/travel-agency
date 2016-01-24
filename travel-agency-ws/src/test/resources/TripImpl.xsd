@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:ns1="http://muni.fi.cz/pa165/ws/entities/trips"
+           elementFormDefault="qualified">
+
+    <xs:import namespace="http://muni.fi.cz/pa165/ws/entities/trips" schemaLocation="Trip.xsd"/>
+
+    <xs:complexType name="javaSqlDateType">
+        <xs:sequence>
+            <xs:element name="dateString" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="excursion">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" minOccurs="0"/>
+            <xs:element name="trip" type="ns1:trip" minOccurs="0"/>
+            <xs:element name="date" type="javaSqlDateType" minOccurs="0"/>
+            <xs:element name="duration" type="javaDurationType" minOccurs="0"/>
+            <xs:element name="destination" type="xs:string" minOccurs="0"/>
+            <xs:element name="price" type="xs:decimal" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="javaDurationType">
+        <xs:sequence>
+            <xs:element name="nOfHours" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="reservation">
+        <xs:sequence>
+            <xs:element name="customer" type="customer" minOccurs="0"/>
+            <xs:element name="id" type="xs:long" minOccurs="0"/>
+            <xs:element name="price" type="xs:decimal" minOccurs="0"/>
+            <xs:element name="trip" type="ns1:trip" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="customer">
+        <xs:complexContent>
+            <xs:extension base="user">
+                <xs:sequence/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="user" abstract="true">
+        <xs:sequence>
+            <xs:element name="email" type="xs:string" minOccurs="0"/>
+            <xs:element name="enabled" type="xs:boolean"/>
+            <xs:element name="firstName" type="xs:string" minOccurs="0"/>
+            <xs:element name="id" type="xs:long" minOccurs="0"/>
+            <xs:element name="lastName" type="xs:string" minOccurs="0"/>
+            <xs:element name="password" type="xs:string" minOccurs="0"/>
+            <xs:element name="role" type="xs:string" minOccurs="0"/>
+            <xs:element name="username" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
+
