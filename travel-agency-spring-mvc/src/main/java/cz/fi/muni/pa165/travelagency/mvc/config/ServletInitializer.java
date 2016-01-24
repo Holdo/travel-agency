@@ -24,11 +24,12 @@ public class ServletInitializer extends AbstractAnnotationConfigDispatcherServle
     protected String[] getServletMappings() {
         return new String[]{"/"};
     }
-    
+
+    /* UTF-8 is configured in SecurityConfig.configure
     @Override
     protected Filter[] getServletFilters() {
         CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
         encodingFilter.setEncoding("utf-8");
         return new Filter[]{encodingFilter};
-    }
+    }*/
 }
