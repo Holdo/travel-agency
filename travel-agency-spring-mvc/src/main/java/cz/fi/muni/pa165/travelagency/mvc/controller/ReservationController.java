@@ -106,11 +106,10 @@ public class ReservationController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth.getName() == null ? username != null : !auth.getName().equals(username)) {
             return "/403";
-        } else {
+        }
         CustomerDTO customerDTO = customerFacade.findCustomerByUsername(username);
         model.addAttribute("reservations", reservationFacade.getReservations(customerDTO));
         model.addAttribute("username", username);
         return "reservation/listCustomersReservations";
-        }
     }
 }

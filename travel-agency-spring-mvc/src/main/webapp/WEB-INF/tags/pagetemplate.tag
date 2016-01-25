@@ -59,14 +59,15 @@
             <div align="right" style="margin: 1rem;">
                 <div style="display: inline-flex">
                     <p style="color: white; padding-right: 1rem; margin: auto"><c:out value="${username}"/></p>
+                    <sec:authentication var="authenticatedUser" property="principal" />
                     <c:choose>
-                        <c:when test="${username == 'anonymousUser'}">
-                            <form action="/pa165/login" method="get">
+                        <c:when test="${authenticatedUser == 'anonymousUser'}">
+                            <form action="${pageContext.request.contextPath}/login" method="get">
                                 <input type="submit" value="Sign In"/>
                             </form>
                         </c:when>
                         <c:otherwise>
-                            <form action="/pa165/logout" method="post">
+                            <form action="${pageContext.request.contextPath}/logout" method="post">
                                 <input type="submit" value="Sign Out"/> <input
                                     type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             </form>
