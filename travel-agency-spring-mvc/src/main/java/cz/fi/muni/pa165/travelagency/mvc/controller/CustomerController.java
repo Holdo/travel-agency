@@ -36,7 +36,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class CustomerController {
 
     final static Logger log = LoggerFactory.getLogger(CustomerController.class);
-
+    
     @Autowired
     private CustomerFacade customerFacade;
 
@@ -85,7 +85,7 @@ public class CustomerController {
             throw new NotFoundException();
         }
         if (!customerDTO.getReservations().isEmpty()) {
-            redirectAttributes.addFlashAttribute("alert_warning", "Customer \"" + customerDTO.getUsername() + "\" has reservations. Cannot be deleted");
+            redirectAttributes.addFlashAttribute("alert_warning", "Customer \"" + customerDTO.getUsername() + "\" has reservations and cannot be deleted");
             return "redirect:" + uriBuilder.path("/customer/list").toUriString();
         }
         customerFacade.delete(id);
