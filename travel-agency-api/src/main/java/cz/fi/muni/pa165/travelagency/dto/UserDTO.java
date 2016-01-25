@@ -14,6 +14,7 @@ public abstract class UserDTO {
     protected String email;
     protected String lastName;
     protected String firstName;
+    protected String role;
 
     public Long getId() {
         return id;
@@ -61,6 +62,14 @@ public abstract class UserDTO {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+    
+    public String getRole() {
+        return role;
+    }
+    
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override
