@@ -41,7 +41,9 @@ public class CustomerServiceImpl implements CustomerService {
 	public void update(Customer customer) {
 		if (!customer.getPassword().equals("") && customer.getPassword() != null) {
 			BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-			customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
+			if (!customerDao.getByUsername(customer.getUsername()).getPassword().equals(customer.getPassword())) {
+				customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
+			}
 		}
 		customerDao.update(customer);
 	}

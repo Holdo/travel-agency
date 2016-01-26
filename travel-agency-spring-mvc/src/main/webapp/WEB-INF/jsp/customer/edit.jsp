@@ -46,6 +46,10 @@
                             <form:errors path="lastName" cssClass="help-block" placeholder="string"/>
                         </div>
                     </div>
+                    <div>
+                        <form:hidden path="password" />
+                        <form:hidden path="role" />
+                    </div>
                     <button class="btn btn-primary" type="submit">Update</button>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </form:form>
