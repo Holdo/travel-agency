@@ -1,6 +1,9 @@
 package cz.fi.muni.pa165.travelagency.dto;
 
 import java.util.Objects;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -9,11 +12,26 @@ import java.util.Objects;
 public abstract class UserDTO {
 
     protected Long id;
+    
+    @NotNull
+    @Size(min=3, max=240,  message = "User name has incorrect length")
     protected String username;
+    
+    @Size(min=5, max=240,  message = "Password has incorrect length")
     protected String password;
+    
+    @NotNull
+    @Pattern(regexp="^[a-z0-9A-Z0._%+-]+@[a-z0-9A-Z0.-]+\\.[a-zA-Z]{2,6}$",  message = "Incorrect email format")
     protected String email;
+    
+    @NotNull
+    @Size(min=3, max=240,  message = "Last name has incorrect length")
     protected String lastName;
+    
+    @NotNull
+    @Size(min=3, max=240,  message = "First name has incorrect length")
     protected String firstName;
+
     protected String role;
 
     public Long getId() {
