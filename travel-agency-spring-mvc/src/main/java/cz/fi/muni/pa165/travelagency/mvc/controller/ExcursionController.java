@@ -1,7 +1,10 @@
 package cz.fi.muni.pa165.travelagency.mvc.controller;
 
+import com.sun.beans.editors.StringEditor;
 import cz.fi.muni.pa165.travelagency.dto.ExcursionDTO;
+import cz.fi.muni.pa165.travelagency.dto.TripDTO;
 import cz.fi.muni.pa165.travelagency.facade.ExcursionFacade;
+import cz.fi.muni.pa165.travelagency.facade.TripFacade;
 import cz.fi.muni.pa165.travelagency.mvc.exceptions.NotFoundException;
 import cz.fi.muni.pa165.travelagency.mvc.forms.ExcursionDTOValidator;
 import cz.fi.muni.pa165.travelagency.mvc.util.CustomDurationEditor;
@@ -18,8 +21,12 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.validation.Valid;
+import org.springframework.beans.propertyeditors.ClassEditor;
+import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,7 +43,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class ExcursionController {
 
 	@Autowired
-	private ExcursionFacade excursionFacade;
+	private ExcursionFacade excursionFacade;        
+        
+	@Autowired
+	private TripFacade tripFacade;
 
 	final static Logger log = LoggerFactory.getLogger(MainController.class);
 
@@ -47,8 +57,21 @@ public class ExcursionController {
 		binder.registerCustomEditor(Duration.class, new CustomDurationEditor());
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 		if (binder.getTarget() instanceof ExcursionDTO) {
-            binder.addValidators(new ExcursionDTOValidator());
-        }
+                    binder.addValidators(new ExcursionDTOValidator());
+                }
+                /*binder.registerCustomEditor(TripDTO.class, new CustomCollectionEditor(List.class) {
+			@Override
+			protected Object convertElement(Object element) {
+				if (element == null) return null;
+				if (element instanceof String) {
+					String id = (String) element;
+					return tripFacade.getById(Long.decode(id));
+				} else {
+					String[] tripsArray = (String[]) element;
+					return tripsArray[0];
+				}
+			}
+		});*/
 	}
 
 	@RequestMapping(value = "excursion/list", method = RequestMethod.GET)
@@ -80,8 +103,13 @@ public class ExcursionController {
 		if (!model.containsAttribute("excursionEdit")) {
 			excursionDTO = excursionFacade.getById(id);
 			if (excursionDTO == null) throw new NotFoundException();
-			model.addAttribute("id", id);
 			model.addAttribute("excursionEdit", excursionDTO);
+			model.addAttribute("id", id);
+			model.addAttribute("trip", excursionDTO.getTrip());
+			model.addAttribute("date", excursionDTO.getDate());
+			model.addAttribute("price", excursionDTO.getPrice());
+			model.addAttribute("destination", excursionDTO.getDestination());
+			model.addAttribute("duration", excursionDTO.getDuration());
 		}
 		return "excursion/edit";
 	}
@@ -139,10 +167,10 @@ public class ExcursionController {
 		ExcursionDTO excursionDTO = excursionFacade.getById(id);
 		if (excursionDTO == null) throw new NotFoundException();
 		if (formBean.getDestination() != null) excursionDTO.setDestination(formBean.getDestination());
+		excursionDTO.setTrip(formBean.getTrip());
 		if (formBean.getPrice() != null) excursionDTO.setPrice(formBean.getPrice());
 		if (formBean.getDate() != null) excursionDTO.setDate(formBean.getDate());
 		if (formBean.getDuration() != null) excursionDTO.setDuration(formBean.getDuration());
-
 		try {
 			excursionFacade.update(excursionDTO);
 			redirectAttributes.addFlashAttribute("alert_success", "Excursion " + formBean.getDestination() + " was updated");
@@ -150,6 +178,11 @@ public class ExcursionController {
 			redirectAttributes.addFlashAttribute("alert_warning", e.getMessage());
 		}
 		return "redirect:" + uriBuilder.path("/excursion/list").toUriString();
+	}
+
+	@ModelAttribute("trips")
+	public List<TripDTO> trips() {
+		return tripFacade.getAll();
 	}
 
 }
