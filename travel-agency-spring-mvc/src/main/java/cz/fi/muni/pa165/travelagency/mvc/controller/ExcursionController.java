@@ -1,7 +1,9 @@
 package cz.fi.muni.pa165.travelagency.mvc.controller;
 
 import cz.fi.muni.pa165.travelagency.dto.ExcursionDTO;
+import cz.fi.muni.pa165.travelagency.dto.TripDTO;
 import cz.fi.muni.pa165.travelagency.facade.ExcursionFacade;
+import cz.fi.muni.pa165.travelagency.facade.TripFacade;
 import cz.fi.muni.pa165.travelagency.mvc.exceptions.NotFoundException;
 import cz.fi.muni.pa165.travelagency.mvc.forms.ExcursionDTOValidator;
 import cz.fi.muni.pa165.travelagency.mvc.util.CustomDurationEditor;
@@ -9,12 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.beans.PropertyEditorSupport;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -33,10 +35,14 @@ import org.springframework.web.util.UriComponentsBuilder;
  * @author Branislav Bohumel
  */
 @Controller
+@RequestMapping("/excursion")
 public class ExcursionController {
 
 	@Autowired
 	private ExcursionFacade excursionFacade;
+
+	@Autowired
+	private TripFacade tripFacade;
 
 	final static Logger log = LoggerFactory.getLogger(MainController.class);
 
@@ -49,9 +55,16 @@ public class ExcursionController {
 		if (binder.getTarget() instanceof ExcursionDTO) {
             binder.addValidators(new ExcursionDTOValidator());
         }
+		binder.registerCustomEditor(TripDTO.class, new PropertyEditorSupport() {
+			@Override
+			public void setAsText(String text) {
+				TripDTO tripDTO = tripFacade.getById(Long.parseLong(text));
+				setValue(tripDTO);
+			}
+		});
 	}
 
-	@RequestMapping(value = "excursion/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String excursionListPage(Model model) {
 		//get all excursions
 		List<ExcursionDTO> allExcursions = excursionFacade.getAll();
@@ -59,7 +72,7 @@ public class ExcursionController {
 		return "excursion/list";
 	}
 
-	@RequestMapping(value = "excursion/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String excursionViewPage(Model model, @PathVariable("id") int id) {
 		//get the excursion
 		ExcursionDTO excursionDTO = excursionFacade.getById((long) id);
@@ -69,7 +82,7 @@ public class ExcursionController {
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "excursion/edit/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String excursionEditPage(Model model, @PathVariable("id") long id) {
 		//get the excursion
 		ExcursionDTO excursionDTO;
@@ -87,7 +100,7 @@ public class ExcursionController {
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "excursion/delete/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
 	public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
 		ExcursionDTO excursionDTO = excursionFacade.getById(id);
 		if (excursionDTO == null) throw new NotFoundException();
@@ -98,7 +111,7 @@ public class ExcursionController {
 
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "excursion/new", method = RequestMethod.POST)
+	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public String excursionNew(@Valid @ModelAttribute("excursionCreate") ExcursionDTO formBean, BindingResult bindingResult,
 							   Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
 		if (bindingResult.hasErrors()) {
@@ -122,7 +135,7 @@ public class ExcursionController {
 
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "excursion/update/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	public String excursionUpdate(@Valid @ModelAttribute("excursionEdit") ExcursionDTO formBean, BindingResult bindingResult,
 								  @PathVariable("id") long id, Model model, RedirectAttributes redirectAttributes,
 								   UriComponentsBuilder uriBuilder) {
@@ -142,6 +155,7 @@ public class ExcursionController {
 		if (formBean.getPrice() != null) excursionDTO.setPrice(formBean.getPrice());
 		if (formBean.getDate() != null) excursionDTO.setDate(formBean.getDate());
 		if (formBean.getDuration() != null) excursionDTO.setDuration(formBean.getDuration());
+		if (formBean.getTrip() != null) excursionDTO.setTrip(formBean.getTrip());
 
 		try {
 			excursionFacade.update(excursionDTO);
@@ -152,4 +166,8 @@ public class ExcursionController {
 		return "redirect:" + uriBuilder.path("/excursion/list").toUriString();
 	}
 
+	@ModelAttribute("trips")
+	public List<TripDTO> trips() {
+		return tripFacade.getAll();
+	}
 }

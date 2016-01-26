@@ -44,6 +44,17 @@
                     <form:errors path="price" cssClass="help-block"/>
                 </div>
             </div>
+            <div class="form-group ${trip_error?'has-error':''}">
+                <form:label path="trip" cssClass="col-sm-2 control-label">Assign to trip: </form:label>
+                <div class="col-sm-10">
+                    <form:select path="trip" cssClass="form-control">
+                        <c:forEach items="${trips}" var="t">
+                            <form:option value="${t.id}">${t.destination}</form:option>
+                        </c:forEach>
+                    </form:select>
+                    <p class="help-block"><form:errors path="trip" cssClass="error"/></p>
+                </div>
+            </div>
 
             <button class="btn btn-primary" type="submit">Update</button>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
